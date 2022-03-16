@@ -1010,10 +1010,17 @@ class Accounts {
 
         }  
 
-        $redirect = $this->CI->db->select('redirect_link')->from('users')->where('user_id', $this->CI->user_id)->get()->result();
-        
-        $redirect_link = $redirect[0]->redirect_link;
-
+        if($first_group_id == 0) {
+            $redirect_link = '';    
+        } else {
+            $redirect = $this->CI->db->select('redirect_link')->from('client_links')->where('user_id', $this->CI->user_id)->where('group_id', $first_group_id)->get()->result();
+            
+            if(!empty($redirect)) {
+                $redirect_link = $redirect[0]->redirect_link;
+            } else {
+                $redirect_link = '';
+            }
+        }
 
         $link_option = '<hr/><h5><strong>Client Link</strong><h5/>'
 

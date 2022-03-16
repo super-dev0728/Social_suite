@@ -6,11 +6,11 @@
 
 
 
-jQuery(document).ready( function ($) {
+jQuery(document).ready(function ($) {
 
     'use strict';
 
-    
+
 
     /*
 
@@ -18,7 +18,7 @@ jQuery(document).ready( function ($) {
 
      */
 
-    var url =  $('meta[name=url]').attr('content');
+    var url = $('meta[name=url]').attr('content');
 
 
 
@@ -28,7 +28,7 @@ jQuery(document).ready( function ($) {
 
     ********************************/
 
-   
+
 
     /*
 
@@ -46,19 +46,19 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */    
+     */
 
-    Main.quickSchedule = function(start, end, allDay) {
+    Main.quickSchedule = function (start, end, allDay) {
 
-        
 
-        var dt = new Date( start._d );
 
-        
+        var dt = new Date(start._d);
 
-        $( '.scheduler-quick-date' ).val( dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate() );
 
-        
+
+        $('.scheduler-quick-date').val(dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate());
+
+
 
         $('#planner-quick-schedule-modal').modal({
 
@@ -66,11 +66,11 @@ jQuery(document).ready( function ($) {
 
         });
 
-        
+
 
         Main.planner_quick_schedule_load_medias(1);
 
-        
+
 
         Main.quick_schedule = {
 
@@ -78,11 +78,11 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -96,31 +96,31 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */ 
+     */
 
-    Main.verify_for_url = function(text) {
+    Main.verify_for_url = function (text) {
 
-        
+
 
         // Verify if url's input is enabled
 
-        if ( $('#nav-composer .show-url-input').length > 0 ) {
+        if ($('#nav-composer .show-url-input').length > 0) {
 
             return;
 
         }
 
-        
+
 
         // Verify if url was defined already
 
-        if ( typeof Main.selected_post_url !== 'undefined' ) {
+        if (typeof Main.selected_post_url !== 'undefined') {
 
             delete Main.selected_post_url;
 
         }
 
-        
+
 
         var urlRegex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/g;
 
@@ -136,11 +136,11 @@ jQuery(document).ready( function ($) {
 
             var urls = url.split('http');
 
-            
 
-            for ( var d = 0; d < urls.length; d++ ) {
 
-                
+            for (var d = 0; d < urls.length; d++) {
+
+
 
                 var verify = urls[d].split('<br>');
 
@@ -150,15 +150,15 @@ jQuery(document).ready( function ($) {
 
 
 
-                if ( link ) {
+                if (link) {
 
-                    
+
 
                     links += 'http' + link + '<br>';
 
-                    
 
-                    if ( typeof verify[1] !== 'undefined' ) {
+
+                    if (typeof verify[1] !== 'undefined') {
 
                         links += verify[1];
 
@@ -166,7 +166,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                    if (typeof Main.selected_post_url === 'undefined' && (d + 1) === urls.length ) {
+                    if (typeof Main.selected_post_url === 'undefined' && (d + 1) === urls.length) {
 
 
 
@@ -178,7 +178,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                        if ( Main.selected_post_url !== 'http' + link && (d + 1) === urls.length ) {
+                        if (Main.selected_post_url !== 'http' + link && (d + 1) === urls.length) {
 
                             Main.selected_post_url = 'http' + link;
 
@@ -188,19 +188,19 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                    
+
 
                 }
 
-                
+
 
             }
 
-            
+
 
             return links;
 
-            
+
 
         });
 
@@ -208,7 +208,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -228,7 +228,7 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.replace_url = function(content, url, data) {
+    Main.replace_url = function (content, url, data) {
 
         var new_exp_match = url;
 
@@ -238,7 +238,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -256,25 +256,25 @@ jQuery(document).ready( function ($) {
 
     Main.composer_all_posts = function (page) {
 
-        
+
 
         var data = {
 
             action: 'composer_display_all_posts',
 
-            key: $( '.composer-search-for-saved-posts' ).val(),
+            key: $('.composer-search-for-saved-posts').val(),
 
             page: page
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'composer_display_all_posts');
 
-        
+
 
     };
 
@@ -287,7 +287,7 @@ jQuery(document).ready( function ($) {
         var data = {
 
             action: 'save_redirect_url',
-
+            group_id: $('#external_group_select').val(),
             redirect: $('.redirect-link-input input[name=redirect_link]').val()
 
         };
@@ -329,14 +329,48 @@ jQuery(document).ready( function ($) {
             }
 
         });
-
-        // Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'save_redirect_url');
-
     };
 
+    Main.get_redirect_link_by_group = function () {
+
+        var data = {
+            action: 'get_redirect_url',
+            group_id: $('#external_group_select').val()
+        };
+
+
+
+        $.ajax({
+
+            url: url + 'user/app-ajax/posts',
+
+            type: 'GET',
+
+            data: data,
+
+            dataType: 'json',
+
+            success: function (resp) {
+
+                if (resp.status == 'success') {
+                    $('.redirect-link-input input[name=redirect_link]').val(resp.redirect_link);
+                    return;
+
+                } else {}
+
+            },
+
+            error: function () {
+
+
+
+            }
+
+        });
+    };
     /**=========================== /CLIENT_LINK ==========================*/
 
-    
+
 
     /*
 
@@ -354,29 +388,29 @@ jQuery(document).ready( function ($) {
 
     Main.insights_all_posts = function (page) {
 
-        
+
 
         var data = {
 
             action: 'insights_display_all_posts',
 
-            key: $( '.insights-search-for-posts' ).val(),
+            key: $('.insights-search-for-posts').val(),
 
             page: page
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_all_posts');
 
-        
 
-    };     
 
-    
+    };
+
+
 
     /*
 
@@ -394,29 +428,29 @@ jQuery(document).ready( function ($) {
 
     Main.insights_all_accounts = function (page) {
 
-        
+
 
         var data = {
 
             action: 'insights_display_all_accounts',
 
-            key: $( '.insights-search-for-accounts' ).val(),
+            key: $('.insights-search-for-accounts').val(),
 
             page: page
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_all_accounts');
 
-        
 
-    };     
 
-    
+    };
+
+
 
     /*
 
@@ -434,29 +468,29 @@ jQuery(document).ready( function ($) {
 
     Main.history_all_posts = function (page) {
 
-        
+
 
         var data = {
 
             action: 'composer_display_all_posts',
 
-            key: $( '.history-search-for-posts' ).val(),
+            key: $('.history-search-for-posts').val(),
 
             page: page
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'history_display_all_posts');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -492,7 +526,7 @@ jQuery(document).ready( function ($) {
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         $.ajax({
 
@@ -506,93 +540,98 @@ jQuery(document).ready( function ($) {
 
             success: function (data) {
 
-                
 
-                if ( data.success ) {
 
-                    
+                if (data.success) {
 
-                    if ( Main.quick_schedule.medias_page === page && page === 1 ) {
 
-                        $( '.multimedia-gallery-quick-schedule ul' ).empty();
+
+                    if (Main.quick_schedule.medias_page === page && page === 1) {
+
+                        $('.multimedia-gallery-quick-schedule ul').empty();
 
                     }
 
-                    
+
 
                     var medias = '';
 
-                    
 
-                    for ( var m = 0; m < data.medias.length; m++ ) {
 
-                        
+                    for (var m = 0; m < data.medias.length; m++) {
+
+
 
                         medias += '<li>'
 
-                                    + '<a href="#" data-url="' + data.medias[m].body + '" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '">'
+                            +
+                            '<a href="#" data-url="' + data.medias[m].body + '" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '">'
 
-                                        + '<img src="' + data.medias[m].cover + '">'
+                            +
+                            '<img src="' + data.medias[m].cover + '">'
 
-                                        + '<i class="icon-check"></i>'
+                            +
+                            '<i class="icon-check"></i>'
 
-                                    + '</a>'
+                            +
+                            '</a>'
 
-                                + '</li>';
+                            +
+                            '</li>';
 
-                        
+
 
                     }
 
-                    
 
-                    $( '.multimedia-gallery-quick-schedule ul' ).append(medias);
 
-                    
+                    $('.multimedia-gallery-quick-schedule ul').append(medias);
 
-                    $( 'body .no-medias-found' ).css( 'display', 'none' );
 
-                    
+
+                    $('body .no-medias-found').css('display', 'none');
+
+
 
                     Main.quick_schedule.medias_page = page;
 
-                    
 
-                    if ( ( Main.quick_schedule.medias_page * 16 ) < data.total ) {
 
-                        $( '.multimedia-gallery-quick-schedule-load-more-medias' ).css( 'display', 'flow-root' );
+                    if ((Main.quick_schedule.medias_page * 16) < data.total) {
+
+                        $('.multimedia-gallery-quick-schedule-load-more-medias').css('display', 'flow-root');
 
                     } else {
 
-                        $( '.multimedia-gallery-quick-schedule-load-more-medias' ).css( 'display', 'none' );
+                        $('.multimedia-gallery-quick-schedule-load-more-medias').css('display', 'none');
 
                     }
 
-                    
+
 
                 }
 
-                
+
 
             },
 
             error: function (data, jqXHR, textStatus) {
 
-                $( '.multimedia-gallery-quick-schedule ul' ).empty();
+                $('.multimedia-gallery-quick-schedule ul').empty();
 
-                $( 'body .no-medias-found' ).css('display', 'flow-root');
+                $('body .no-medias-found').css('display', 'flow-root');
 
             }
 
-            
+
 
         });
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -610,7 +649,7 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.scheduled_events = function (start,end) {
+    Main.scheduled_events = function (start, end) {
 
 
 
@@ -618,13 +657,13 @@ jQuery(document).ready( function ($) {
 
         var currentdate = new Date();
 
-        
+
 
         // Set date time
 
         var datetime = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + currentdate.getDate() + ' ' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
 
-        
+
 
         // Prepare the data to send
 
@@ -640,17 +679,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'scheduler_display_all_posts');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -664,9 +703,9 @@ jQuery(document).ready( function ($) {
 
     Main.load_posts_content = function () {
 
-        
 
-        if ( $('#nav-composer').length > 0 ) {
+
+        if ($('#nav-composer').length > 0) {
 
             Main.composer_all_posts(1);
 
@@ -674,29 +713,29 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( $('#scheduled-posts').length > 0 ) {
+        if ($('#scheduled-posts').length > 0) {
 
             $('#planner-posts-scheduled-modal').modal('hide');
 
-            $('#calendar').fullCalendar('removeEventSources'); 
+            $('#calendar').fullCalendar('removeEventSources');
 
             var parsed_date = new Date();
 
             var new_date = new Date(Date.parse(parsed_date.getFullYear() + '-' + (parsed_date.getMonth() + 1) + '-01 00:00:00'));
 
-            var start = new_date.getTime()/1000;
+            var start = new_date.getTime() / 1000;
 
 
 
-            Main.scheduled_events(start,(start+3456000)); 
+            Main.scheduled_events(start, (start + 3456000));
 
-            
+
 
         }
 
 
 
-        if ( $('#nav-insights').length > 0 ) {
+        if ($('#nav-insights').length > 0) {
 
             Main.insights_all_posts(1);
 
@@ -706,7 +745,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( $('#nav-history').length > 0 ) {
+        if ($('#nav-history').length > 0) {
 
             Main.history_all_posts(1);
 
@@ -716,23 +755,27 @@ jQuery(document).ready( function ($) {
 
         // Verify for Canva
 
-        if ( $('.main .canva-design-button').length > 0 ) {
+        if ($('.main .canva-design-button').length > 0) {
 
 
 
-            (function(c,a,n){var w=c.createElement(a),s=c.getElementsByTagName(a)[0];
+            (function (c, a, n) {
+                var w = c.createElement(a),
+                    s = c.getElementsByTagName(a)[0];
 
-                w.src=n;s.parentNode.insertBefore(w,s);})(document,'script','https://sdk.canva.com/v2/beta/api.js');
+                w.src = n;
+                s.parentNode.insertBefore(w, s);
+            })(document, 'script', 'https://sdk.canva.com/v2/beta/api.js');
 
 
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -748,15 +791,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.load_rss_feeds = function ( page ) {
+    Main.load_rss_feeds = function (page) {
 
-        
+
 
         // Verify if the RSS's tab is enabled
 
-        if ( $( '#nav-rss' ).length > 0 ) {
+        if ($('#nav-rss').length > 0) {
 
-            
+
 
             var data = {
 
@@ -768,7 +811,7 @@ jQuery(document).ready( function ($) {
 
             };
 
-            
+
 
             data[$('.register-new-rss-feed').attr('data-csrf')] = $('input[name="' + $('.register-new-rss-feed').attr('data-csrf') + '"]').val();
 
@@ -778,15 +821,15 @@ jQuery(document).ready( function ($) {
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'load_rss_feeds');
 
-            
+
 
         }
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -806,71 +849,71 @@ jQuery(document).ready( function ($) {
 
     Main.display_insights_graph = function (id, data) {
 
-        
 
-        if ( typeof data === 'undefined' ) {
+
+        if (typeof data === 'undefined') {
 
             return;
 
         }
 
-        
+
 
         var densityCanvas = document.getElementById(id);
 
-        
+
 
         var labels = [];
 
-        
+
 
         var values = [];
 
-        
+
 
         var backgrounds = [];
 
-        
+
 
         var borders = [];
 
-        
 
-        if ( data.length > 0 ) {
 
-            
+        if (data.length > 0) {
 
-            for ( var l = 0; l < data.length; l++ ) {
 
-                
+
+            for (var l = 0; l < data.length; l++) {
+
+
 
                 // Add label
 
                 labels.push(data[l].name);
 
-                
+
 
                 // Add values
 
                 values.push(data[l].value);
 
-                
+
 
                 // Add color
 
                 backgrounds.push(data[l].background_color);
 
-                
+
 
                 // Add color
 
                 borders.push(data[l].border_color);
 
-                
+
 
             }
 
-            
+
 
         }
 
@@ -920,9 +963,9 @@ jQuery(document).ready( function ($) {
 
                     },
 
-                    categoryPercentage:.8,
+                    categoryPercentage: .8,
 
-                    offset:!0,
+                    offset: !0,
 
                     barPercentage: 0.7
 
@@ -976,7 +1019,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         Chart.plugins.register({
 
@@ -994,7 +1037,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        if(typeof Main.barChart !== 'undefined') {
+        if (typeof Main.barChart !== 'undefined') {
 
             Main.barChart.destroy();
 
@@ -1018,11 +1061,11 @@ jQuery(document).ready( function ($) {
 
         });
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1052,9 +1095,9 @@ jQuery(document).ready( function ($) {
 
         // Get current time
 
-        var date = new Date(); 
+        var date = new Date();
 
-        var cdate = date.getTime()/1000;
+        var cdate = date.getTime() / 1000;
 
 
 
@@ -1066,7 +1109,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        for( var h = 0; h < get_reactions.length; h++ ) {
+        for (var h = 0; h < get_reactions.length; h++) {
 
 
 
@@ -1076,7 +1119,7 @@ jQuery(document).ready( function ($) {
 
 
 
-            if ( panel_footer_head === '' ) {
+            if (panel_footer_head === '') {
 
                 status = ' active';
 
@@ -1088,13 +1131,17 @@ jQuery(document).ready( function ($) {
 
             panel_footer_head += '<li class="nav-item">'
 
-                                    + '<a class="nav-link' + status + '" id="' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-nav-tab" data-toggle="tab" href="#' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-tab" role="tab" aria-controls="' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-tab" aria-selected="' + selected + '">'
+                +
+                '<a class="nav-link' + status + '" id="' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-nav-tab" data-toggle="tab" href="#' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-tab" role="tab" aria-controls="' + get_reactions[h].slug + '-' + get_reactions[h].post_id + '-tab" aria-selected="' + selected + '">'
 
-                                        + get_reactions[h].name
+                +
+                get_reactions[h].name
 
-                                    + '</a>'
+                +
+                '</a>'
 
-                                + '</li>';
+                +
+                '</li>';
 
 
 
@@ -1104,25 +1151,31 @@ jQuery(document).ready( function ($) {
 
         reactions += '<div class="row">'
 
-                        + '<div class="col-xl-12">'
+            +
+            '<div class="col-xl-12">'
 
-                            + '<ul class="nav nav-tabs" id="myTab" role="tablist">'
+            +
+            '<ul class="nav nav-tabs" id="myTab" role="tablist">'
 
-                                + panel_footer_head
+            +
+            panel_footer_head
 
-                            + '</ul>'
+            +
+            '</ul>'
 
-                        + '</div>'
+            +
+            '</div>'
 
-                    + '</div>';
+            +
+            '</div>';
 
-            
+
 
         reactions += '<div class="tab-content" id="myTabContent">';
 
 
 
-        for( var i = 0; i < get_reactions.length; i++ ) {
+        for (var i = 0; i < get_reactions.length; i++) {
 
 
 
@@ -1130,19 +1183,19 @@ jQuery(document).ready( function ($) {
 
 
 
-            if ( i === 0 ) {
+            if (i === 0) {
 
                 status = ' show active';
 
             }
 
-            
+
 
             reactions += '<div class="tab-pane fade' + status + '" id="' + get_reactions[i].slug + '-' + get_reactions[i].post_id + '-tab" role="tabpanel" aria-labelledby="' + get_reactions[i].slug + '-' + get_reactions[i].post_id + '-tab">';
 
 
 
-            if ( Array.isArray( get_reactions[i].response ) === true ) {
+            if (Array.isArray(get_reactions[i].response) === true) {
 
 
 
@@ -1150,19 +1203,19 @@ jQuery(document).ready( function ($) {
 
 
 
-                for ( var a = 0; a < get_reactions[i].response.length; a++ ) {
+                for (var a = 0; a < get_reactions[i].response.length; a++) {
 
 
 
-                    if ( get_reactions[i].response[a].created_time ) {
+                    if (get_reactions[i].response[a].created_time) {
 
 
 
                         // Get post's time
 
-                        var d = new Date(get_reactions[i].response[a].created_time); 
+                        var d = new Date(get_reactions[i].response[a].created_time);
 
-                        var new_date = d.getTime()/1000;
+                        var new_date = d.getTime() / 1000;
 
 
 
@@ -1188,13 +1241,13 @@ jQuery(document).ready( function ($) {
 
                     var replies = '';
 
-                    
-
-                    if ( typeof get_reactions[i].response[a].replies !== 'undefined' ) {
 
 
+                    if (typeof get_reactions[i].response[a].replies !== 'undefined') {
 
-                        if ( typeof get_reactions[i].response[a].replies !== 'undefined' ) {
+
+
+                        if (typeof get_reactions[i].response[a].replies !== 'undefined') {
 
 
 
@@ -1202,15 +1255,15 @@ jQuery(document).ready( function ($) {
 
 
 
-                            for( var s = 0; s < get_reactions[i].response[a].replies.length; s++ ) {
+                            for (var s = 0; s < get_reactions[i].response[a].replies.length; s++) {
 
 
 
                                 // Get post's time
 
-                                var r = new Date(get_reactions[i].response[a].replies[s].created_time); 
+                                var r = new Date(get_reactions[i].response[a].replies[s].created_time);
 
-                                var reply_date = r.getTime()/1000;
+                                var reply_date = r.getTime() / 1000;
 
 
 
@@ -1240,45 +1293,62 @@ jQuery(document).ready( function ($) {
 
                                     delete_it = '<a href="#" class="insights-accounts-comments-delete" data-type="' + get_reactions[i].slug + '" data-post-id="' + network_id + '" data-id="' + get_reactions[i].response[a].replies[s].id + '">' + configuration.words.delete + '</a>';
 
-                                }                                    
+                                }
 
 
 
                                 replies += '<li class="row">'
 
-                                                + '<div class="col-xl-12">'
+                                    +
+                                    '<div class="col-xl-12">'
 
-                                                    + '<img src="' + get_reactions[i].response[a].replies[s].from.user_picture + '" alt="User Avatar" class="img-circle" />'
+                                    +
+                                    '<img src="' + get_reactions[i].response[a].replies[s].from.user_picture + '" alt="User Avatar" class="img-circle" />'
 
-                                                    + '<div class="comment-body">'
+                                    +
+                                    '<div class="comment-body">'
 
-                                                        + '<strong><a href="' + get_reactions[i].response[a].replies[s].from.link + '" target="_blank">' + get_reactions[i].response[a].replies[s].from.name + '</a></strong>'
+                                    +
+                                    '<strong><a href="' + get_reactions[i].response[a].replies[s].from.link + '" target="_blank">' + get_reactions[i].response[a].replies[s].from.name + '</a></strong>'
 
-                                                        + '<small>'
+                                    +
+                                    '<small>'
 
-                                                            + getreplytime
+                                    +
+                                    getreplytime
 
-                                                        + '</small>'
+                                    +
+                                    '</small>'
 
-                                                        + '<p>'
+                                    +
+                                    '<p>'
 
-                                                            + get_reactions[i].response[a].replies[s].message
+                                    +
+                                    get_reactions[i].response[a].replies[s].message
 
-                                                        + '</p>'
+                                    +
+                                    '</p>'
 
-                                                        + '<p>'
+                                    +
+                                    '<p>'
 
-                                                            + reply
+                                    +
+                                    reply
 
-                                                            + delete_it
+                                    +
+                                    delete_it
 
-                                                        + '</p>'
+                                    +
+                                    '</p>'
 
-                                                    + '</div>'
+                                    +
+                                    '</div>'
 
-                                                + '</div>'
+                                    +
+                                    '</div>'
 
-                                            + '</li>'                            
+                                    +
+                                    '</li>'
 
 
 
@@ -1292,7 +1362,7 @@ jQuery(document).ready( function ($) {
 
                         }
 
-                    
+
 
                     }
 
@@ -1324,41 +1394,59 @@ jQuery(document).ready( function ($) {
 
                     reactions += '<li class="row">'
 
-                                    + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                        + '<img src="' + get_reactions[i].response[a].from.user_picture + '" alt="User Avatar" class="img-circle" />'
+                        +
+                        '<img src="' + get_reactions[i].response[a].from.user_picture + '" alt="User Avatar" class="img-circle" />'
 
-                                        + '<div class="comment-body">'
+                        +
+                        '<div class="comment-body">'
 
-                                            + '<strong><a href="' + get_reactions[i].response[a].from.link + '" target="_blank">' + get_reactions[i].response[a].from.name + '</a></strong>'
+                        +
+                        '<strong><a href="' + get_reactions[i].response[a].from.link + '" target="_blank">' + get_reactions[i].response[a].from.name + '</a></strong>'
 
-                                            + '<small>'
+                        +
+                        '<small>'
 
-                                                + gettime
+                        +
+                        gettime
 
-                                            + '</small>'
+                        +
+                        '</small>'
 
-                                            + '<p>'
+                        +
+                        '<p>'
 
-                                                + get_reactions[i].response[a].message
+                        +
+                        get_reactions[i].response[a].message
 
-                                            + '</p>'
+                        +
+                        '</p>'
 
-                                            + '<p>'
+                        +
+                        '<p>'
 
-                                                + reply
+                        +
+                        reply
 
-                                                + delete_it
+                        +
+                        delete_it
 
-                                            + '</p>'
+                        +
+                        '</p>'
 
-                                        + '</div>'
+                        +
+                        '</div>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + replies
+                        +
+                        replies
 
-                                + '</li>';
+                        +
+                        '</li>';
 
 
 
@@ -1388,27 +1476,38 @@ jQuery(document).ready( function ($) {
 
                 reactions += '<div class="panel-sub-footer">'
 
-                                + '<form method="post" class="insights-posts-reactions-post" data-type="' + get_reactions[i].slug + '" data-id="' + get_reactions[i].post_id + '">'
+                    +
+                    '<form method="post" class="insights-posts-reactions-post" data-type="' + get_reactions[i].slug + '" data-id="' + get_reactions[i].post_id + '">'
 
-                                    + '<div class="input-group">'
+                    +
+                    '<div class="input-group">'
 
-                                        + '<textarea class="form-control input-sm reactions-msg" placeholder="' + get_reactions[i].placeholder + '"></textarea>'
+                    +
+                    '<textarea class="form-control input-sm reactions-msg" placeholder="' + get_reactions[i].placeholder + '"></textarea>'
 
-                                        + '<span class="input-group-btn">'
+                    +
+                    '<span class="input-group-btn">'
 
-                                            + '<button class="btn btn-warning btn-sm" type="submit" id="btn-chat">'
+                    +
+                    '<button class="btn btn-warning btn-sm" type="submit" id="btn-chat">'
 
-                                                + '<i class="icon-cursor"></i>'
+                    +
+                    '<i class="icon-cursor"></i>'
 
-                                            + '</button>'
+                    +
+                    '</button>'
 
-                                        + '</span>'
+                    +
+                    '</span>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                + '</form>'
+                    +
+                    '</form>'
 
-                            + '</div>';
+                    +
+                    '</div>';
 
 
 
@@ -1422,19 +1521,19 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
         reactions += '</div></div>';
 
-            
+
 
         return reactions;
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1456,7 +1555,7 @@ jQuery(document).ready( function ($) {
 
     Main.account_manager_get_accounts = function (network, type) {
 
-        
+
 
         var data = {
 
@@ -1468,17 +1567,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'account_manager_get_accounts');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1492,7 +1591,7 @@ jQuery(document).ready( function ($) {
 
     Main.account_manager_load_networks = function () {
 
-        
+
 
         var data = {
 
@@ -1500,17 +1599,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'account_manager_load_networks');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1524,29 +1623,29 @@ jQuery(document).ready( function ($) {
 
     Main.reload_accounts = function () {
 
-        
+
 
         var network = $('#nav-accounts-manager').find('.network-selected a').attr('data-network');
 
-        
+
 
         $('.manage-accounts-all-accounts').empty();
 
-        
+
 
         Main.account_manager_get_accounts(network, 'accounts_manager');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -1564,7 +1663,7 @@ jQuery(document).ready( function ($) {
 
     Main.composer_search_accounts = function (page) {
 
-        
+
 
         var data = {
 
@@ -1576,23 +1675,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'composer_accounts_results_by_search');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1610,7 +1709,7 @@ jQuery(document).ready( function ($) {
 
     Main.composer_search_groups = function (page) {
 
-        
+
 
         var data = {
 
@@ -1634,11 +1733,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'composer_groups_results_by_search');
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -1656,13 +1755,13 @@ jQuery(document).ready( function ($) {
 
     Main.quick_scheduler_search_accounts = function (page) {
 
-        
+
 
         var data = {
 
             action: 'composer_search_accounts',
 
-            key: $( '#planner-quick-schedule-modal .quick-scheduler-search-for-accounts' ).val(),
+            key: $('#planner-quick-schedule-modal .quick-scheduler-search-for-accounts').val(),
 
             page: page
 
@@ -1680,11 +1779,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'quick_scheduler_accounts_results_by_search');
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -1702,7 +1801,7 @@ jQuery(document).ready( function ($) {
 
     Main.quick_scheduler_search_groups = function (page) {
 
-        
+
 
         var data = {
 
@@ -1714,19 +1813,19 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'quick_scheduler_groups_results_by_search');
 
-        
+
 
     };
 
@@ -1744,11 +1843,11 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.7
 
-     */ 
+     */
 
-    Main.fb_boosts_load_all = function(page) {
+    Main.fb_boosts_load_all = function (page) {
 
-        
+
 
         var data = {
 
@@ -1758,13 +1857,13 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/facebook-ads?automatization=ad_boosts', 'GET', data, 'fb_boosts_load_all');
 
-        
+
 
     };
 
@@ -1782,9 +1881,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.8
 
-     */ 
+     */
 
-    Main.get_social_preview = function(slug) {
+    Main.get_social_preview = function (slug) {
 
 
 
@@ -1816,7 +1915,7 @@ jQuery(document).ready( function ($) {
 
         // Add title if exists
 
-        if ( $('.composer-title input[type="text"]').val() ) {
+        if ($('.composer-title input[type="text"]').val()) {
 
 
 
@@ -1840,7 +1939,7 @@ jQuery(document).ready( function ($) {
 
             if (medias.length) {
 
-                data['medias'] = medias;   
+                data['medias'] = medias;
 
             }
 
@@ -1850,29 +1949,29 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( $('#nav-composer .composer-url input[type="text"]').val() ) {
+        if ($('#nav-composer .composer-url input[type="text"]').val()) {
 
             data['url'] = $('#nav-composer .composer-url input[type="text"]').val();
 
-        } else if ( typeof Main.selected_post_url !== 'undefined' ) {
+        } else if (typeof Main.selected_post_url !== 'undefined') {
 
             data['url'] = Main.selected_post_url;
 
         }
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'composer_generate_preview');
 
-        
+
 
     };
 
@@ -1894,7 +1993,7 @@ jQuery(document).ready( function ($) {
 
     Main.load_medias = function (page) {
 
-        
+
 
         // Set media page
 
@@ -1904,7 +2003,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Prepare data to send
 
@@ -1916,7 +2015,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
@@ -1952,23 +2051,23 @@ jQuery(document).ready( function ($) {
 
     Main.to_source = function (url, callback) {
 
-        
+
 
         // Send data
 
         var xhr = new XMLHttpRequest();
 
-        xhr.onload = function() {
+        xhr.onload = function () {
 
-          var reader = new FileReader();
+            var reader = new FileReader();
 
-          reader.onloadend = function() {
+            reader.onloadend = function () {
 
-            callback(reader.result);
+                callback(reader.result);
 
-          }
+            }
 
-          reader.readAsDataURL(xhr.response);
+            reader.readAsDataURL(xhr.response);
 
         };
 
@@ -2012,29 +2111,29 @@ jQuery(document).ready( function ($) {
 
 
 
-            var image = new Image();
+                var image = new Image();
 
 
 
-            image.onload = function () {
+                image.onload = function () {
 
-                var canvas = document.createElement('canvas');
+                    var canvas = document.createElement('canvas');
 
-                canvas.width = 250;
+                    canvas.width = 250;
 
-                canvas.height = 250;
-
-
-
-                canvas.getContext('2d').drawImage(this, 0, 0, 250, 250);
+                    canvas.height = 250;
 
 
 
-                object.cover = canvas.toDataURL('image/png');
+                    canvas.getContext('2d').drawImage(this, 0, 0, 250, 250);
 
-            };
 
-            image.src = img.src;
+
+                    object.cover = canvas.toDataURL('image/png');
+
+                };
+
+                image.src = img.src;
 
 
 
@@ -2046,7 +2145,9 @@ jQuery(document).ready( function ($) {
 
             fileReader.onload = function () {
 
-                var blob = new Blob([fileReader.result], {type: file.type});
+                var blob = new Blob([fileReader.result], {
+                    type: file.type
+                });
 
                 var url = URL.createObjectURL(blob);
 
@@ -2124,7 +2225,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -2146,13 +2247,13 @@ jQuery(document).ready( function ($) {
 
         // Verify if Main.files exists
 
-        if ( typeof Main.files === 'undefined' ) {
+        if (typeof Main.files === 'undefined') {
 
-            
+
 
             Main.files = {};
 
-            
+
 
         }
 
@@ -2174,7 +2275,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Split the file to get the extension
 
@@ -2200,7 +2301,7 @@ jQuery(document).ready( function ($) {
 
         // Verify if category exists
 
-        if ( $('.upim #category').length > 0 ) {
+        if ($('.upim #category').length > 0) {
 
             form.append('category', $('.upim #category').val());
 
@@ -2234,29 +2335,29 @@ jQuery(document).ready( function ($) {
 
         // Add active class
 
-        $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+        $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
 
 
         // Set interval
 
-        var intval = setInterval(function() {
+        var intval = setInterval(function () {
 
 
 
             // Set upload active class
 
-            $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+            $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
 
 
             // Set timeout
 
-            setTimeout(function(){
+            setTimeout(function () {
 
-                $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-            },500); 
+            }, 500);
 
 
 
@@ -2266,7 +2367,7 @@ jQuery(document).ready( function ($) {
 
         // Set time interval
 
-        var timer = setInterval(function() {
+        var timer = setInterval(function () {
 
 
 
@@ -2274,17 +2375,17 @@ jQuery(document).ready( function ($) {
 
             var cover = Main.files[file.lastModified + '-' + file.size].cover;
 
-            
+
 
             // Verify if the cover exists
 
-            if ( typeof cover !== 'undefined') {
+            if (typeof cover !== 'undefined') {
 
 
 
                 // Upload the file
 
-                Main.uploadFile( form, Main.files[file.lastModified + '-' + file.size] );
+                Main.uploadFile(form, Main.files[file.lastModified + '-' + file.size]);
 
                 clearInterval(timer);
 
@@ -2294,11 +2395,11 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
             // If in 15 seconds no preview, set default cover
 
-            if ( s > 15 ) {
+            if (s > 15) {
 
 
 
@@ -2306,11 +2407,11 @@ jQuery(document).ready( function ($) {
 
                 Main.files[file.lastModified + '-' + file.size].cover = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAASFUlEQVR4Xu2df3Qb1ZXHv/dJtpw4QIBuCIE0kSXH+mFLdmJ+lZQeBwqFbdjC7oa0EAiw3f46LS20S84eGrJsOcuPLpRue/YHdJeybQMukARSfme9LW227bqx5ESSHUv2hkAaoCGQHziypLl7Rk6oI83YI8mTscZv/vLx3Hffe9/7OZqZO+/dIchDKmCCAmSCT+lSKgAJloTAFAUkWKbIKp1KsCQDpiggwTJFVulUgiUZMEUBCZYpskqnEizJgCkKSLBMkVU6lWBJBkxRwDBY0Wi03uVyCVNGIZ1WhQIulyvjdruPGBmscbASqe0Amo04lTY2VYDoibCvYaWR2UmwjKgkbUYVkGBJEkxRQIJliqzSqQRLMmCKAhIsU2SVTk8gWPtJ4FtScXspwEwzwFwc1xMGFvNr4YB3gb1klbPp6RmaLeqU/UVKSLAkHJUoIMGqRD3ZVlcBCZaEwxQFJFimyCqdSrAkA6YoIMEyRVbpVII1zRjo6mLn3LlvnJIWI1cQ8wVgnAJW3gKjKzMsfj44+LtDK1asyFUqiwSrUgWrqH1kR7JDOOjLCrCMgFMKhs4A3gboBUXJPtgWXBSpZGoSrErUq6K2kdjATSTEDwwO+SCBO0J+7+8M2heZSbDKVa5K2nV2djp8oSVfZ8Y6AHXGh81ZJUc3tDV7fmK8zR8tJVjlqFZFbSKx/qUgRxcROcsYtpLNZtqWtPh6S20rwSpVsSqy39b32jwHZ9R7pT8pf9jcFfZ7l5XaXoJVqmJVZB9JDN5G4G9XOmTO5pa3tizaXIofCVYpalWRbSwWq82Kuj4A7qJhE94C+LsOqn0pk8u8y8ACB7AShOsB1BTbUyRzyH1ueztljEogwTKqVJXZRRIDlxLEi1rDdhAvbfZ5f1V4LtI3eBcxf7Pw/wQcUERtoLVp/htGZZBgGVWqyuyiieT9AH29YNgMgbvCTR71CVHziPalXgHj4uNOEuWIlfNKST9IsKoMGKPDjcRTm4nwp2PtGXygRkmfFQwGD+n56UkkVwvQfxSezzHfsDjgfcxo/xIso0pVmV00kdoCoOBpjgdnOjnQ2NiY1pvOth2DYYeDNbLu/I2w32v4QUCCVWXAGB1uNJHcAtBxYDFjoIaPNAeDwRE9P5FEahEB/cXnJVhGtbe1XSSRepqAqwouhX+gkcMLw+HwYd17rMTgcoCfKTzPzCtbA94njIomf7GMKlVldpF48i4iKnzCU180/2XY73lqnJv3R8C4+fibd+SI0Rbye9TaG4YOCZYhmarPqKc/dY5Q8Bu1WsJxo2fsJ4f4SKjJrea4jjui/amLwXgqv5Rm7EF41+kS/qDbvdeoEhIso0pVmR0zU7RvsIeAcNHQmV9j5itag42xY+e2xQaudAjxIwAnFdtTZEOne8m6daQYlUGCZVSpKrSL9KVuJMa/aw2dgWFibAXhbQY8BLQX/bqNNhwhiEtDfvfPS5FAglWKWlVmu3X37hkzD42kCDiz3KEzlM2t/sblpbaXYJWqWJXZ7+gfDOcU/i8Ap5Ux9DdYUS4be8k06kOCZVSpKrbrjacuAWEzA65SppFVshctCTa9WkqbY7YSrHJUq8I2kXjyKhDdS4BX515q7Kx2ZLLKbe0tjS+VO1UJVrnKVWG7WGxobpayt4PE53WWKWeI6B7McDwYWrCguKBHCXOWYJUgll1Mu+PxM51cczER+SCoHox3AexQjogtbW1u9e+KDwmWhoS9iVQLiHwhX8NPK1ZYx4Fampxr6te2Bry3m9WHlX4lWAXq9yZ2LWHKbgGjjhhXhwKe5yY7QOrqzgxcz5OgDoAfeGfv7jUdHR3Zye7HSn8SrDHqR5PJOZyh3xJwtBAc7xNZ50dbWhYmJitI6k7kU89IbSSiywGoH1PIEuiLIX/Dw5PVx1TwI8E6GoVfDwycPCNLzwD0sbGBYWCXcDiXhRYtGKw0YMzs2B4fXMsCawt8KYLo0y2+hs5K+5gq7SVYAIaGhureO6K8IoguYObCT7KwClcaI+3n+f37Kglcbzz5N0yk1uUs2rBAhAOZXPaT5eaNKhmXGW2nPVgqVAeGlXtA+Mq4+R3CkzMds29ubDz9QOmBYIpsH7yKHPxDEM0ap/3rIMdFYd/CodL7mFotpj1YvX2DdzDznQAm2imsMOPR1oDn+LVKBuIZi+0KZEV2K4oLcRS2ZoCHUIMLwl7vWwZcT1mTaQuWuqykd2DX1cjl1KUihmoaMJAD6Pb9e3c9ZPQprrd3yMfO3Esgmm+UAgI2IHP45lAoVFGS0mh/ZthNW7B29KfOySp4WaOcz7g65+FivtbIMt3RXNWsXxKhtcTgMUP5Sau/8boS200Z82kJVm8iuUQBbdGDihm7xOg6JXWNksbBaZDjU2Gf+wW9SKpLVuoPpp8HHf+U+YE98yEQdQH4pNa9HQFKjnltq99zLxFVXY5r2oEVTe6dw5nDvzr6MraICwbvSY84lzrqag/WKMPqcpMWHXjeFFlHh1aOq7u7u6Zm5uzHQfSpo7mqIheKolz3oZPrnt53cORuInxVf5Edfy7k9z46ZX6KDA5kWoEVi701K0MHnyfCUh199iuMVW0Bz8/U893xgcU1JDYBOFvnl2tPNoePLWn2Jo+dHydXdcwkDabvbuh0r1GX+nYNDdWdNpx7FkTq7uOibz+ql15m/ou2gHejwZhOCbNpA1Z3956ZzlnDLxLjI3q/IqzQqtZgg3oz/8FxdFOC+sullSZgEPrraMZHm5rm/UFtFIml1hDx34GoVvsqin/Z0PmfX1q3bt0H68d7enpmC9dJz4HoAh2A9zlydHlzs+d/pwQ1BgYxLcB6bmDAdVZO3APOX3K0jjQz390a8HwLIHWL1HFHJD50DVHuYYCKNxqMWj7losyN6VzNuUzYRIR6nX7Wh3wNq4ioqHhsTzzVSODNRLRIp+0bOaYLFwcadhmIq+Um0wKsiXJVDPp+2Of+CpH+LpRIInUrAf+oEzEF4E7ksIkd9CMCHIV2zPxq9n1a3t7ueU8v6uqqCgbU7e1aH2RX3wCkHC5a2tLQ8Kbl5EwwAFuDtY5ZXNU3eA2Q36mil6tav+GJhuuMbG3qiSfvE0Tf0NSU8jmuOxWFzxKEzx0PB/ecNst14fz584cnAiIa678Ywqku1zlV+1LKm5S0Y/VkrZuaaDzlnrc1WD19yQsF6GdFGzD/qFZ3Rsy4vP3o/dFEIubzUrWzHiPgah3bLEF8SeHcUiJapdowkBQO52WlvMTuTSQ/y6B/1XlSZAIeDfk9N000XivP2xasaDzZzES/1MtVESGVRc1Fi30f3lNqAKKJ5FZA90Y7DdCNAG4F8GElx1e3NRcXOZuoz0hiYC1BqHWsip4UASgK47Z332z4XkfH1Mxx2RKs7dsHz8g5lS0ECuoE8PVMRny8PVS8zXyigKvnI/39Z5HiVBcAhrTsCfi9Q9Rck85kDyxuboga8Vlos3Xr1hkzZ895gIjUy2oxXMwZZr6pNdh43FNsOX2Z0cZ2YHV3p06pqacXAD5fR7D3FMZn2ipcGZrfr5fjF0CYq90P78uxWFLJU5wKV/3sM54B5Svsaf1yZUDiyvHeAJgBjRGftgIrGt1bj9rDaiJRrQul9WQFRcF1bUHPj42IM5FNPsfFeAmM2Rq26kqFyExn/WWNjWe+PZEvvfOJxOunp/mIuuJUO6nL2Otk58XB4IJ4uX2Y0c42YOWrBFPdfSDcoiNUmhXc2xr0qEtkJu2IxodWArmH9dZZqSsVeKR+VTg8V7cm1USD2bEj6c058CJAagVkrV+u/0tn+aJzW7y7J/J1os7bBqxIIrUWzN/U+wIDg/+p1e+5RSsBWqnYkXjqa0R4QMdPPscV8nmuHS9PNtEY1ByXAvyGgBlav44M9FINXzpV1nFVPVjqUuLevkG1cp16edPcQs7MGzd2ev7cSK5qogDrne9JJO8XIPVJUOsSrIDEbZlD+77f3t5uuFZ6YV/qVnkGfgrSvPSq5k9i5NDq8Sr2lTu/UttVPVi9O3ddwrncRoB1XqPQrzOibrnRXFWpAh6zzz/FnTr3YQJfq+MjC6YvhAMNj5Tbh9ouGk9eD8pXNdYEmBV+pDXoVZ8kLT2qGqxtsYGAEGKr7mI9Rirzfvb89vam/AviE3FEE4NbAdZ7mZx2kvOKoG+h+lK77CMST95BRHfprYaAgr8OBxp+qPVOsuxOS2xYtWCp66qQOfyyXi4JoD2Emk+E/PMN180sUTtN823xwQWCeJNmJb3RTPzv66iuw+c7S6MysbER5OteHUh/hwR9VudmPgvBq8JN3seNeZx8q6oEK7+TmOp+QYTztCXhQ0SO60I+t7qW6oQfatb/6OrQD2l1zozDIuucHwqVX3iDmZ29icHnx8lxpRUon2jzN/73CRcAQFWC1dnJjqbm1K1QK6MU3mswZxWm1ZOVqyo3KJEd/eeS06nmuIo+kasw/2D2DMeX3W73kXL95++3ksk5GCH1Zv4iTT+E3Y4sL2sesxCxkv5KaVuVYB2bYCSeupcI6vdijt7I8ggz7msNeIs+NFSKKJNlO/r5EPG9MQ8WatL02bDf+2eT1Ufvzp0NSk68SiC1HKTWq5/dOVF7fjnvRCsZY1WDlV8VWj98HwFfzIvKeCgcaPiaGbmqckWO9g19Faw8mG9PtOkIp2+udEd14Vi2be9rF07nKwQq/HVUTdV1XP/jgutKv//sinZyl6JBVYOlTnQUrvc3g+m9jZ0NpuaqShF2rG0klvw2CbosN6wsW7y4sezXO+P13xPf+XEi8SSBTtaxe/ydva/d2NHRUdHl16gGVQ+WOlF1kwSQrg0G579jdOIn0q6rq6vupHnzZrU3mZv2iCaSN2D0y13Fl0SiHLPyzxt9nlvWjbNSdrJ0sQVYkyWGHfyMl+NSSyaB6POhJvejZue4JFh2oGnMHEZ3X898iEioK0y1XliPqHsa24KNplUrVIcjwbIZWMemE40nXx5nr+IwsbI0HGjcZtb0JVhmKWuxX7WAbQ3Vri8sJDdmWAMZBZe0Bz2vmTFUCZYZqk4Rnz09iYXCVdMNIvWrFBqXRd4jsmJxS8vkbyeTYE0RCMwaxmgBFLxAIK3XS+rm3C2Uca6o5PWS1tglWGZFdAr5zee44Nigv0Ob14d8nusns6qNBGsKAWDmUHpiydVCkLpxV+tJUU1DfCfU5F4zWWkICZaZ0ZxivqOxgb+FEH+vs0gwqyjK6taAd30lS6iPTVmCNcWCb+ZwRvcqnnE/0dF3q8WdqcVRbjBSrXCicUqwJlLIhucjsYFnSAjNSoIAHVaU7NK24CK1OEnZhwSrbOmqt+G2vr55DnY+qV8mAH1ORXQEg8Y/Ll6ohgSrevmoaOS9vTsbFKejlwgzdW7o33Yqtb5yX+xLsCoKT3U3jsYHFoOEWhZTp0wAPes8fdZngnPmHCp1phKsUhWzmX1+ryJhs96eTBL0b0+vf+wLY0tbGpFAgmVEJZvbjC6h1stxcUZh3NEW8N5XigwSrFLUsrFtJDawhoS4uyjHRXg3m+VzxlaGNiKDBMuIStPARl3lOvuMsx8Qo9+LHs3OE4YJ4tPlbKOTYE0DaEqZYk9sYJMQYnl+Ewbhr1p9HnWpc8mHBKtkyezd4Lex2FyXcP1YAf9iQBn5hxXB4Eg5M5ZglaOazdt0dXU5jX7dTE8KCZbNIbFqehIsq5S3eb8SLJsH2KrpSbCsUt7m/UqwbB5gq6YnwbJKeZv3K8GyeYCtmp4Eyyrlbd6vBMvmAbZqehIsq5S3eb8SLJsH2KrpSbCsUt7m/UqwbB5gq6YnwbJKeZv3K8GyeYCtmp4Eyyrlbd6vBMvmAbZqehIsq5S3eb8SLJsH2KrpSbCsUt7m/UqwbB5gq6YnwbJKeZv3K8GyeYCtmp4Eyyrlbd6vBMvmAbZqehIsq5S3eb8SLJsH2KrpWQ8W6B2GcqdVAsh+zVGAGDNAVFysjeiJsK9hpZFetb50oNkumkhtB9BsxKm0sakCEiybBtbqaUmwrI6ATfuXYNk0sFZPS4JldQRs2r8Ey6aBtXpapoAVjda7XC5h9dxk/9Yp4HK5Mm63+4iRERhONxhxJm2kAscUkGBJFkxRQIJliqzSqQRLMmCKAhIsU2SVTiVYkgFTFJBgmSKrdCrBkgyYooAEyxRZpVMJlmTAFAUkWKbIKp3+P7IOdjz4/Z7NAAAAAElFTkSuQmCC';
 
-                
+
 
                 // Upload the file
 
-                Main.uploadFile( form, Main.files[file.lastModified + '-' + file.size] );
+                Main.uploadFile(form, Main.files[file.lastModified + '-' + file.size]);
 
 
 
@@ -2326,7 +2427,7 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         }, 1000);
 
@@ -2352,19 +2453,19 @@ jQuery(document).ready( function ($) {
 
     Main.uploadFile = function (form, path) {
 
-        
+
 
         // Set the media's cover
 
         form.append('cover', path.cover);
 
-        
+
 
         // Set the action
 
         form.append('action', 'upload_media_in_storage');
 
-        
+
 
         // Create inteval variable for animation
 
@@ -2390,17 +2491,17 @@ jQuery(document).ready( function ($) {
 
             beforeSend: function () {
 
-                $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                intval = setInterval(function(){
+                intval = setInterval(function () {
 
-                    $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+                    $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
-                    setTimeout(function(){
+                    setTimeout(function () {
 
-                        $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                        $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                    },500); 
+                    }, 500);
 
                 }, 1000);
 
@@ -2412,23 +2513,23 @@ jQuery(document).ready( function ($) {
 
                 // Verify if the response is success
 
-                if ( data.success ) {
+                if (data.success) {
 
-                    
 
-                    if ( $('.main .storage-all-media-files').length > 0 ) {
 
-                        
+                    if ($('.main .storage-all-media-files').length > 0) {
+
+
 
                         // Load all media's files
 
                         Main.loadMedias(1);
 
-                        
 
-                    } else {                    
 
-                    
+                    } else {
+
+
 
                         // Set media id
 
@@ -2438,141 +2539,170 @@ jQuery(document).ready( function ($) {
 
                         // Set the user storage
 
-                        $( '.user-total-storage' ).text( data.user_storage );
+                        $('.user-total-storage').text(data.user_storage);
 
 
 
                         var li = '<li data-id="' + data.media_id + '">'
 
-                                    + '<div class="row">'
+                            +
+                            '<div class="row">'
 
-                                        + '<div class="col-xl-11">'
+                            +
+                            '<div class="col-xl-11">'
 
-                                            + '<img src="' + path.cover + '">'
+                            +
+                            '<img src="' + path.cover + '">'
 
-                                            + '<p>' + path.name  + '</p>'
+                            +
+                            '<p>' + path.name + '</p>'
 
-                                        + '</div>'
+                            +
+                            '</div>'
 
-                                        + '<div class="col-xl-1 text-center">'
+                            +
+                            '<div class="col-xl-1 text-center">'
 
-                                            + '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
+                            +
+                            '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
 
-                                                + '<i class="fas fa-times-circle"></i>'
+                            +
+                            '<i class="fas fa-times-circle"></i>'
 
-                                            + '</button>'
+                            +
+                            '</button>'
 
-                                        + '</div>'
+                            +
+                            '</div>'
 
-                                    + '</div>'
+                            +
+                            '</div>'
 
-                                + '</li>';
+                            +
+                            '</li>';
 
 
 
-                        $( '.file-uploaded-box-files' ).append(li);
+                        $('.file-uploaded-box-files').append(li);
 
 
 
                         Main.loadMedias(1);
 
-                    
+
 
                     }
 
-                    
+
 
                     // Display alert
 
                     Main.popup_fon('subi', data.message, 1500, 2000);
 
-                    
+
 
                 } else {
 
-                    
+
 
                     var li = '<li>'
 
-                                + '<div class="row">'
+                        +
+                        '<div class="row">'
 
-                                    + '<div class="col-xl-11">'
+                        +
+                        '<div class="col-xl-11">'
 
-                                        + '<img src="' + path.cover + '">'
+                        +
+                        '<img src="' + path.cover + '">'
 
-                                        + '<p>'
+                        +
+                        '<p>'
 
-                                            + path.name
+                        +
+                        path.name
 
-                                            + '<span>'
+                        +
+                        '<span>'
 
-                                                + data.message
+                        +
+                        data.message
 
-                                            + '</span>'
+                        +
+                        '</span>'
 
-                                        + '</p>'
+                        +
+                        '</p>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + '<div class="col-xl-1 text-center">'
+                        +
+                        '<div class="col-xl-1 text-center">'
 
-                                        + '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
+                        +
+                        '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
 
-                                            + '<i class="fas fa-times-circle"></i>'
+                        +
+                        '<i class="fas fa-times-circle"></i>'
 
-                                        + '</button>'
+                        +
+                        '</button>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</li>';
+                        +
+                        '</li>';
 
 
 
-                    $( '.file-uploaded-box-files' ).append(li);
+                    $('.file-uploaded-box-files').append(li);
 
-                    
+
 
                     // Display alert
 
                     Main.popup_fon('sube', data.message, 1500, 2000);
 
-                    
+
 
                 }
 
-                
+
 
             },
 
             error: function (jqXHR, textStatus, errorThrown) {
 
-                
+
 
                 console.log(jqXHR);
 
-                
+
 
             },
 
             complete: function () {
 
-                
 
-                setTimeout(function(){
 
-                    $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+                setTimeout(function () {
+
+                    $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
                 }, 2000);
 
                 clearInterval(intval);
 
-                
+
 
             }
 
-            
+
 
         });
 
@@ -2614,9 +2744,9 @@ jQuery(document).ready( function ($) {
 
         // Verify if Main.gallery is defined
 
-        if ( typeof Main.gallery === 'undefined' ) {
+        if (typeof Main.gallery === 'undefined') {
 
-            
+
 
             Main.gallery = {
 
@@ -2650,87 +2780,92 @@ jQuery(document).ready( function ($) {
 
             success: function (data) {
 
-                
+
 
                 // Verify if data is success
 
-                if ( data.success ) {
+                if (data.success) {
 
-                    
+
 
                     // Verify if is the first page
 
-                    if ( Main.gallery.page === page && page === 1 ) {
+                    if (Main.gallery.page === page && page === 1) {
 
-                        $( '.multimedia-gallery ul' ).empty();
+                        $('.multimedia-gallery ul').empty();
 
                     }
 
-                    
+
 
                     // Medias variable
 
                     var medias = '';
 
-                    
+
 
                     // List medias
 
-                    for ( var m = 0; m < data.medias.length; m++ ) {
+                    for (var m = 0; m < data.medias.length; m++) {
 
-                        
+
 
                         // Set media
 
                         medias += '<li>'
 
-                                    + '<a href="#" data-url="' + data.medias[m].body + '" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '">'
+                            +
+                            '<a href="#" data-url="' + data.medias[m].body + '" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '">'
 
-                                        + '<img src="' + data.medias[m].cover + '">'
+                            +
+                            '<img src="' + data.medias[m].cover + '">'
 
-                                        + '<i class="icon-check"></i>'
+                            +
+                            '<i class="icon-check"></i>'
 
-                                    + '</a>'
+                            +
+                            '</a>'
 
-                                + '</li>';
+                            +
+                            '</li>';
 
-                        
+
 
                     }
 
-                    
+
 
                     // Append media to gallery
 
-                    $( '.multimedia-gallery ul' ).append(medias);
+                    $('.multimedia-gallery ul').append(medias);
 
-                    
+
 
                     // Hide no media message
 
-                    $( 'body .no-medias-found' ).css( 'display', 'none' );
+                    $('body .no-medias-found').css('display', 'none');
 
-                    
+
 
                     // Set page
 
                     Main.gallery.page = page;
 
-                    
+
 
                     // Verify if exists more that 16 media
 
-                    if ( ( Main.gallery.page * 16 ) < data.total ) {
+                    if ((Main.gallery.page * 16) < data.total) {
 
-                        $( '.load-more-medias' ).css( 'display', 'flow-root' );
+                        $('.load-more-medias').css('display', 'flow-root');
 
                     } else {
 
-                        $( '.load-more-medias' ).css( 'display', 'none' );
+                        $('.load-more-medias').css('display', 'none');
 
                     }
 
-                    
+
 
                 } else {
 
@@ -2738,27 +2873,27 @@ jQuery(document).ready( function ($) {
 
                     // Empty the gallery
 
-                    $( 'body .multimedia-gallery ul' ).empty();
+                    $('body .multimedia-gallery ul').empty();
 
-                    $( 'body .no-medias-found' ).css( 'display', 'block' );
+                    $('body .no-medias-found').css('display', 'block');
 
 
 
                 }
 
-                
+
 
             },
 
             error: function (data, jqXHR, textStatus) {
 
-                $( '.multimedia-gallery ul' ).empty();
+                $('.multimedia-gallery ul').empty();
 
-                $( 'body .no-medias-found' ).css('display', 'flow-root');
+                $('body .no-medias-found').css('display', 'flow-root');
 
             }
 
-            
+
 
         });
 
@@ -2784,7 +2919,7 @@ jQuery(document).ready( function ($) {
 
     Main.deleteMedia = function (media_id) {
 
-        
+
 
         // Prepare data to send
 
@@ -2798,7 +2933,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         $.ajax({
 
@@ -2812,17 +2947,17 @@ jQuery(document).ready( function ($) {
 
             success: function (data) {
 
-                
 
-                if ( data.success ) {
 
-                    
+                if (data.success) {
+
+
 
                     // Display alert
 
                     Main.popup_fon('subi', data.message, 1500, 2000);
 
-                    
+
 
                     // Load media
 
@@ -2832,23 +2967,23 @@ jQuery(document).ready( function ($) {
 
                     // Set the user storage
 
-                    $( '.user-total-storage' ).text( data.user_storage );
+                    $('.user-total-storage').text(data.user_storage);
 
-                    
+
 
                 } else {
 
-                    
+
 
                     // Display alert
 
                     Main.popup_fon('sube', data.message, 1500, 2000);
 
-                    
+
 
                 }
 
-                
+
 
             },
 
@@ -2862,15 +2997,15 @@ jQuery(document).ready( function ($) {
 
                 Main.popup_fon('sube', data.message, 1500, 2000);
 
-                
+
 
             }
 
-            
+
 
         });
 
-        
+
 
     };
 
@@ -2892,13 +3027,13 @@ jQuery(document).ready( function ($) {
 
     Main.saveLink = function (path) {
 
-        
+
 
         // Create inteval variable for animation
 
         var intval;
 
-        
+
 
         // Create object to pass
 
@@ -2918,7 +3053,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
@@ -2940,17 +3075,17 @@ jQuery(document).ready( function ($) {
 
             beforeSend: function () {
 
-                $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                intval = setInterval(function(){
+                intval = setInterval(function () {
 
-                    $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+                    $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
-                    setTimeout(function(){
+                    setTimeout(function () {
 
-                        $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                        $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                    },500); 
+                    }, 500);
 
                 }, 1000);
 
@@ -2958,119 +3093,148 @@ jQuery(document).ready( function ($) {
 
             success: function (data) {
 
-                
 
-                if ( data.success ) {
 
-                    
+                if (data.success) {
+
+
 
                     // Set media id
 
                     path.media_id = data.media_id;
 
-                    
+
 
                     // Set the user storage
 
-                    $( '.user-total-storage' ).text( data.user_storage );
+                    $('.user-total-storage').text(data.user_storage);
 
-                 
+
 
                     var li = '<li data-id="' + data.media_id + '">'
 
-                                + '<div class="row">'
+                        +
+                        '<div class="row">'
 
-                                    + '<div class="col-xl-11">'
+                        +
+                        '<div class="col-xl-11">'
 
-                                        + '<img src="' + path.cover + '">'
+                        +
+                        '<img src="' + path.cover + '">'
 
-                                        + '<p>' + path.name  + '</p>'
+                        +
+                        '<p>' + path.name + '</p>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + '<div class="col-xl-1 text-center">'
+                        +
+                        '<div class="col-xl-1 text-center">'
 
-                                        + '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
+                        +
+                        '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
 
-                                            + '<i class="fas fa-times-circle"></i>'
+                        +
+                        '<i class="fas fa-times-circle"></i>'
 
-                                        + '</button>'
+                        +
+                        '</button>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</li>';
+                        +
+                        '</li>';
 
 
 
-                    $( '.file-uploaded-box-files' ).append(li);
+                    $('.file-uploaded-box-files').append(li);
 
-                    
+
 
                     Main.loadMedias(1);
 
-                    
+
 
                 } else {
 
-                    
+
 
                     var li = '<li>'
 
-                                + '<div class="row">'
+                        +
+                        '<div class="row">'
 
-                                    + '<div class="col-xl-11">'
+                        +
+                        '<div class="col-xl-11">'
 
-                                        + '<img src="' + path.cover + '">'
+                        +
+                        '<img src="' + path.cover + '">'
 
-                                        + '<p>'
+                        +
+                        '<p>'
 
-                                            + path.name
+                        +
+                        path.name
 
-                                            + '<span>'
+                        +
+                        '<span>'
 
-                                                + data.message
+                        +
+                        data.message
 
-                                            + '</span>'
+                        +
+                        '</span>'
 
-                                        + '</p>'
+                        +
+                        '</p>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + '<div class="col-xl-1 text-center">'
+                        +
+                        '<div class="col-xl-1 text-center">'
 
-                                        + '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
+                        +
+                        '<button class="btn delete-uploaded-media" data-id="' + path.key + '">'
 
-                                            + '<i class="fas fa-times-circle"></i>'
+                        +
+                        '<i class="fas fa-times-circle"></i>'
 
-                                        + '</button>'
+                        +
+                        '</button>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</li>';
+                        +
+                        '</li>';
 
 
 
-                    $( '.file-uploaded-box-files' ).append(li);
+                    $('.file-uploaded-box-files').append(li);
 
-                    
+
 
                 }
 
-                
+
 
             },
 
             error: function (jqXHR, textStatus, errorThrown) {
 
-                
+
 
                 console.log(jqXHR);
 
-                
+
 
             },
 
@@ -3078,11 +3242,11 @@ jQuery(document).ready( function ($) {
 
                 clearInterval(intval);
 
-                $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+                $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
             }
 
-            
+
 
         });
 
@@ -3112,17 +3276,17 @@ jQuery(document).ready( function ($) {
 
         // Verify if Main.files exists
 
-        if ( typeof Main.files === 'undefined' ) {
+        if (typeof Main.files === 'undefined') {
 
-            
+
 
             Main.files = {};
 
-            
+
 
         }
 
-                
+
 
         var time = Math.floor(Date.now() / 1000);
 
@@ -3132,7 +3296,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( extension === 'png' || extension === 'jpg' || extension === 'png' || extension === 'gif' ) {
+        if (extension === 'png' || extension === 'jpg' || extension === 'png' || extension === 'gif') {
 
             var format = 'image/' + extension.replace('jpg', 'jpeg');
 
@@ -3166,21 +3330,21 @@ jQuery(document).ready( function ($) {
 
         var s = 0;
 
-        $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+        $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-        var intval = setInterval(function(){
+        var intval = setInterval(function () {
 
-            $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+            $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
-            setTimeout(function(){
+            setTimeout(function () {
 
-                $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-            },500); 
+            }, 500);
 
         }, 1000);
 
-        var timer = setInterval(function(){
+        var timer = setInterval(function () {
 
 
 
@@ -3188,7 +3352,7 @@ jQuery(document).ready( function ($) {
 
 
 
-            if ( typeof cover !== 'undefined') {
+            if (typeof cover !== 'undefined') {
 
                 Main.saveLink(Main.files[time + '-' + data.bytes]);
 
@@ -3200,7 +3364,7 @@ jQuery(document).ready( function ($) {
 
 
 
-            if ( s > 15 ) {
+            if (s > 15) {
 
                 Main.saveLink(Main.files[time + '-' + data.bytes]);
 
@@ -3240,7 +3404,7 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */    
+     */
 
     $('.send-post .composer-search-for-accounts').on('keyup keypress', function (e) {
 
@@ -3266,7 +3430,7 @@ jQuery(document).ready( function ($) {
 
     });
 
-   
+
 
     /*
 
@@ -3280,17 +3444,17 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.composer-title input[type="text"]', function () {
 
-        
+
 
         // Generate preview
 
         Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3304,41 +3468,41 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.composer-search-for-accounts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.composer-cancel-search-for-accounts' ).fadeOut('slow');
+            $('.composer-cancel-search-for-accounts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.composer-cancel-search-for-accounts' ).fadeIn('slow');
+            $('.composer-cancel-search-for-accounts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         // Load accounts
 
         Main.composer_search_accounts(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3352,39 +3516,39 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.composer-search-for-groups', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.composer-cancel-search-for-accounts' ).fadeOut('slow');
+            $('.composer-cancel-search-for-accounts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.composer-cancel-search-for-accounts' ).fadeIn('slow');
+            $('.composer-cancel-search-for-accounts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         Main.composer_search_groups(1);
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -3398,41 +3562,41 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.quick-scheduler-search-for-accounts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.quick-scheduler-cancel-search-for-accounts' ).fadeOut('slow');
+            $('.quick-scheduler-cancel-search-for-accounts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.quick-scheduler-cancel-search-for-accounts' ).fadeIn('slow');
+            $('.quick-scheduler-cancel-search-for-accounts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         // Load accounts in the quick scheduler modal
 
         Main.quick_scheduler_search_accounts(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3446,41 +3610,41 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.quick-scheduler-search-for-groups', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.quick-scheduler-cancel-search-for-accounts' ).fadeOut('slow');
+            $('.quick-scheduler-cancel-search-for-accounts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.quick-scheduler-cancel-search-for-accounts' ).fadeIn('slow');
+            $('.quick-scheduler-cancel-search-for-accounts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         // Load groups
 
         Main.quick_scheduler_search_groups(1);
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -3494,39 +3658,39 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.insights-search-for-posts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.insights-cancel-search-for-posts' ).fadeOut('slow');
+            $('.insights-cancel-search-for-posts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.insights-cancel-search-for-posts' ).fadeIn('slow');
+            $('.insights-cancel-search-for-posts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         Main.insights_all_posts(1);
 
-        
 
-    });     
 
-    
+    });
+
+
 
     /*
 
@@ -3540,39 +3704,39 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.insights-search-for-accounts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.insights-cancel-search-for-accounts' ).fadeOut('slow');
+            $('.insights-cancel-search-for-accounts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.insights-cancel-search-for-accounts' ).fadeIn('slow');
+            $('.insights-cancel-search-for-accounts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         Main.insights_all_accounts(1);
 
-        
 
-    });     
 
-    
+    });
+
+
 
     /*
 
@@ -3586,39 +3750,39 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.history-search-for-posts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.history-cancel-search-for-posts' ).fadeOut('slow');
+            $('.history-cancel-search-for-posts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.history-cancel-search-for-posts' ).fadeIn('slow');
+            $('.history-cancel-search-for-posts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         Main.history_all_posts(1);
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -3632,41 +3796,41 @@ jQuery(document).ready( function ($) {
 
     $(document).on('keyup', '.composer-search-for-saved-posts', function () {
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.composer-cancel-search-for-posts' ).fadeOut('slow');
+            $('.composer-cancel-search-for-posts').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.composer-cancel-search-for-posts' ).fadeIn('slow');
+            $('.composer-cancel-search-for-posts').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         // Get posts by search
 
         Main.composer_all_posts(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3680,37 +3844,37 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */ 
+     */
 
-    $( document ).on( 'keyup', 'main .accounts-manager-search-for-accounts', function (e) {
+    $(document).on('keyup', 'main .accounts-manager-search-for-accounts', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Verify if search is in the accounts tab
 
-        if ( $(this).closest('.tab-pane').attr('id') === 'nav-accounts-manager' ) {
+        if ($(this).closest('.tab-pane').attr('id') === 'nav-accounts-manager') {
 
-            
+
 
             // Get network
 
             var network = $('#nav-accounts-manager').find('.network-selected a').attr('data-network');
 
-            
+
 
             // Get search keys
 
             var key = $('#nav-accounts-manager').find('.accounts-manager-search-for-accounts').val();
 
-            
+
 
             // Display cancel search icon
 
-            $(this).closest( '.row' ).find( '.cancel-accounts-manager-search' ).fadeIn( 'slow' );
+            $(this).closest('.row').find('.cancel-accounts-manager-search').fadeIn('slow');
 
-            
+
 
             var data = {
 
@@ -3724,7 +3888,7 @@ jQuery(document).ready( function ($) {
 
             };
 
-            
+
 
             // Set CSRF
 
@@ -3736,27 +3900,27 @@ jQuery(document).ready( function ($) {
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_search_for_accounts');
 
-            
 
-        } else if ( $(this).closest('.tab-pane').attr('id') === 'nav-groups-manager' ) {
 
-            
+        } else if ($(this).closest('.tab-pane').attr('id') === 'nav-groups-manager') {
+
+
 
             // Get network
 
             var network = $('#nav-groups-manager').find('.network-selected a').attr('data-network');
 
-            
+
 
             // Get search keys
 
             var key = $('#nav-groups-manager').find('.accounts-manager-search-for-accounts').val();
 
-            
+
 
             // Display cancel search icon
 
-            $(this).closest( '.row' ).find( '.cancel-accounts-manager-search' ).fadeIn( 'slow' );
+            $(this).closest('.row').find('.cancel-accounts-manager-search').fadeIn('slow');
 
 
 
@@ -3772,7 +3936,7 @@ jQuery(document).ready( function ($) {
 
             };
 
-            
+
 
             // Set CSRF
 
@@ -3784,15 +3948,15 @@ jQuery(document).ready( function ($) {
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_search_for_accounts');
 
-            
+
 
         }
 
-        
+
 
     });
 
-   
+
 
     /*
 
@@ -3806,45 +3970,45 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.4
 
-     */ 
+     */
 
-    $( document ).on( 'keyup', 'main .search-for-rss-feeds', function (e) {
+    $(document).on('keyup', 'main .search-for-rss-feeds', function (e) {
 
         e.preventDefault();
 
-        
 
-        if ( $( this ).val() === '' ) {
 
-            
+        if ($(this).val() === '') {
+
+
 
             // Hide cancel search button
 
-            $( '.rss-cancel-search-for-feeds' ).fadeOut('slow');
+            $('.rss-cancel-search-for-feeds').fadeOut('slow');
 
-            
+
 
         } else {
 
-         
+
 
             // Display cancel search button
 
-            $( '.rss-cancel-search-for-feeds' ).fadeIn('slow');
+            $('.rss-cancel-search-for-feeds').fadeIn('slow');
 
-            
+
 
         }
 
-        
+
 
         Main.load_rss_feeds(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3870,11 +4034,11 @@ jQuery(document).ready( function ($) {
 
         Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -3894,7 +4058,7 @@ jQuery(document).ready( function ($) {
 
         Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
+
 
     });
 
@@ -3912,15 +4076,15 @@ jQuery(document).ready( function ($) {
 
     * @since   0.0.8.3
 
-    */    
+    */
 
-    $( document ).on( 'change', '#file', function (e) {
+    $(document).on('change', '#file', function (e) {
 
         $('#upim').submit();
 
     });
 
-    
+
 
     /*
 
@@ -3938,31 +4102,31 @@ jQuery(document).ready( function ($) {
 
     $('#accounts-manager-popup').on('hidden.bs.modal', function (e) {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.composer-cancel-search-for-accounts' ).fadeOut('slow');        
+        $('.composer-cancel-search-for-accounts').fadeOut('slow');
 
-        
 
-        if ( $('.main #nav-composer .composer-search-for-groups').length > 0 ) {
 
-            
+        if ($('.main #nav-composer .composer-search-for-groups').length > 0) {
+
+
 
             $('.main #nav-composer .composer-search-for-groups').val('');
 
-        
+
 
             // Loads groups
 
             Main.composer_search_groups(1);
 
-        
+
 
         } else {
 
-            
+
 
             $('.main #nav-composer .composer-search-for-accounts').val('');
 
@@ -3972,53 +4136,53 @@ jQuery(document).ready( function ($) {
 
             Main.composer_search_accounts(1);
 
-        
+
 
         }
 
-        
+
 
         // Reload Insights accounts
 
-        if ( $('#nav-insights').length > 0 ) {
+        if ($('#nav-insights').length > 0) {
 
-            
+
 
             // Hide cancel search button
 
-            $( '.insights-cancel-search-for-accounts' ).fadeOut('slow');              
+            $('.insights-cancel-search-for-accounts').fadeOut('slow');
 
             $('.insights-search-for-accounts').val('');
 
             Main.insights_all_accounts(1);
 
-            
+
 
         }
 
-        
+
 
         // Reload the quick scheduler accounts
 
-        if ( $('#planner-quick-schedule-modal').length > 0 ) {
+        if ($('#planner-quick-schedule-modal').length > 0) {
 
-            
+
 
             // Empty the search input
 
-            $( '#planner-quick-schedule-modal .quick-scheduler-search-for-accounts' ).val('');
+            $('#planner-quick-schedule-modal .quick-scheduler-search-for-accounts').val('');
 
-            
+
 
             // Load accounts in the quick scheduler modal
 
             Main.quick_scheduler_search_accounts(1);
 
-            
 
-        }        
 
-        
+        }
+
+
 
     });
 
@@ -4036,15 +4200,15 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.7
 
-     */   
+     */
 
-    $( '.main #boost-post-on' ).on('shown.bs.modal', function (e) {
+    $('.main #boost-post-on').on('shown.bs.modal', function (e) {
 
 
 
         // Verify if modal was opened before
 
-        if ( !$('.main .select-boost-option-for-post').length ) {
+        if (!$('.main .select-boost-option-for-post').length) {
 
 
 
@@ -4076,25 +4240,25 @@ jQuery(document).ready( function ($) {
 
     */
 
-    $( document ).on( 'drag dragstart dragend dragover dragenter dragleave drop', '.drag-and-drop-files' , function (e) {
+    $(document).on('drag dragstart dragend dragover dragenter dragleave drop', '.drag-and-drop-files', function (e) {
 
         e.preventDefault();
 
         e.stopPropagation();
 
-        
-
-        $( this ).addClass( 'drag-active' );
 
 
+        $(this).addClass('drag-active');
 
-        if ( e.handleObj.origType === 'dragleave' || e.handleObj.origType === 'drop' ) {
 
-            
 
-            $( this ).removeClass( 'drag-active' );
+        if (e.handleObj.origType === 'dragleave' || e.handleObj.origType === 'drop') {
 
-            
+
+
+            $(this).removeClass('drag-active');
+
+
 
             if (typeof e.originalEvent.dataTransfer.files[0] !== 'undefined') {
 
@@ -4104,7 +4268,7 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         }
 
@@ -4112,7 +4276,7 @@ jQuery(document).ready( function ($) {
 
     });
 
-    
+
 
     /*
 
@@ -4132,31 +4296,31 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Verify if selected_post_accounts is defined
 
-        if ( typeof Main.selected_post_accounts === 'undefined' ) {
+        if (typeof Main.selected_post_accounts === 'undefined') {
 
             Main.selected_post_accounts = {};
 
         }
 
-        
+
 
         // Get network
 
-        var network = $( this ).attr( 'data-network' );
+        var network = $(this).attr('data-network');
 
 
 
         // Verify if mobile app is required
 
-        if ( network === 'instagram_insights' || network === 'instagram_profiles' ) {
+        if (network === 'instagram_insights' || network === 'instagram_profiles') {
 
 
 
-            if ( $('.main .posts-page').attr('data-mobile-installed') !== '1' ) {
+            if ($('.main .posts-page').attr('data-mobile-installed') !== '1') {
 
 
 
@@ -4174,37 +4338,37 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
         // Get category option
 
-        var category = $( this ).attr( 'data-category' );        
+        var category = $(this).attr('data-category');
 
-        
+
 
         // Get account's id
 
-        var network_id = $( this ).attr( 'data-id' );
+        var network_id = $(this).attr('data-id');
 
-        
+
 
         // Get net's id
 
-        var net_id = $( this ).attr( 'data-net' );
+        var net_id = $(this).attr('data-net');
 
 
 
         // Verify if account was selected
 
-        if ( $( this ).closest( 'li' ).hasClass( 'account-selected' ) ) {
+        if ($(this).closest('li').hasClass('account-selected')) {
 
 
 
-            if ( typeof Main.categories !== 'undefined' ) {
+            if (typeof Main.categories !== 'undefined') {
 
 
 
-                if ( typeof Main.categories[network_id] !== 'undefined' ) {
+                if (typeof Main.categories[network_id] !== 'undefined') {
 
 
 
@@ -4214,427 +4378,7 @@ jQuery(document).ready( function ($) {
 
                 }
 
-            
 
-            }
-
-
-
-            var post_accounts = JSON.parse(Main.selected_post_accounts[network]);
-
-
-
-            if ( post_accounts.length ) {
-
-                
-
-                delete Main.selected_post_accounts[network];
-
-                
-
-                for (var d = 0; d < post_accounts.length; d++) {
-
-
-
-                    if ( post_accounts[d] === network_id ) {
-
-                        
-
-                        var selected = $( '.post-preview-footer a[data-id="' + post_accounts[d] + '"]' );
-
-                        
-
-                        selected.closest( 'li' ).remove();
-
-                        
-
-                        delete post_accounts[d];
-
-                        
-
-                    } else {
-
-                        
-
-                        if ( typeof Main.selected_post_accounts[network] !== 'undefined' ) {
-
-
-
-                            var extract = JSON.parse(Main.selected_post_accounts[network]);
-
-
-
-                            if ( extract.indexOf(post_accounts[d]) < 0 ) {
-
-
-
-                                extract[extract.length] = post_accounts[d];
-
-                                Main.selected_post_accounts[network] = JSON.stringify(extract);
-
-
-
-                            }
-
-
-
-                        } else {
-
-
-
-                            Main.selected_post_accounts[network] = JSON.stringify([post_accounts[d]]);
-
-
-
-                        }
-
-                        
-
-                    }
-
-
-
-                }
-
-
-
-            }
-
-            
-
-            $( this ).closest( 'li' ).removeClass( 'account-selected' );
-
-            
-
-        } else {
-
-            
-
-            if ( category === 'true' ) {
-
-                
-
-                $('#composer-category-picker').attr('data-id', network_id);
-
-                
-
-                var data = {
-
-                    action: 'composer_get_categories',
-
-                    network: network,
-
-                    account_id: net_id
-
-                };
-
-
-
-                // Make ajax call
-
-                Main.ajax_call(url + 'user/ajax/categories', 'GET', data, 'composer_category_picker');       
-
-        
-
-                // Display loading animation
-
-                $('.page-loading').fadeIn('slow');
-
-                
-
-            }
-
-
-
-            if ( typeof Main.selected_post_accounts[network] !== 'undefined' ) {
-
-
-
-                var extract = JSON.parse(Main.selected_post_accounts[network]);
-
-
-
-                if ( extract.indexOf(network_id) < 0 ) {
-
-
-
-                    extract[extract.length] = network_id;
-
-                    Main.selected_post_accounts[network] = JSON.stringify(extract);
-
-                    
-
-                    $( '<li>' + $( this ).closest( 'li' ).html() + '</li>' ).appendTo( '.post-preview-footer ul' );
-
-
-
-                }
-
-
-
-            } else {
-
-
-
-                Main.selected_post_accounts[network] = JSON.stringify([network_id]);
-
-                
-
-                $( '<li>' + $( this ).closest( 'li' ).html() + '</li>' ).appendTo( '.post-preview-footer ul' );
-
-
-
-            }
-
-                
-
-            $( this ).closest( 'li' ).addClass( 'account-selected' ); 
-
-            
-
-        }
-
-
-
-        if ( $('.main .boost-control').attr('data-id') ) {
-
-
-
-            // Verify if the Facebook Pages was selected
-
-            if ($('.post-preview-footer a[data-id="' + network_id + '"]').length > 0) {
-
-
-
-                $('.main .boost-control .col-2.text-right i').removeClass('icon-close');
-
-                $('.main .boost-control .col-2.text-right i').addClass('icon-check');
-
-
-
-            } else {
-
-
-
-                $('.main .boost-control .col-2.text-right i').removeClass('icon-check');
-
-                $('.main .boost-control .col-2.text-right i').addClass('icon-close');
-
-
-
-            }
-
-
-
-        }
-
-        
-
-    });
-
-    
-
-    /*
-
-     * Select group in the composer tab
-
-     * 
-
-     * @param object e with global object
-
-     * 
-
-     * @since   0.0.7.0
-
-     */
-
-    $(document).on('click', '.composer-groups-list li a', function (e) {
-
-        e.preventDefault();
-
-        
-
-        if ( $( this ).closest('li').hasClass('group-selected') ) {
-
-
-
-            // Define $this
-
-            var $this = $(this);
-
-
-
-            // Remove selected group
-
-            $this.closest( 'ul' ).find('li').removeClass( 'group-selected' );            
-
-            
-
-            // Empty selected group
-
-            delete Main.selected_post_group;  
-
-            
-
-            $( '.post-preview-footer ul' ).empty();
-
-            
-
-        } else {
-
-        
-
-            // Get group's id
-
-            var group_id = $( this ).attr( 'data-id' );
-
-
-
-            // Define $this
-
-            var $this = $(this);
-
-
-
-            // Empty selected group
-
-            Main.selected_post_group = {};
-
-
-
-            // Remove selected group
-
-            $this.closest( 'ul' ).find('li').removeClass( 'group-selected' );
-
-
-
-            // Add group-selected class
-
-            $this.closest( 'li' ).addClass('group-selected');
-
-
-
-            // Add group's id
-
-            Main.selected_post_group = $this.attr('data-id');
-
-
-
-            $( '.post-preview-footer ul' ).empty();
-
-
-
-            $( '<li>' + $this.closest( 'li' ).html() + '</li>' ).appendTo( '.post-preview-footer ul' );            
-
-            
-
-        }
-
-        
-
-    });    
-
-    
-
-    /*
-
-     * Unselect account or group from the composer tab
-
-     * 
-
-     * @param object e with global object
-
-     * 
-
-     * @since   0.0.7.0
-
-     */
-
-    $(document).on('click', '.post-preview-footer ul li a', function (e) {
-
-        e.preventDefault();
-
-        
-
-        if ( $('.composer-search-for-groups').length > 0 ) {
-
-        
-
-            // Remove selected group
-
-            $( this ).closest( 'li' ).remove();
-
-
-
-             // Empty selected group
-
-            Main.selected_post_group = {};
-
-
-
-            // Remove selected group
-
-            $( '.composer-groups-list li').removeClass( 'group-selected' );
-
-        
-
-        } else {
-
-        
-
-            // Get account's id
-
-            var network_id = $( this ).attr( 'data-id' );
-
-
-
-            // Get network
-
-            var network = $( this ).attr( 'data-network' );
-
-
-
-            // Remove selected account
-
-            $( this ).closest( 'li' ).remove();
-
-
-
-            // Get account from the list
-
-            var selected = $( '.composer-accounts-list li a[data-id="' + network_id + '"]' );        
-
-
-
-            // Verify if account was selected
-
-            if ( selected.closest( 'li' ).length > 0 ) {
-
-
-
-                selected.closest( 'li' ).removeClass( 'account-selected' );
-
-
-
-            }
-
-            
-
-            if ( typeof Main.categories !== 'undefined' ) {
-
-            
-
-                if ( typeof Main.categories[network_id] !== 'undefined' ) {
-
-
-
-                    delete Main.categories[network_id];
-
-
-
-                }
-
-            
 
             }
 
@@ -4722,7 +4466,427 @@ jQuery(document).ready( function ($) {
 
 
 
-            if ( $('.main .boost-control').attr('data-id') ) {
+            $(this).closest('li').removeClass('account-selected');
+
+
+
+        } else {
+
+
+
+            if (category === 'true') {
+
+
+
+                $('#composer-category-picker').attr('data-id', network_id);
+
+
+
+                var data = {
+
+                    action: 'composer_get_categories',
+
+                    network: network,
+
+                    account_id: net_id
+
+                };
+
+
+
+                // Make ajax call
+
+                Main.ajax_call(url + 'user/ajax/categories', 'GET', data, 'composer_category_picker');
+
+
+
+                // Display loading animation
+
+                $('.page-loading').fadeIn('slow');
+
+
+
+            }
+
+
+
+            if (typeof Main.selected_post_accounts[network] !== 'undefined') {
+
+
+
+                var extract = JSON.parse(Main.selected_post_accounts[network]);
+
+
+
+                if (extract.indexOf(network_id) < 0) {
+
+
+
+                    extract[extract.length] = network_id;
+
+                    Main.selected_post_accounts[network] = JSON.stringify(extract);
+
+
+
+                    $('<li>' + $(this).closest('li').html() + '</li>').appendTo('.post-preview-footer ul');
+
+
+
+                }
+
+
+
+            } else {
+
+
+
+                Main.selected_post_accounts[network] = JSON.stringify([network_id]);
+
+
+
+                $('<li>' + $(this).closest('li').html() + '</li>').appendTo('.post-preview-footer ul');
+
+
+
+            }
+
+
+
+            $(this).closest('li').addClass('account-selected');
+
+
+
+        }
+
+
+
+        if ($('.main .boost-control').attr('data-id')) {
+
+
+
+            // Verify if the Facebook Pages was selected
+
+            if ($('.post-preview-footer a[data-id="' + network_id + '"]').length > 0) {
+
+
+
+                $('.main .boost-control .col-2.text-right i').removeClass('icon-close');
+
+                $('.main .boost-control .col-2.text-right i').addClass('icon-check');
+
+
+
+            } else {
+
+
+
+                $('.main .boost-control .col-2.text-right i').removeClass('icon-check');
+
+                $('.main .boost-control .col-2.text-right i').addClass('icon-close');
+
+
+
+            }
+
+
+
+        }
+
+
+
+    });
+
+
+
+    /*
+
+     * Select group in the composer tab
+
+     * 
+
+     * @param object e with global object
+
+     * 
+
+     * @since   0.0.7.0
+
+     */
+
+    $(document).on('click', '.composer-groups-list li a', function (e) {
+
+        e.preventDefault();
+
+
+
+        if ($(this).closest('li').hasClass('group-selected')) {
+
+
+
+            // Define $this
+
+            var $this = $(this);
+
+
+
+            // Remove selected group
+
+            $this.closest('ul').find('li').removeClass('group-selected');
+
+
+
+            // Empty selected group
+
+            delete Main.selected_post_group;
+
+
+
+            $('.post-preview-footer ul').empty();
+
+
+
+        } else {
+
+
+
+            // Get group's id
+
+            var group_id = $(this).attr('data-id');
+
+
+
+            // Define $this
+
+            var $this = $(this);
+
+
+
+            // Empty selected group
+
+            Main.selected_post_group = {};
+
+
+
+            // Remove selected group
+
+            $this.closest('ul').find('li').removeClass('group-selected');
+
+
+
+            // Add group-selected class
+
+            $this.closest('li').addClass('group-selected');
+
+
+
+            // Add group's id
+
+            Main.selected_post_group = $this.attr('data-id');
+
+
+
+            $('.post-preview-footer ul').empty();
+
+
+
+            $('<li>' + $this.closest('li').html() + '</li>').appendTo('.post-preview-footer ul');
+
+
+
+        }
+
+
+
+    });
+
+
+
+    /*
+
+     * Unselect account or group from the composer tab
+
+     * 
+
+     * @param object e with global object
+
+     * 
+
+     * @since   0.0.7.0
+
+     */
+
+    $(document).on('click', '.post-preview-footer ul li a', function (e) {
+
+        e.preventDefault();
+
+
+
+        if ($('.composer-search-for-groups').length > 0) {
+
+
+
+            // Remove selected group
+
+            $(this).closest('li').remove();
+
+
+
+            // Empty selected group
+
+            Main.selected_post_group = {};
+
+
+
+            // Remove selected group
+
+            $('.composer-groups-list li').removeClass('group-selected');
+
+
+
+        } else {
+
+
+
+            // Get account's id
+
+            var network_id = $(this).attr('data-id');
+
+
+
+            // Get network
+
+            var network = $(this).attr('data-network');
+
+
+
+            // Remove selected account
+
+            $(this).closest('li').remove();
+
+
+
+            // Get account from the list
+
+            var selected = $('.composer-accounts-list li a[data-id="' + network_id + '"]');
+
+
+
+            // Verify if account was selected
+
+            if (selected.closest('li').length > 0) {
+
+
+
+                selected.closest('li').removeClass('account-selected');
+
+
+
+            }
+
+
+
+            if (typeof Main.categories !== 'undefined') {
+
+
+
+                if (typeof Main.categories[network_id] !== 'undefined') {
+
+
+
+                    delete Main.categories[network_id];
+
+
+
+                }
+
+
+
+            }
+
+
+
+            var post_accounts = JSON.parse(Main.selected_post_accounts[network]);
+
+
+
+            if (post_accounts.length) {
+
+
+
+                delete Main.selected_post_accounts[network];
+
+
+
+                for (var d = 0; d < post_accounts.length; d++) {
+
+
+
+                    if (post_accounts[d] === network_id) {
+
+
+
+                        var selected = $('.post-preview-footer a[data-id="' + post_accounts[d] + '"]');
+
+
+
+                        selected.closest('li').remove();
+
+
+
+                        delete post_accounts[d];
+
+
+
+                    } else {
+
+
+
+                        if (typeof Main.selected_post_accounts[network] !== 'undefined') {
+
+
+
+                            var extract = JSON.parse(Main.selected_post_accounts[network]);
+
+
+
+                            if (extract.indexOf(post_accounts[d]) < 0) {
+
+
+
+                                extract[extract.length] = post_accounts[d];
+
+                                Main.selected_post_accounts[network] = JSON.stringify(extract);
+
+
+
+                            }
+
+
+
+                        } else {
+
+
+
+                            Main.selected_post_accounts[network] = JSON.stringify([post_accounts[d]]);
+
+
+
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+
+
+            }
+
+
+
+            if ($('.main .boost-control').attr('data-id')) {
 
 
 
@@ -4730,39 +4894,39 @@ jQuery(document).ready( function ($) {
 
                 if ($('.post-preview-footer a[data-id="' + network_id + '"]').length > 0) {
 
-    
+
 
                     $('.main .boost-control .col-2.text-right i').removeClass('icon-close');
 
                     $('.main .boost-control .col-2.text-right i').addClass('icon-check');
 
-    
+
 
                 } else {
 
-    
+
 
                     $('.main .boost-control .col-2.text-right i').removeClass('icon-check');
 
                     $('.main .boost-control .col-2.text-right i').addClass('icon-close');
 
-    
+
 
                 }
 
-    
+
 
             }
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -4780,27 +4944,27 @@ jQuery(document).ready( function ($) {
 
     $(document).on('click', '.categories-select', function () {
 
-        
+
 
         // Verify if categories is defined
 
-        if ( typeof Main.categories === 'undefined' ) {
+        if (typeof Main.categories === 'undefined') {
 
             Main.categories = {};
 
         }
 
-        
+
 
         var category = $('#selnet').val();
 
         Main.categories[$('#composer-category-picker').attr('data-id')] = category;
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -4824,27 +4988,27 @@ jQuery(document).ready( function ($) {
 
         // Verify if selected_quick_post_accounts is defined
 
-        if ( typeof Main.selected_quick_post_accounts === 'undefined' ) {
+        if (typeof Main.selected_quick_post_accounts === 'undefined') {
 
             Main.selected_quick_post_accounts = {};
 
         }
 
-        
+
 
         // Get network
 
-        var network = $( this ).attr( 'data-network' );
+        var network = $(this).attr('data-network');
 
 
 
         // Verify if mobile app is required
 
-        if ( network === 'instagram_insights' || network === 'instagram_profiles' ) {
+        if (network === 'instagram_insights' || network === 'instagram_profiles') {
 
 
 
-            if ( $('.main .posts-page').attr('data-mobile-installed') !== '1' ) {
+            if ($('.main .posts-page').attr('data-mobile-installed') !== '1') {
 
 
 
@@ -4862,57 +5026,57 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
         // Get account's id
 
-        var network_id = $( this ).attr( 'data-id' );
+        var network_id = $(this).attr('data-id');
 
 
 
         // Verify if account was selected
 
-        if ( $( this ).closest( 'li' ).hasClass( 'account-selected' ) ) {
+        if ($(this).closest('li').hasClass('account-selected')) {
 
-            
+
 
             var post_accounts = JSON.parse(Main.selected_quick_post_accounts[network]);
 
 
 
-            if ( post_accounts.length ) {
+            if (post_accounts.length) {
 
-                
+
 
                 delete Main.selected_quick_post_accounts[network];
 
-                
+
 
                 for (var d = 0; d < post_accounts.length; d++) {
 
 
 
-                    if ( post_accounts[d] === network_id ) {
+                    if (post_accounts[d] === network_id) {
 
-                        
 
-                        var selected = $( '.quick-scheduler-selected-accounts a[data-id="' + post_accounts[d] + '"]' );
 
-                        
+                        var selected = $('.quick-scheduler-selected-accounts a[data-id="' + post_accounts[d] + '"]');
 
-                        selected.closest( 'li' ).remove();
 
-                        
+
+                        selected.closest('li').remove();
+
+
 
                         delete post_accounts[d];
 
-                        
+
 
                     } else {
 
-                        
 
-                        if ( typeof Main.selected_quick_post_accounts[network] !== 'undefined' ) {
+
+                        if (typeof Main.selected_quick_post_accounts[network] !== 'undefined') {
 
 
 
@@ -4920,7 +5084,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                            if ( extract.indexOf(post_accounts[d]) < 0 ) {
+                            if (extract.indexOf(post_accounts[d]) < 0) {
 
 
 
@@ -4944,7 +5108,7 @@ jQuery(document).ready( function ($) {
 
                         }
 
-                        
+
 
                     }
 
@@ -4956,17 +5120,17 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
 
-            $( this ).closest( 'li' ).removeClass( 'account-selected' );
 
-            
+            $(this).closest('li').removeClass('account-selected');
+
+
 
         } else {
 
 
 
-            if ( typeof Main.selected_quick_post_accounts[network] !== 'undefined' ) {
+            if (typeof Main.selected_quick_post_accounts[network] !== 'undefined') {
 
 
 
@@ -4974,7 +5138,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                if ( extract.indexOf(network_id) < 0 ) {
+                if (extract.indexOf(network_id) < 0) {
 
 
 
@@ -4982,9 +5146,9 @@ jQuery(document).ready( function ($) {
 
                     Main.selected_quick_post_accounts[network] = JSON.stringify(extract);
 
-                    
 
-                    $( '<li>' + $( this ).closest( 'li' ).html() + '</li>' ).appendTo( '.quick-scheduler-selected-accounts ul' );
+
+                    $('<li>' + $(this).closest('li').html() + '</li>').appendTo('.quick-scheduler-selected-accounts ul');
 
 
 
@@ -4998,27 +5162,27 @@ jQuery(document).ready( function ($) {
 
                 Main.selected_quick_post_accounts[network] = JSON.stringify([network_id]);
 
-                
 
-                $( '<li>' + $( this ).closest( 'li' ).html() + '</li>' ).appendTo( '.quick-scheduler-selected-accounts ul' );
+
+                $('<li>' + $(this).closest('li').html() + '</li>').appendTo('.quick-scheduler-selected-accounts ul');
 
 
 
             }
 
-                
 
-            $( this ).closest( 'li' ).addClass( 'account-selected' ); 
 
-            
+            $(this).closest('li').addClass('account-selected');
+
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5038,9 +5202,9 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
 
-        if ( $( this ).closest('li').hasClass('group-selected') ) {
+
+        if ($(this).closest('li').hasClass('group-selected')) {
 
 
 
@@ -5052,27 +5216,27 @@ jQuery(document).ready( function ($) {
 
             // Remove selected group
 
-            $this.closest( 'ul' ).find('li').removeClass( 'group-selected' );            
+            $this.closest('ul').find('li').removeClass('group-selected');
 
-            
+
 
             // Empty selected group
 
-            delete Main.selected_quick_post_group;  
+            delete Main.selected_quick_post_group;
 
-            
 
-            $( '.quick-scheduler-selected-accounts ul' ).empty();
 
-            
+            $('.quick-scheduler-selected-accounts ul').empty();
+
+
 
         } else {
 
-        
+
 
             // Get group's id
 
-            var group_id = $( this ).attr( 'data-id' );
+            var group_id = $(this).attr('data-id');
 
 
 
@@ -5090,13 +5254,13 @@ jQuery(document).ready( function ($) {
 
             // Remove selected group
 
-            $this.closest( 'ul' ).find('li').removeClass( 'group-selected' );
+            $this.closest('ul').find('li').removeClass('group-selected');
 
 
 
             // Add group-selected class
 
-            $this.closest( 'li' ).addClass('group-selected');
+            $this.closest('li').addClass('group-selected');
 
 
 
@@ -5106,21 +5270,21 @@ jQuery(document).ready( function ($) {
 
 
 
-            $( '.quick-scheduler-selected-accounts ul' ).empty();
+            $('.quick-scheduler-selected-accounts ul').empty();
 
 
 
-            $( '<li>' + $this.closest( 'li' ).html() + '</li>' ).appendTo( '.quick-scheduler-selected-accounts ul' );            
+            $('<li>' + $this.closest('li').html() + '</li>').appendTo('.quick-scheduler-selected-accounts ul');
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5140,9 +5304,9 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
 
-        if ( $( '.quick-scheduler-groups-list' ).length > 0 ) {
+
+        if ($('.quick-scheduler-groups-list').length > 0) {
 
 
 
@@ -5154,55 +5318,55 @@ jQuery(document).ready( function ($) {
 
             // Remove selected group
 
-            $('.quick-scheduler-groups-list li').removeClass( 'group-selected' );            
+            $('.quick-scheduler-groups-list li').removeClass('group-selected');
 
-            
+
 
             // Empty selected group
 
-            delete Main.selected_quick_post_group;  
+            delete Main.selected_quick_post_group;
 
-            
 
-            $( '.quick-scheduler-selected-accounts ul' ).empty();
 
-            
+            $('.quick-scheduler-selected-accounts ul').empty();
+
+
 
         } else {
 
-        
+
 
             // Get account's id
 
-            var network_id = $( this ).attr( 'data-id' );
+            var network_id = $(this).attr('data-id');
 
 
 
             // Get network
 
-            var network = $( this ).attr( 'data-network' );
+            var network = $(this).attr('data-network');
 
 
 
             // Remove selected account
 
-            $( this ).closest( 'li' ).remove();
+            $(this).closest('li').remove();
 
 
 
             // Get account from the list
 
-            var selected = $( '.quick-scheduler-accounts-list li a[data-id="' + network_id + '"]' );        
+            var selected = $('.quick-scheduler-accounts-list li a[data-id="' + network_id + '"]');
 
 
 
             // Verify if account was selected
 
-            if ( selected.closest( 'li' ).length > 0 ) {
+            if (selected.closest('li').length > 0) {
 
 
 
-                selected.closest( 'li' ).removeClass( 'account-selected' );
+                selected.closest('li').removeClass('account-selected');
 
 
 
@@ -5290,15 +5454,15 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5316,11 +5480,11 @@ jQuery(document).ready( function ($) {
 
         $('#nav-composer .composer-title').toggle('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5338,11 +5502,11 @@ jQuery(document).ready( function ($) {
 
         $('#nav-composer .composer-url').toggle('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5360,11 +5524,11 @@ jQuery(document).ready( function ($) {
 
         $('#planner-quick-schedule-modal .quick-scheduler-title').toggle('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5384,7 +5548,7 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get the selected media's files
 
@@ -5394,13 +5558,13 @@ jQuery(document).ready( function ($) {
 
         // Verify if the selected media's files exists
 
-        if ( medias.length ) {
+        if (medias.length) {
 
-            
+
 
             // List all files
 
-            for ( var d = 0; d < medias.length; d++ ) {
+            for (var d = 0; d < medias.length; d++) {
 
 
 
@@ -5408,37 +5572,37 @@ jQuery(document).ready( function ($) {
 
                 Main.deleteMedia(medias[d].id);
 
-                
+
 
                 // Delete the file's key
 
                 delete Main.medias[medias[d].id];
 
-                
+
 
             }
 
-            
+
 
         }
 
-        
+
 
         // Hide the selected media files
 
-        $( '.multimedia-gallery-selected-medias' ).hide();
+        $('.multimedia-gallery-selected-medias').hide();
 
 
 
         // Empty the uploaded box
 
-        $( '.file-uploaded-box-files' ).empty();
+        $('.file-uploaded-box-files').empty();
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5458,13 +5622,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get post's id
 
         var post_id = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -5480,11 +5644,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'history_post_delete_response');
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -5506,7 +5670,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        var id = $( this ).closest( 'div' ).attr( 'data-id' );
+        var id = $(this).closest('div').attr('data-id');
 
         delete Main.selected_medias[id];
 
@@ -5516,11 +5680,11 @@ jQuery(document).ready( function ($) {
 
         Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -5542,11 +5706,11 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( $('#nav-composer .composer-url input[type="text"]').val() ) {
+        if ($('#nav-composer .composer-url input[type="text"]').val()) {
 
             $('#nav-composer .composer-url input[type="text"]').val('');
 
-        } else if ( typeof Main.selected_post_url !== 'undefined' ) {
+        } else if (typeof Main.selected_post_url !== 'undefined') {
 
             delete Main.selected_post_url;
 
@@ -5554,15 +5718,15 @@ jQuery(document).ready( function ($) {
 
 
 
-         // Generate preview
+        // Generate preview
 
-        Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));       
+        Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -5582,9 +5746,9 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
 
-        if ( typeof Main.selected_medias === 'undefined' ) {
+
+        if (typeof Main.selected_medias === 'undefined') {
 
             Main.selected_medias = {};
 
@@ -5612,7 +5776,7 @@ jQuery(document).ready( function ($) {
 
                     type: medias[d].type
 
-                };                
+                };
 
 
 
@@ -5628,27 +5792,27 @@ jQuery(document).ready( function ($) {
 
 
 
-        $( '.multimedia-gallery-selected-medias' ).hide();
+        $('.multimedia-gallery-selected-medias').hide();
 
-        $( '.multimedia-gallery li a' ).removeClass('media-selected');
+        $('.multimedia-gallery li a').removeClass('media-selected');
 
-        
+
 
         // Remove default cover background
 
-        $( '#nav-composer .post-preview-medias' ).css('background-color','#FFFFFF');
+        $('#nav-composer .post-preview-medias').css('background-color', '#FFFFFF');
 
-        
+
 
         // Generate preview
 
         Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5668,39 +5832,39 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
 
-        var uploaded_files = $( '.file-uploaded-box-files li' );
 
-        
+        var uploaded_files = $('.file-uploaded-box-files li');
 
-        if ( uploaded_files.length > 0 ) {
 
-            
 
-            for ( var u = 0; u < uploaded_files.length; u++ ) {
+        if (uploaded_files.length > 0) {
 
-                
+
+
+            for (var u = 0; u < uploaded_files.length; u++) {
+
+
 
                 var id = uploaded_files.eq(u).attr('data-id');
 
-                
 
-                $( '.multimedia-gallery li a[data-id="' + id + '"]' ).click();
 
-                
+                $('.multimedia-gallery li a[data-id="' + id + '"]').click();
+
+
 
             }
 
-            
 
-            setTimeout(function(){
+
+            setTimeout(function () {
 
                 $('.btn-add-selected-photos').click();
 
                 $('.file-uploaded-box-files').empty();
 
-                $('#file-upload-box').modal('hide');                
+                $('#file-upload-box').modal('hide');
 
             }, 1000);
 
@@ -5708,9 +5872,9 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-    });    
+
+    });
 
 
 
@@ -5722,11 +5886,11 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */    
+     */
 
-    $( document ).on( 'click', '.fc-h-event', function() {
+    $(document).on('click', '.fc-h-event', function () {
 
-        
+
 
         var data = {
 
@@ -5736,7 +5900,7 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
@@ -5748,7 +5912,7 @@ jQuery(document).ready( function ($) {
 
         });
 
-        
+
 
     });
 
@@ -5762,35 +5926,35 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.main #nav-composer .composer-cancel-search-for-accounts', function() {
+    $(document).on('click', '.main #nav-composer .composer-cancel-search-for-accounts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.composer-cancel-search-for-accounts' ).fadeOut('slow');        
+        $('.composer-cancel-search-for-accounts').fadeOut('slow');
 
-        
 
-        if ( $('.main #nav-composer .composer-search-for-groups').length > 0 ) {
 
-        
+        if ($('.main #nav-composer .composer-search-for-groups').length > 0) {
+
+
 
             $('.main #nav-composer .composer-search-for-groups').val('');
 
-        
+
 
             // Loads groups
 
             Main.composer_search_groups(1);
 
-        
+
 
         } else {
 
-            
+
 
             $('.composer-search-for-accounts').val('');
 
@@ -5804,11 +5968,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5818,31 +5982,31 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.quick-scheduler-cancel-search-for-accounts', function() {
+    $(document).on('click', '.quick-scheduler-cancel-search-for-accounts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.quick-scheduler-cancel-search-for-accounts' ).fadeOut('slow');        
-
-        
-
-        if ( $('#planner-quick-schedule-modal .quick-scheduler-search-for-groups').length > 0 ) {
+        $('.quick-scheduler-cancel-search-for-accounts').fadeOut('slow');
 
 
 
-            $( '#planner-quick-schedule-modal .quick-scheduler-search-for-groups' ).val('');
+        if ($('#planner-quick-schedule-modal .quick-scheduler-search-for-groups').length > 0) {
 
-            
+
+
+            $('#planner-quick-schedule-modal .quick-scheduler-search-for-groups').val('');
+
+
 
             // Load Groups
 
             Main.quick_scheduler_search_groups(1);
 
-            
+
 
         } else {
 
@@ -5850,23 +6014,23 @@ jQuery(document).ready( function ($) {
 
             // Empty the search input
 
-            $( '#planner-quick-schedule-modal .quick-scheduler-search-for-accounts' ).val('');
+            $('#planner-quick-schedule-modal .quick-scheduler-search-for-accounts').val('');
 
-            
+
 
             // Load accounts in the quick scheduler modal
 
             Main.quick_scheduler_search_accounts(1);
 
-        
+
 
         }
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -5876,29 +6040,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-cancel-search-for-posts', function() {
+    $(document).on('click', '.insights-cancel-search-for-posts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.insights-cancel-search-for-posts' ).fadeOut('slow');
+        $('.insights-cancel-search-for-posts').fadeOut('slow');
 
-        
 
-        $( '.insights-search-for-posts' ).val('');        
 
-        
+        $('.insights-search-for-posts').val('');
+
+
 
         Main.insights_all_posts(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -5908,29 +6072,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-cancel-search-for-accounts', function() {
+    $(document).on('click', '.insights-cancel-search-for-accounts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.insights-cancel-search-for-accounts' ).fadeOut('slow');
+        $('.insights-cancel-search-for-accounts').fadeOut('slow');
 
-        
 
-        $( '.insights-search-for-accounts' ).val('');        
 
-        
+        $('.insights-search-for-accounts').val('');
+
+
 
         Main.insights_all_accounts(1);
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -5940,29 +6104,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.history-cancel-search-for-posts', function() {
+    $(document).on('click', '.history-cancel-search-for-posts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.history-cancel-search-for-posts' ).fadeOut('slow');
+        $('.history-cancel-search-for-posts').fadeOut('slow');
 
-        
 
-        $( '.history-search-for-posts' ).val('');        
 
-        
+        $('.history-search-for-posts').val('');
+
+
 
         Main.history_all_posts(1);
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -5972,29 +6136,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.composer-cancel-search-for-posts', function() {
+    $(document).on('click', '.composer-cancel-search-for-posts', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.composer-cancel-search-for-posts' ).fadeOut('slow');
+        $('.composer-cancel-search-for-posts').fadeOut('slow');
 
-        
 
-        $( '.composer-search-for-saved-posts' ).val('');
 
-        
+        $('.composer-search-for-saved-posts').val('');
+
+
 
         Main.composer_all_posts(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6004,29 +6168,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.4
 
-     */     
+     */
 
-    $( document ).on( 'click', '.rss-cancel-search-for-feeds', function() {
+    $(document).on('click', '.rss-cancel-search-for-feeds', function () {
 
-        
+
 
         // Hide cancel search button
 
-        $( '.rss-cancel-search-for-feeds' ).fadeOut('slow');
+        $('.rss-cancel-search-for-feeds').fadeOut('slow');
 
-        
 
-        $( '.search-for-rss-feeds' ).val('');
 
-        
+        $('.search-for-rss-feeds').val('');
+
+
 
         Main.load_rss_feeds(1);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6040,25 +6204,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */    
+     */
 
-    $( document ).on( 'click', 'body .pagination li a', function (e) {
+    $(document).on('click', 'body .pagination li a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get the page number
 
         var page = $(this).attr('data-page');
 
-        
+
 
         // Display results
 
-        switch ( $(this).closest('ul').attr('data-type') ) {
+        switch ($(this).closest('ul').attr('data-type')) {
 
-            
+
 
             case 'saved-posts':
 
@@ -6066,7 +6230,7 @@ jQuery(document).ready( function ($) {
 
                 break;
 
-                
+
 
             case 'history-posts':
 
@@ -6074,15 +6238,15 @@ jQuery(document).ready( function ($) {
 
                 break;
 
-                
+
 
             case 'insights-posts':
 
                 Main.insights_all_posts(page);
 
-                break;                
+                break;
 
-            
+
 
             case 'insights-accounts':
 
@@ -6090,15 +6254,15 @@ jQuery(document).ready( function ($) {
 
                 break;
 
-                
+
 
             case 'rss-feeds':
 
                 Main.load_rss_feeds(page);
 
-                break;   
+                break;
 
-                
+
 
             case 'ad-boosts':
 
@@ -6110,23 +6274,23 @@ jQuery(document).ready( function ($) {
 
 
 
-                break;                  
+                break;
 
-            
+
 
         }
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6140,13 +6304,13 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '#saved-posts .getPost', function(e) {
+    $(document).on('click', '#saved-posts .getPost', function (e) {
 
         e.preventDefault();
 
-        
+
 
         var data = {
 
@@ -6156,17 +6320,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'composer_get_post_content');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6180,25 +6344,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.history-posts .history-post-details', function(e) {
+    $(document).on('click', '.history-posts .history-post-details', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Remove active class
 
-        $( '.history-posts li' ).removeClass( 'history-post-details-active' );
+        $('.history-posts li').removeClass('history-post-details-active');
 
-        
+
 
         // Add active class
 
-        $( this ).closest('li').addClass( 'history-post-details-active' );
+        $(this).closest('li').addClass('history-post-details-active');
 
-        
+
 
         var data = {
 
@@ -6208,17 +6372,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'history_get_post_content');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6232,37 +6396,37 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.published-posts .insights-post-details', function(e) {
+    $(document).on('click', '.published-posts .insights-post-details', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Remove active class
 
-        $( '.published-posts li' ).removeClass( 'insights-post-details-active' );
+        $('.published-posts li').removeClass('insights-post-details-active');
 
-        
+
 
         // Add active class
 
-        $( this ).closest('li').addClass( 'insights-post-details-active' );
+        $(this).closest('li').addClass('insights-post-details-active');
 
-        
+
 
         // Add time
 
-        $( '#insights-posts .insights-post-header h3 span' ).html($( this ).closest('li').find('p').html());
+        $('#insights-posts .insights-post-header h3 span').html($(this).closest('li').find('p').html());
 
-        
+
 
         // Get post's id
 
-        var id = $( this ).attr('data-id');
+        var id = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6272,23 +6436,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_post_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6302,31 +6466,31 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-accounts .insights-account-details', function(e) {
+    $(document).on('click', '.insights-accounts .insights-account-details', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Remove active class
 
-        $( '.insights-accounts li' ).removeClass( 'insights-post-details-active' );
+        $('.insights-accounts li').removeClass('insights-post-details-active');
 
-        
+
 
         // Add active class
 
-        $( this ).closest('li').addClass( 'insights-post-details-active' );
+        $(this).closest('li').addClass('insights-post-details-active');
 
-        
+
 
         // Get post's id
 
-        var id = $( this ).attr('data-id');
+        var id = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6336,23 +6500,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_account_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6366,25 +6530,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.composer-draft-post', function(e) {
+    $(document).on('click', '.composer-draft-post', function (e) {
 
         e.preventDefault();
 
-        
+
 
         Main.publish = 0;
 
-        
+
 
         $('.send-post').submit();
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6398,19 +6562,19 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.composer-schedule-post', function(e) {
+    $(document).on('click', '.composer-schedule-post', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Remove class add-date
 
         $('.midrub-calendar').find('a').removeClass('add-date');
 
-        
+
 
         // Set hour
 
@@ -6422,31 +6586,31 @@ jQuery(document).ready( function ($) {
 
         $('.midrub-calendar .midrub-calendar-time-minutes').val('00');
 
-        
+
 
         // Set period
 
-        if ( $('.midrub-calendar .midrub-calendar-time-period').length > 0 ) {
+        if ($('.midrub-calendar .midrub-calendar-time-period').length > 0) {
 
             $('.midrub-calendar .midrub-calendar-time-period').val('AM');
 
         }
 
-        
+
 
         // Hide calendar
 
         $('.midrub-planner').fadeOut('fast');
 
-        
+
 
         $('.send-post').submit();
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6460,45 +6624,45 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-posts-comments-reply', function(e) {
+    $(document).on('click', '.insights-posts-comments-reply', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get id
 
         var id = $(this).attr('data-post-id');
 
-        
+
 
         // Get parent id
 
         var parent_id = $(this).attr('data-id');
 
-        
+
 
         // Add data above to form reply
 
-        $( '.insights-posts-reactions-post-reply' ).attr( 'data-type', type );
+        $('.insights-posts-reactions-post-reply').attr('data-type', type);
 
-        $( '.insights-posts-reactions-post-reply' ).attr( 'data-id', id );
+        $('.insights-posts-reactions-post-reply').attr('data-id', id);
 
-        $( '.insights-posts-reactions-post-reply' ).attr( 'data-parent', parent_id );
+        $('.insights-posts-reactions-post-reply').attr('data-parent', parent_id);
 
-        
 
-    });  
 
-    
+    });
+
+
 
     /*
 
@@ -6512,31 +6676,31 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-posts-comments-delete', function(e) {
+    $(document).on('click', '.insights-posts-comments-delete', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get id
 
         var id = $(this).attr('data-post-id');
 
-        
+
 
         // Get parent
 
         var parent = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6550,23 +6714,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_post_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6580,31 +6744,31 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '.insights-accounts-comments-delete', function(e) {
+    $(document).on('click', '.insights-accounts-comments-delete', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get id
 
         var id = $(this).attr('data-post-id');
 
-        
+
 
         // Get parent
 
         var parent = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6618,23 +6782,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_account_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
 
-    });    
 
-    
+    });
+
+
 
     /*
 
@@ -6648,19 +6812,19 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '#insights-posts .insights-post-delete-post', function(e) {
+    $(document).on('click', '#insights-posts .insights-post-delete-post', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get id
 
         var id = $('.insights-post-details').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6672,23 +6836,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_post_delete_post');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6702,25 +6866,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '#insights-accounts .insights-delete-account-post', function(e) {
+    $(document).on('click', '#insights-accounts .insights-delete-account-post', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get id
 
-        var id = $( this ).closest( '.panel' ).attr('data-id');
+        var id = $(this).closest('.panel').attr('data-id');
 
-        
+
 
         // Get account id
 
-        var account = $( '.insights-accounts .insights-post-details-active .insights-account-details' ).attr('data-id');
+        var account = $('.insights-accounts .insights-post-details-active .insights-account-details').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6734,23 +6898,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_display_account_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6764,25 +6928,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */     
+     */
 
-    $( document ).on( 'click', '#insights-accounts .insights-accounts-get-post-insights', function(e) {
+    $(document).on('click', '#insights-accounts .insights-accounts-get-post-insights', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get id
 
-        var id = $( this ).closest( '.panel' ).attr('data-id');
+        var id = $(this).closest('.panel').attr('data-id');
 
-        
+
 
         // Get account id
 
-        var account = $( '.insights-accounts .insights-post-details-active .insights-account-details' ).attr('data-id');
+        var account = $('.insights-accounts .insights-post-details-active .insights-account-details').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -6796,23 +6960,23 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'insights_account_display_post_insights');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6826,61 +6990,61 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */ 
+     */
 
     $(document).on('click', '.multimedia-gallery-quick-schedule li a', function (e) {
 
         e.preventDefault();
 
-        
 
-        if ( typeof Main.quick_schedule.medias === 'undefined' ) {
+
+        if (typeof Main.quick_schedule.medias === 'undefined') {
 
             Main.quick_schedule.medias = {};
 
         }
 
-        
 
-        var id = $( this ).attr('data-id');
 
-        
+        var id = $(this).attr('data-id');
 
-        if ( $( this ).hasClass( 'media-selected' ) ) {
 
-            
+
+        if ($(this).hasClass('media-selected')) {
+
+
 
             delete Main.quick_schedule.medias[id];
 
-            
 
-            $( this ).removeClass( 'media-selected' );
 
-            
+            $(this).removeClass('media-selected');
+
+
 
         } else {
 
-            
+
 
             Main.quick_schedule.medias[id] = {
 
                 id: id,
 
-                url: $( this ).attr('data-url'),
+                url: $(this).attr('data-url'),
 
-                type: $( this ).attr('data-type')
+                type: $(this).attr('data-type')
 
             };
 
-            
 
-            $( this ).addClass( 'media-selected' );          
 
-            
+            $(this).addClass('media-selected');
+
+
 
         }
 
-        
+
 
     });
 
@@ -6898,79 +7062,79 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.8.3
 
-     */     
+     */
 
     $(document).on('click', '.multimedia-gallery li a', function (e) {
 
         e.preventDefault();
 
-        
 
-        if ( typeof Main.medias === 'undefined' ) {
+
+        if (typeof Main.medias === 'undefined') {
 
             Main.medias = {};
 
         }
 
-        
 
-        var id = $( this ).attr('data-id');
 
-        
+        var id = $(this).attr('data-id');
 
-        if ( $( this ).hasClass( 'media-selected' ) ) {
 
-            
+
+        if ($(this).hasClass('media-selected')) {
+
+
 
             delete Main.medias[id];
 
-            
 
-            $( this ).removeClass( 'media-selected' );
 
-            
+            $(this).removeClass('media-selected');
+
+
 
         } else {
 
-            
+
 
             Main.medias[id] = {
 
                 id: id,
 
-                url: $( this ).attr('data-url'),
+                url: $(this).attr('data-url'),
 
-                type: $( this ).attr('data-type')
+                type: $(this).attr('data-type')
 
             };
 
-            
 
-            $( this ).addClass( 'media-selected' );          
 
-            
+            $(this).addClass('media-selected');
+
+
 
         }
 
-        
 
-        if ( Object.keys(Main.medias).length < 1 ) {
 
-            $( '.multimedia-gallery-selected-medias' ).fadeOut('slow');
+        if (Object.keys(Main.medias).length < 1) {
+
+            $('.multimedia-gallery-selected-medias').fadeOut('slow');
 
         } else {
 
-            $( '.multimedia-gallery-selected-medias p' ).text( Object.keys(Main.medias).length + ' ' + words.selected );
+            $('.multimedia-gallery-selected-medias p').text(Object.keys(Main.medias).length + ' ' + words.selected);
 
-            $( '.multimedia-gallery-selected-medias' ).fadeIn('slow');
+            $('.multimedia-gallery-selected-medias').fadeIn('slow');
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -6984,21 +7148,21 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.multimedia-gallery-quick-schedule-load-more-medias', function (e) {
+    $(document).on('click', '.multimedia-gallery-quick-schedule-load-more-medias', function (e) {
 
         e.preventDefault();
 
-                    
 
-        Main.planner_quick_schedule_load_medias( ( Main.quick_schedule.medias_page + 1 ) );
 
-        
+        Main.planner_quick_schedule_load_medias((Main.quick_schedule.medias_page + 1));
+
+
 
     });
 
-    
+
 
     /*
 
@@ -7012,21 +7176,21 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .accounts-manager-available-networks li a', function (e) {
+    $(document).on('click', '.main .accounts-manager-available-networks li a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         var network = $(this).attr('data-network');
 
-        
 
-        if ( $('#nav-accounts-manager').hasClass('show') ) {
 
-        
+        if ($('#nav-accounts-manager').hasClass('show')) {
+
+
 
             $('.manage-accounts-all-accounts').empty();
 
@@ -7042,41 +7206,41 @@ jQuery(document).ready( function ($) {
 
             Main.account_manager_get_accounts(network, 'accounts_manager');
 
-        
+
 
         } else {
 
-            
 
-            $( '.manage-accounts-groups-all-accounts' ).empty();
 
-            
+            $('.manage-accounts-groups-all-accounts').empty();
+
+
 
             $('#nav-groups-manager .accounts-manager-available-networks li').removeClass('network-selected');
 
-            
+
 
             $(this).closest('li').addClass('network-selected');
 
-            
+
 
             Main.account_manager_get_accounts(network, 'groups_manager');
 
-            
+
 
         }
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -7090,17 +7254,17 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .composer-manage-members', function (e) {
+    $(document).on('click', 'main .composer-manage-members', function (e) {
 
         e.preventDefault();
 
-        
 
-        if ( $('.accounts-manager-search').length < 1 ) {
 
-        
+        if ($('.accounts-manager-search').length < 1) {
+
+
 
             Main.account_manager_load_networks();
 
@@ -7110,15 +7274,15 @@ jQuery(document).ready( function ($) {
 
             $('.page-loading').fadeIn('slow');
 
-        
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7132,25 +7296,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .cancel-accounts-manager-search', function (e) {
+    $(document).on('click', '.main .cancel-accounts-manager-search', function (e) {
 
         e.preventDefault();
 
-            
+
 
         // Hide cancel search button
 
         $(this).closest('.tab-pane').find('.cancel-accounts-manager-search').fadeOut('slow');
 
-        
+
 
         // Verify if search is in the accounts tab
 
-        if ( $(this).closest('.tab-pane').attr('id') === 'nav-accounts-manager' ) {
+        if ($(this).closest('.tab-pane').attr('id') === 'nav-accounts-manager') {
 
-        
+
 
             // Get network
 
@@ -7162,7 +7326,7 @@ jQuery(document).ready( function ($) {
 
             $('#nav-accounts-manager').find('.accounts-manager-search-for-accounts').val('');
 
-            
+
 
             var data = {
 
@@ -7186,19 +7350,19 @@ jQuery(document).ready( function ($) {
 
             // Make ajax call
 
-            Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_search_for_accounts');            
+            Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_search_for_accounts');
 
-            
 
-        } else if ( $(this).closest('.tab-pane').attr('id') === 'nav-groups-manager' ) {
 
-            
+        } else if ($(this).closest('.tab-pane').attr('id') === 'nav-groups-manager') {
+
+
 
             // Get network
 
             var network = $('#nav-groups-manager').find('.network-selected a').attr('data-network');
 
-            
+
 
             // Empty the search input
 
@@ -7218,7 +7382,7 @@ jQuery(document).ready( function ($) {
 
             };
 
-            
+
 
             // Set CSRF
 
@@ -7230,15 +7394,15 @@ jQuery(document).ready( function ($) {
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_search_for_accounts');
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7252,13 +7416,13 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .accounts-manager-active-accounts-list li a', function (e) {
+    $(document).on('click', '.main .accounts-manager-active-accounts-list li a', function (e) {
 
         e.preventDefault();
 
-            
+
 
         // Get the account's id
 
@@ -7280,11 +7444,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'account_manager_delete_accounts');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7298,25 +7462,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .accounts-manager-expired-accounts-list li a', function (e) {
+    $(document).on('click', '.main .accounts-manager-expired-accounts-list li a', function (e) {
 
         e.preventDefault();
 
-            
+
 
         // Get the account's id
 
         var account_id = $(this).attr('data-id');
 
-        
+
 
         // Get network
 
         var network = $('#nav-accounts-manager').find('.network-selected a').attr('data-network');
 
-        
+
 
         var popup_url = url + 'user/connect/' + network + '?account=' + account_id;
 
@@ -7332,11 +7496,11 @@ jQuery(document).ready( function ($) {
 
 
 
-        var left = ((width / 2) - ((width/2) / 2)) + dualScreenLeft;
+        var left = ((width / 2) - ((width / 2) / 2)) + dualScreenLeft;
 
-        var top = ((height / 2) - ((height/2) / 2)) + dualScreenTop;
+        var top = ((height / 2) - ((height / 2) / 2)) + dualScreenTop;
 
-        var expiredWindow = window.open(popup_url, 'Pixabay', 'scrollbars=yes, width=' + (width/2) + ', height=' + (height/1.3) + ', top=' + top + ', left=' + left);
+        var expiredWindow = window.open(popup_url, 'Pixabay', 'scrollbars=yes, width=' + (width / 2) + ', height=' + (height / 1.3) + ', top=' + top + ', left=' + left);
 
 
 
@@ -7346,11 +7510,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7360,27 +7524,27 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.0
 
-     */ 
+     */
 
-    $(document).on('click', '.main .manage-accounts-new-account', function() {
+    $(document).on('click', '.main .manage-accounts-new-account', function () {
 
-        
+
 
         // Verify if should be displayed hidden content
 
-        if ( $( this ).hasClass('manage-accounts-display-hidden-content') ) {
+        if ($(this).hasClass('manage-accounts-display-hidden-content')) {
 
-            $( '.main .manage-accounts-hidden-content' ).fadeIn('slow');
+            $('.main .manage-accounts-hidden-content').fadeIn('slow');
 
-        } 
+        }
 
-        
+
 
         // Get network
 
         var network = $('#nav-accounts-manager').find('.network-selected a').attr('data-network');
 
-        
+
 
         var popup_url = url + 'user/connect/' + network;
 
@@ -7396,11 +7560,11 @@ jQuery(document).ready( function ($) {
 
 
 
-        var left = ((width / 2) - ((width/2) / 2)) + dualScreenLeft;
+        var left = ((width / 2) - ((width / 2) / 2)) + dualScreenLeft;
 
-        var top = ((height / 1.3) - ((height/1.3) / 1.3)) + dualScreenTop;
+        var top = ((height / 1.3) - ((height / 1.3) / 1.3)) + dualScreenTop;
 
-        var networkWindow = window.open(popup_url, 'Connect Account', 'scrollbars=yes, width=' + (width/2) + ', height=' + (height/1.3) + ', top=' + top + ', left=' + left);
+        var networkWindow = window.open(popup_url, 'Connect Account', 'scrollbars=yes, width=' + (width / 2) + ', height=' + (height / 1.3) + ', top=' + top + ', left=' + left);
 
 
 
@@ -7410,11 +7574,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7428,43 +7592,43 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item', function (e) {
+    $(document).on('click', 'main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item', function (e) {
 
         e.preventDefault();
 
-            
+
 
         // Get the group's id
 
-        var group_id = $( this ).attr('data-id');
+        var group_id = $(this).attr('data-id');
 
-        
+
 
         // Add selected text
 
-        $( 'main .accounts-manager-groups-select-group .btn-secondary' ).html( $( this ).text() );
+        $('main .accounts-manager-groups-select-group .btn-secondary').html($(this).text());
 
-        $( 'main .accounts-manager-groups-select-group .btn-secondary' ).attr( 'data-id', $( this ).attr('data-id') );
+        $('main .accounts-manager-groups-select-group .btn-secondary').attr('data-id', $(this).attr('data-id'));
 
-        
+
 
         // Remove active class
 
-        $( 'main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item' ).removeClass( 'active' );
+        $('main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item').removeClass('active');
 
-        
+
 
         // Remove selected accounts
 
-        $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+        $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
-        
+
 
         // Add active class
 
-        $( this ).addClass( 'active' );
+        $(this).addClass('active');
 
 
 
@@ -7482,11 +7646,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'accounts_manager_groups_available_accounts');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7500,19 +7664,19 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .accounts-manager-groups-select-group .accounts-manager-delete-group', function (e) {
+    $(document).on('click', 'main .accounts-manager-groups-select-group .accounts-manager-delete-group', function (e) {
 
         e.preventDefault();
 
-            
+
 
         // Get the group's id
 
-        var group_id = $( 'main .accounts-manager-groups-select-group .btn-secondary' ).attr( 'data-id' );
+        var group_id = $('main .accounts-manager-groups-select-group .btn-secondary').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -7528,11 +7692,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'accounts_manager_groups_delete_group');
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -7546,25 +7710,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .manage-accounts-groups-all-accounts li a', function (e) {
+    $(document).on('click', 'main .manage-accounts-groups-all-accounts li a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get account id
 
         var account_id = $(this).attr('data-id');
 
-        
+
 
         // Get the group's id
 
-        var group_id = $( 'main .accounts-manager-groups-select-group .btn-secondary' ).attr( 'data-id' );
+        var group_id = $('main .accounts-manager-groups-select-group .btn-secondary').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -7582,11 +7746,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'account_manager_add_account_to_group');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7600,25 +7764,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.2
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .create-new-group-form .accounts-manager-groups-available-accounts li a', function (e) {
+    $(document).on('click', 'main .create-new-group-form .accounts-manager-groups-available-accounts li a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get account id
 
         var account_id = $(this).attr('data-id');
 
-        
+
 
         // Get the group's id
 
-        var group_id = $( 'main .accounts-manager-groups-select-group .btn-secondary' ).attr( 'data-id' );
+        var group_id = $('main .accounts-manager-groups-select-group .btn-secondary').attr('data-id');
 
-        
+
 
         var data = {
 
@@ -7636,11 +7800,11 @@ jQuery(document).ready( function ($) {
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'account_manager_remove_account_from_group');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7654,9 +7818,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.0.1
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .save-token', function (e) {
+    $(document).on('click', 'main .save-token', function (e) {
 
 
 
@@ -7672,7 +7836,7 @@ jQuery(document).ready( function ($) {
 
         var cleanURL = encode.replace(/=/g, '');
 
-        
+
 
         $.ajax({
 
@@ -7684,41 +7848,41 @@ jQuery(document).ready( function ($) {
 
             success: function (data) {
 
-                
+
 
                 if (data === 1) {
 
-                    
+
 
                     $this.closest('.manage-accounts-hidden-content').find('.token').val('');
 
-                    
 
-                    $( '.main .manage-accounts-hidden-content' ).fadeOut('fast');
 
-                    
+                    $('.main .manage-accounts-hidden-content').fadeOut('fast');
+
+
 
                     Main.reload_accounts();
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $this.closest('.manage-accounts-hidden-content').find('.token').val('');
 
-                    
+
 
                     // Display alert
 
                     Main.popup_fon('sube', data, 1500, 2000);
 
-                    
+
 
                 }
 
-                
+
 
             },
 
@@ -7728,15 +7892,15 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         });
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7750,21 +7914,21 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.4
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main #rss-select-all-feeds', function (e) {
-
-        
-
-        setTimeout(function(){
-
-            
-
-            if ( $( 'main #rss-select-all-feeds' ).is(':checked') ) {
+    $(document).on('click', 'main #rss-select-all-feeds', function (e) {
 
 
 
-                $( '.rss-all-feeds li input[type="checkbox"]' ).prop('checked', true);
+        setTimeout(function () {
+
+
+
+            if ($('main #rss-select-all-feeds').is(':checked')) {
+
+
+
+                $('.rss-all-feeds li input[type="checkbox"]').prop('checked', true);
 
 
 
@@ -7772,21 +7936,21 @@ jQuery(document).ready( function ($) {
 
 
 
-                $( '.rss-all-feeds li input[type="checkbox"]' ).prop('checked', false);
+                $('.rss-all-feeds li input[type="checkbox"]').prop('checked', false);
 
 
 
             }
 
-        
 
-        },500);
 
-        
+        }, 500);
+
+
 
     });
 
-    
+
 
     /*
 
@@ -7800,19 +7964,19 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.4
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .rss-delete-rss-feed', function (e) {
+    $(document).on('click', 'main .rss-delete-rss-feed', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get RSS's ID
 
-        var rss_id = $( this ).attr( 'data-id' );
+        var rss_id = $(this).attr('data-id');
 
-        
+
 
         var data = {
 
@@ -7822,17 +7986,17 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'rss_delete_rss_feed');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7846,25 +8010,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.4
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .dropdown-menu-action a', function (e) {
+    $(document).on('click', 'main .dropdown-menu-action a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get the action to execute
 
         var action = $(this).attr('data-id');
 
-        
+
 
         // Define the ids variable
 
         var ids = [];
 
-        
+
 
         // Get selected RSS Feeds
 
@@ -7874,7 +8038,7 @@ jQuery(document).ready( function ($) {
 
         });
 
-        
+
 
         // Create an object with form data
 
@@ -7888,19 +8052,19 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.main .register-new-rss-feed').attr('data-csrf')] = $('input[name="' + $('.main .register-new-rss-feed').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'rss_feeds_execute_mass_action');
 
-        
+
 
     });
 
@@ -7918,9 +8082,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.8
 
-     */ 
+     */
 
-    $( document ).on( 'click', 'main .dropdown-menu-social-preview a', function (e) {
+    $(document).on('click', 'main .dropdown-menu-social-preview a', function (e) {
 
         e.preventDefault();
 
@@ -7932,7 +8096,7 @@ jQuery(document).ready( function ($) {
 
         $(this).closest('.dropdown').find('.btn-secondary').attr('data-slug', $(this).attr('data-slug'));
 
-        
+
 
         // Get the network's slug
 
@@ -7944,11 +8108,11 @@ jQuery(document).ready( function ($) {
 
         Main.get_social_preview(slug);
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -7962,29 +8126,29 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.6
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main #nav-composer .next-button, .main #nav-composer .back-button', function (e) {
+    $(document).on('click', '.main #nav-composer .next-button, .main #nav-composer .back-button', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get page number
 
         var page = $(this).attr('data-page');
 
-        
 
-        if ( $('.main #nav-composer .composer-search-for-groups').length > 0 ) {
 
-        
+        if ($('.main #nav-composer .composer-search-for-groups').length > 0) {
+
+
 
             // Loads groups
 
             Main.composer_search_groups(page);
 
-            
+
 
         } else {
 
@@ -7994,21 +8158,21 @@ jQuery(document).ready( function ($) {
 
             Main.composer_search_accounts(page);
 
-            
+
 
         }
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -8022,9 +8186,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.6
 
-     */ 
+     */
 
-    $( document ).on( 'click', '#planner-quick-schedule-modal .next-button, #planner-quick-schedule-modal .back-button', function (e) {
+    $(document).on('click', '#planner-quick-schedule-modal .next-button, #planner-quick-schedule-modal .back-button', function (e) {
 
         e.preventDefault();
 
@@ -8036,15 +8200,15 @@ jQuery(document).ready( function ($) {
 
 
 
-        if ( $('#planner-quick-schedule-modal .quick-scheduler-search-for-groups').length > 0 ) {
+        if ($('#planner-quick-schedule-modal .quick-scheduler-search-for-groups').length > 0) {
 
-        
+
 
             // Loads groups
 
             Main.quick_scheduler_search_groups(page);
 
-            
+
 
         } else {
 
@@ -8054,21 +8218,21 @@ jQuery(document).ready( function ($) {
 
             Main.quick_scheduler_search_accounts(page);
 
-            
+
 
         }
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -8082,23 +8246,23 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.6
 
-     */ 
+     */
 
-    $( document ).on( 'click', '#hashtags-sugestion .hashtags-list li a', function (e) {
+    $(document).on('click', '#hashtags-sugestion .hashtags-list li a', function (e) {
 
         e.preventDefault();
 
-        
 
-        if ( $(this).closest('li').hasClass('selected') ) {
 
-            
+        if ($(this).closest('li').hasClass('selected')) {
+
+
 
             // Remove selected class
 
-            $(this).closest('li').removeClass('selected');            
+            $(this).closest('li').removeClass('selected');
 
-            
+
 
         } else {
 
@@ -8108,35 +8272,35 @@ jQuery(document).ready( function ($) {
 
             $(this).closest('li').addClass('selected');
 
-        
+
 
         }
 
-        
 
-        if ( $(this).closest('.hashtags-list').find('.selected').length > 0 ) {
 
-            
+        if ($(this).closest('.hashtags-list').find('.selected').length > 0) {
+
+
 
             $(this).closest('.tab-pane').find('.modal-footer').fadeIn('slow');
 
-            
+
 
         } else {
 
-            
+
 
             $(this).closest('.tab-pane').find('.modal-footer').fadeOut('slow');
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -8150,17 +8314,17 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.6
 
-     */ 
+     */
 
-    $( document ).on( 'click', '#hashtags-sugestion .add-hashtags-to-posts', function (e) {
+    $(document).on('click', '#hashtags-sugestion .add-hashtags-to-posts', function (e) {
 
         e.preventDefault();
 
-        
+
 
         var hashtags = '<br>';
 
-        
+
 
         // List all hashtags
 
@@ -8170,7 +8334,7 @@ jQuery(document).ready( function ($) {
 
         });
 
-        
+
 
         // Empty hashtags list
 
@@ -8178,29 +8342,29 @@ jQuery(document).ready( function ($) {
 
         $(this).closest('.tab-pane').find('input[type="text"]').val('');
 
-        
+
 
         // Append hashtags
 
         $('#nav-composer .emojionearea-editor').append(hashtags);
 
-        
+
 
         // Hide add hashtags button
 
         $(this).closest('.tab-pane').find('.modal-footer').fadeOut('slow');
 
-        
+
 
         // Hide modal
 
         $('#hashtags-sugestion').modal('hide');
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -8214,13 +8378,13 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.7
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .history-reports-by-time a', function (e) {
+    $(document).on('click', '.main .history-reports-by-time a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Display selected time
 
@@ -8228,7 +8392,7 @@ jQuery(document).ready( function ($) {
 
         $('.main .order-reports-by-time').attr('data-time', $(this).attr('data-time'));
 
-        
+
 
     });
 
@@ -8246,9 +8410,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.7
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .select-boost-option-for-post', function (e) {
+    $(document).on('click', '.main .select-boost-option-for-post', function (e) {
 
         e.preventDefault();
 
@@ -8268,13 +8432,13 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/facebook-ads?automatization=ad_boosts', 'GET', data, 'fb_boosts_load_single');
 
-        
+
 
     });
 
@@ -8292,13 +8456,13 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.7.7
 
-     */ 
+     */
 
-    $( document ).on( 'click', '.main .cancel-post-boosting', function (e) {
+    $(document).on('click', '.main .cancel-post-boosting', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Remove boost's ID
 
@@ -8310,11 +8474,11 @@ jQuery(document).ready( function ($) {
 
         $('.main .boost-control').fadeOut('slow');
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -8328,25 +8492,25 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.8.0
 
-     */    
+     */
 
-    $( document ).on( 'click', '.main #posts-edit-post .load-new-media a', function (e) {
+    $(document).on('click', '.main #posts-edit-post .load-new-media a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get user's medias
 
-        Main.load_medias( ( Main.media.page + 1 ) );
+        Main.load_medias((Main.media.page + 1));
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
@@ -8364,43 +8528,43 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.8.0
 
-     */    
+     */
 
-    $( document ).on( 'click', '.main .posts-edit-media-area a.posts-select-media', function (e) {
+    $(document).on('click', '.main .posts-edit-media-area a.posts-select-media', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Get media's id
 
         var media_id = $(this).attr('data-id');
 
-        
+
 
         // Get media's url
 
         var media_url = $(this).attr('data-url');
 
-        
+
 
         // Get media's type
 
         var media_type = $(this).attr('data-type');
 
-        
 
-        if ( typeof Main.selected_post_medias === 'undefined' ) {
+
+        if (typeof Main.selected_post_medias === 'undefined') {
 
             Main.selected_post_medias = {};
 
         }
 
-        
+
 
         // Verify if the media was already selected
 
-        if ( typeof Main.selected_post_medias[media_id] != 'undefined' ) {
+        if (typeof Main.selected_post_medias[media_id] != 'undefined') {
 
             return;
 
@@ -8418,13 +8582,13 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Remove default cover background
 
-        $( '#posts-edit-post .post-preview-medias' ).css('background-color','#FFFFFF');
+        $('#posts-edit-post .post-preview-medias').css('background-color', '#FFFFFF');
 
-        
+
 
         var medias = Object.values(Main.selected_post_medias);
 
@@ -8432,33 +8596,33 @@ jQuery(document).ready( function ($) {
 
         if (medias.length) {
 
-            
 
-            $( '#posts-edit-post .post-preview-medias' ).empty();
+
+            $('#posts-edit-post .post-preview-medias').empty();
 
 
 
             for (var d = 0; d < medias.length; d++) {
 
-                
+
 
                 // Add medias in the post preview
 
-                if ( medias[d].type === 'image' ) {
+                if (medias[d].type === 'image') {
 
 
 
-                    $( '#posts-edit-post .post-preview-medias' ).append('<div data-id="' + medias[d].id + '" data-type="' + medias[d].type + '"><img src="' + medias[d].url + '"><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
+                    $('#posts-edit-post .post-preview-medias').append('<div data-id="' + medias[d].id + '" data-type="' + medias[d].type + '"><img src="' + medias[d].url + '"><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
 
-                
+
 
                 } else {
 
-                    
 
-                    $( '#posts-edit-post .post-preview-medias' ).append('<div data-id="' + medias[d].id + '" data-type="' + medias[d].type + '"><video controls><source src="' + medias[d].url + '" type="video/mp4"></video><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');                    
 
-                    
+                    $('#posts-edit-post .post-preview-medias').append('<div data-id="' + medias[d].id + '" data-type="' + medias[d].type + '"><video controls><source src="' + medias[d].url + '" type="video/mp4"></video><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
+
+
 
                 }
 
@@ -8470,7 +8634,7 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
     });
 
@@ -8498,15 +8662,15 @@ jQuery(document).ready( function ($) {
 
         // Get the media's id
 
-        var id = $( this ).closest( 'div' ).attr( 'data-id' );
+        var id = $(this).closest('div').attr('data-id');
 
-        
+
 
         // Remove the media
 
-        $( this ).closest( 'div' ).remove();
+        $(this).closest('div').remove();
 
-        
+
 
         // Remove the media based on id
 
@@ -8516,9 +8680,9 @@ jQuery(document).ready( function ($) {
 
         // Verify if the post edit popup has at least one media
 
-        if ( $( '.main #posts-edit-post .btn-delete-post-media' ).length < 1 ) {
+        if ($('.main #posts-edit-post .btn-delete-post-media').length < 1) {
 
-            
+
 
             // Remove default cover background
 
@@ -8528,9 +8692,9 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-    }); 
+
+    });
 
 
 
@@ -8546,9 +8710,9 @@ jQuery(document).ready( function ($) {
 
      * @since   0.0.8.0
 
-    */   
+    */
 
-    $( '.main #posts-edit-post' ).on('shown.bs.modal', function (e) {
+    $('.main #posts-edit-post').on('shown.bs.modal', function (e) {
 
 
 
@@ -8576,11 +8740,11 @@ jQuery(document).ready( function ($) {
 
     */
 
-    $( document ).on( 'click', '.drag-and-drop-files a', function (e) {
+    $(document).on('click', '.drag-and-drop-files a', function (e) {
 
         e.preventDefault();
 
-        
+
 
         // Browse
 
@@ -8590,7 +8754,7 @@ jQuery(document).ready( function ($) {
 
     });
 
-    
+
 
     /*
 
@@ -8606,7 +8770,7 @@ jQuery(document).ready( function ($) {
 
     */
 
-    $( document ).on( 'click', '.delete-uploaded-media', function (e) {
+    $(document).on('click', '.delete-uploaded-media', function (e) {
 
         e.preventDefault();
 
@@ -8620,7 +8784,7 @@ jQuery(document).ready( function ($) {
 
         // Verify if media's ID exists
 
-        if ( typeof Main.files[id].media_id !== 'undefined' ) {
+        if (typeof Main.files[id].media_id !== 'undefined') {
 
             Main.deleteMedia(Main.files[id].media_id);
 
@@ -8642,7 +8806,7 @@ jQuery(document).ready( function ($) {
 
     });
 
-    
+
 
     /*
 
@@ -8662,13 +8826,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-                    
+
 
         // Loads medias by page
 
-        Main.loadMedias( ( Main.gallery.page + 1 ) );
+        Main.loadMedias((Main.gallery.page + 1));
 
-        
+
 
     });
 
@@ -8688,19 +8852,19 @@ jQuery(document).ready( function ($) {
 
     */
 
-    $(document).on('click', '#OpenDropboxFilePicker', function() {
+    $(document).on('click', '#OpenDropboxFilePicker', function () {
 
 
 
         // Verify if Main.files exists
 
-        if ( typeof Main.files === 'undefined' ) {
+        if (typeof Main.files === 'undefined') {
 
-            
+
 
             Main.files = {};
 
-            
+
 
         }
 
@@ -8716,17 +8880,17 @@ jQuery(document).ready( function ($) {
 
                     var thumb = thumbnail.replace('bounding_box=75', 'bounding_box=256');
 
-                    
+
 
                     var time = Math.floor(Date.now() / 1000);
 
-                    
+
 
                     var extension = file.link.slice((file.link.lastIndexOf('.') - 1 >>> 0) + 2);
 
-                    
 
-                    if ( extension === 'png' || extension === 'jpg' || extension === 'png' || extension === 'gif' ) {
+
+                    if (extension === 'png' || extension === 'jpg' || extension === 'png' || extension === 'gif') {
 
                         var format = 'image/' + extension.replace('jpg', 'jpeg');
 
@@ -8736,7 +8900,7 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                    
+
 
                     Main.files[time + '-' + file.bytes] = {
 
@@ -8760,29 +8924,29 @@ jQuery(document).ready( function ($) {
 
                     var s = 0;
 
-                    $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                    $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                    var intval = setInterval(function(){
+                    var intval = setInterval(function () {
 
-                        $( '.main .drag-and-drop-files .icon-cloud-upload' ).removeClass( 'drag-upload-active' );
+                        $('.main .drag-and-drop-files .icon-cloud-upload').removeClass('drag-upload-active');
 
-                        setTimeout(function(){
+                        setTimeout(function () {
 
-                            $( '.main .drag-and-drop-files .icon-cloud-upload' ).addClass( 'drag-upload-active' );
+                            $('.main .drag-and-drop-files .icon-cloud-upload').addClass('drag-upload-active');
 
-                        },500); 
+                        }, 500);
 
                     }, 1000);
 
-                    var timer = setInterval(function(){
+                    var timer = setInterval(function () {
 
-                        
+
 
                         var cover = thumb;
 
 
 
-                        if ( typeof cover !== 'undefined') {
+                        if (typeof cover !== 'undefined') {
 
                             Main.saveLink(Main.files[time + '-' + file.bytes]);
 
@@ -8794,7 +8958,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                        if ( s > 15 ) {
+                        if (s > 15) {
 
                             Main.saveLink(Main.files[time + '-' + file.bytes]);
 
@@ -8812,7 +8976,7 @@ jQuery(document).ready( function ($) {
 
                     }, 1000);
 
-        
+
 
                 });
 
@@ -8828,9 +8992,9 @@ jQuery(document).ready( function ($) {
 
             extensions: ['.png', '.gif', '.jpg', '.jpeg', '.mp4'],
 
-        };    
+        };
 
-        
+
 
         Dropbox.choose(options);
 
@@ -8838,7 +9002,7 @@ jQuery(document).ready( function ($) {
 
     });
 
-    
+
 
     /*
 
@@ -8854,9 +9018,9 @@ jQuery(document).ready( function ($) {
 
     */
 
-    $(document).on('click', '.pixabay-drive-picker', function() {
+    $(document).on('click', '.pixabay-drive-picker', function () {
 
-        
+
 
         var new_url = url + 'user/app/posts?q=pixabay';
 
@@ -8872,11 +9036,11 @@ jQuery(document).ready( function ($) {
 
 
 
-        var left = ((width / 2) - ((width/2) / 2)) + dualScreenLeft;
+        var left = ((width / 2) - ((width / 2) / 2)) + dualScreenLeft;
 
-        var top = ((height / 2) - ((height/2) / 2)) + dualScreenTop;
+        var top = ((height / 2) - ((height / 2) / 2)) + dualScreenTop;
 
-        var pixabayWindow = window.open(new_url, 'Pixabay', 'scrollbars=yes, width=' + (width/2) + ', height=' + (height/2) + ', top=' + top + ', left=' + left);
+        var pixabayWindow = window.open(new_url, 'Pixabay', 'scrollbars=yes, width=' + (width / 2) + ', height=' + (height / 2) + ', top=' + top + ', left=' + left);
 
 
 
@@ -8886,11 +9050,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*******************************
 
@@ -8898,7 +9062,7 @@ jQuery(document).ready( function ($) {
 
     ********************************/
 
-   
+
 
     /*
 
@@ -8916,93 +9080,93 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_accounts_results_by_search = function ( status, data ) {
+    Main.methods.composer_accounts_results_by_search = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( $('.main #nav-composer .next-button').length > 0 ) {
 
-            
+            if ($('.main #nav-composer .next-button').length > 0) {
 
-                if ( data.page < 2 ) {
 
-                    
+
+                if (data.page < 2) {
+
+
 
                     $('.main #nav-composer .back-button').addClass('btn-disabled');
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('.main #nav-composer .back-button').removeClass('btn-disabled');
 
                     $('.main #nav-composer .back-button').attr('data-page', (parseInt(data.page) - 1));
 
-                    
+
 
                 }
 
-                
 
-                if ( (parseInt(data.page) * 10 ) < data.total ) {
 
-                    
+                if ((parseInt(data.page) * 10) < data.total) {
+
+
 
                     $('.main #nav-composer .next-button').removeClass('btn-disabled');
 
                     $('.main #nav-composer .next-button').attr('data-page', (parseInt(data.page) + 1));
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('.main #nav-composer .next-button').addClass('btn-disabled');
 
-                    
+
 
                 }
 
-            
+
 
             }
 
-            
+
 
             var accounts = '';
 
-            
+
 
             // List all accounts
 
-            for ( var f = 0; f < data.accounts_list.length; f++ ) {
+            for (var f = 0; f < data.accounts_list.length; f++) {
 
-                
+
 
                 var icon = data.accounts_list[f].network_info.icon;
 
-                
+
 
                 var new_icon = icon.replace(' class', ' style="color: ' + data.accounts_list[f].network_info.color + '" class');
 
-                
+
 
                 var account_selected = '';
 
-                
 
-                if ( typeof Main.selected_post_accounts !== 'undefined' ) {
 
-                
+                if (typeof Main.selected_post_accounts !== 'undefined') {
+
+
 
                     if (typeof Main.selected_post_accounts[data.accounts_list[f].network_name] !== 'undefined') {
 
@@ -9022,7 +9186,7 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                
+
 
                 }
 
@@ -9034,47 +9198,54 @@ jQuery(document).ready( function ($) {
 
                 // Verify if categories exists
 
-                if ( data.accounts_list[f].network_info.types.indexOf('categories') > -1 ) {
+                if (data.accounts_list[f].network_info.types.indexOf('categories') > -1) {
 
                     categories = 'true';
 
                 }
 
-                
+
 
                 accounts += '<li' + account_selected + '>'
 
-                                + '<a href="#" data-id="' + data.accounts_list[f].network_id + '" data-net="' + data.accounts_list[f].net_id + '" data-network="' + data.accounts_list[f].network_name + '" data-category="' + categories + '">'
+                    +
+                    '<a href="#" data-id="' + data.accounts_list[f].network_id + '" data-net="' + data.accounts_list[f].net_id + '" data-network="' + data.accounts_list[f].network_name + '" data-category="' + categories + '">'
 
-                                    + new_icon
+                    +
+                    new_icon
 
-                                    + data.accounts_list[f].user_name
+                    +
+                    data.accounts_list[f].user_name
 
-                                        + '<span><i class="icon-user"></i> ' + data.accounts_list[f].display_network_name + '</span>'
+                    +
+                    '<span><i class="icon-user"></i> ' + data.accounts_list[f].display_network_name + '</span>'
 
-                                    + '<i class="icon-check"></i>'
+                    +
+                    '<i class="icon-check"></i>'
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( '.composer-accounts-list ul' ).html( accounts );
 
-            
+            $('.composer-accounts-list ul').html(accounts);
+
+
 
         } else {
 
-            
 
-            $( '.composer-accounts-list ul' ).html( '<li class="no-accounts-found">' + data.message + '</li>' );
 
-            
+            $('.composer-accounts-list ul').html('<li class="no-accounts-found">' + data.message + '</li>');
+
+
 
         }
 
@@ -9082,7 +9253,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -9100,129 +9271,135 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_groups_results_by_search = function ( status, data ) {
+    Main.methods.composer_groups_results_by_search = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( $('.main #nav-composer .next-button').length > 0 ) {
 
-            
+            if ($('.main #nav-composer .next-button').length > 0) {
 
-                if ( data.page < 2 ) {
 
-                    
+
+                if (data.page < 2) {
+
+
 
                     $('.main #nav-composer .back-button').addClass('btn-disabled');
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('.main #nav-composer .back-button').removeClass('btn-disabled');
 
                     $('.main #nav-composer .back-button').attr('data-page', (parseInt(data.page) - 1));
 
-                    
+
 
                 }
 
-                
 
-                if ( (parseInt(data.page) * 10 ) < data.total ) {
 
-                    
+                if ((parseInt(data.page) * 10) < data.total) {
+
+
 
                     $('.main #nav-composer .next-button').removeClass('btn-disabled');
 
                     $('.main #nav-composer .next-button').attr('data-page', (parseInt(data.page) + 1));
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('.main #nav-composer .next-button').addClass('btn-disabled');
 
-                    
+
 
                 }
 
-            
+
 
             }
 
-            
+
 
             var groups = '';
 
-            
+
 
             // List all accounts
 
-            for ( var f = 0; f < data.groups_list.length; f++ ) {
+            for (var f = 0; f < data.groups_list.length; f++) {
 
-                
+
 
                 var group_selected = '';
 
-                
-
-                if ( typeof Main.selected_post_group !== 'undefined' ) {
 
 
+                if (typeof Main.selected_post_group !== 'undefined') {
 
-                    if ( Main.selected_post_group === data.groups_list[f].list_id ) {
+
+
+                    if (Main.selected_post_group === data.groups_list[f].list_id) {
 
                         group_selected = ' class="group-selected"';
 
                     }
 
-                
+
 
                 }
 
-                
+
 
                 groups += '<li' + group_selected + '>'
 
-                                + '<a href="#" data-id="' + data.groups_list[f].list_id + '">'
+                    +
+                    '<a href="#" data-id="' + data.groups_list[f].list_id + '">'
 
-                                    + '<i class="icon-folder-alt"></i>'
+                    +
+                    '<i class="icon-folder-alt"></i>'
 
-                                    + data.groups_list[f].name
+                    +
+                    data.groups_list[f].name
 
-                                    + '<i class="icon-check"></i>'
+                    +
+                    '<i class="icon-check"></i>'
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( '.composer-groups-list ul' ).html( groups );
 
-            
+            $('.composer-groups-list ul').html(groups);
+
+
 
         } else {
 
-            
 
-            $( '.composer-groups-list ul' ).html( '<li class="no-groups-found">' + data.message + '</li>' );
 
-            
+            $('.composer-groups-list ul').html('<li class="no-groups-found">' + data.message + '</li>');
+
+
 
         }
 
@@ -9230,37 +9407,37 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
 
-     /*
 
-     * Display category picker popup
+    /*
 
-     * 
+    * Display category picker popup
 
-     * @param string status contains the response status
+    * 
 
-     * @param object data contains the response content
+    * @param string status contains the response status
 
-     * 
+    * @param object data contains the response content
 
-     * @since   0.0.7.0
+    * 
 
-     */
+    * @since   0.0.7.0
 
-    Main.methods.composer_category_picker = function ( status, data ) {
+    */
+
+    Main.methods.composer_category_picker = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
             $('#composer-category-picker').modal('show');
 
-            
+
 
             var cats = '';
 
@@ -9276,17 +9453,17 @@ jQuery(document).ready( function ($) {
 
             $('#selnet').html(cats);
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
@@ -9294,111 +9471,111 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
 
-     /*
 
-     * Display accounts results in the quick scheduler
+    /*
 
-     * 
+    * Display accounts results in the quick scheduler
 
-     * @param string status contains the response status
+    * 
 
-     * @param object data contains the response content
+    * @param string status contains the response status
 
-     * 
+    * @param object data contains the response content
 
-     * @since   0.0.7.0
+    * 
 
-     */
+    * @since   0.0.7.0
 
-    Main.methods.quick_scheduler_accounts_results_by_search = function ( status, data ) {
+    */
+
+    Main.methods.quick_scheduler_accounts_results_by_search = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( $('#planner-quick-schedule-modal .next-button').length > 0 ) {
 
-            
+            if ($('#planner-quick-schedule-modal .next-button').length > 0) {
 
-                if ( data.page < 2 ) {
 
-                    
+
+                if (data.page < 2) {
+
+
 
                     $('#planner-quick-schedule-modal .back-button').addClass('btn-disabled');
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('#planner-quick-schedule-modal .back-button').removeClass('btn-disabled');
 
                     $('#planner-quick-schedule-modal .back-button').attr('data-page', (parseInt(data.page) - 1));
 
-                    
+
 
                 }
 
-                
 
-                if ( (parseInt(data.page) * 10 ) < data.total ) {
 
-                    
+                if ((parseInt(data.page) * 10) < data.total) {
+
+
 
                     $('#planner-quick-schedule-modal .next-button').removeClass('btn-disabled');
 
                     $('#planner-quick-schedule-modal .next-button').attr('data-page', (parseInt(data.page) + 1));
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('#planner-quick-schedule-modal .next-button').addClass('btn-disabled');
 
-                    
+
 
                 }
 
-            
+
 
             }
 
-            
+
 
             var accounts = '';
 
-            
+
 
             // List all accounts
 
-            for ( var f = 0; f < data.accounts_list.length; f++ ) {
+            for (var f = 0; f < data.accounts_list.length; f++) {
 
-                
+
 
                 var icon = data.accounts_list[f].network_info.icon;
 
-                
+
 
                 var new_icon = icon.replace(' class', ' style="color: ' + data.accounts_list[f].network_info.color + '" class');
 
-                
+
 
                 var account_selected = '';
 
-                
 
-                if ( typeof Main.selected_quick_post_accounts !== 'undefined' ) {
 
-                
+                if (typeof Main.selected_quick_post_accounts !== 'undefined') {
+
+
 
                     if (typeof Main.selected_quick_post_accounts[data.accounts_list[f].network_name] !== 'undefined') {
 
@@ -9418,51 +9595,61 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                
+
 
                 }
 
-                
+
 
                 accounts += '<li' + account_selected + '>'
 
-                                + '<a href="#" data-id="' + data.accounts_list[f].network_id + '" data-network="' + data.accounts_list[f].network_name + '">'
+                    +
+                    '<a href="#" data-id="' + data.accounts_list[f].network_id + '" data-network="' + data.accounts_list[f].network_name + '">'
 
-                                    + new_icon
+                    +
+                    new_icon
 
-                                    + data.accounts_list[f].user_name
+                    +
+                    data.accounts_list[f].user_name
 
-                                    + '<span>'
+                    +
+                    '<span>'
 
-                                        + '<i class="icon-user"></i> '
+                    +
+                    '<i class="icon-user"></i> '
 
-                                        + data.accounts_list[f].display_network_name
+                    +
+                    data.accounts_list[f].display_network_name
 
-                                    + '</span>'
+                    +
+                    '</span>'
 
-                                    + '<i class="icon-check"></i>'
+                    +
+                    '<i class="icon-check"></i>'
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( '.quick-scheduler-accounts-list ul' ).html( accounts );
 
-            
+            $('.quick-scheduler-accounts-list ul').html(accounts);
+
+
 
         } else {
 
-            
 
-            $( '.quick-scheduler-accounts-list ul' ).html( '<li class="no-accounts-found">' + data.message + '</li>' );
 
-            
+            $('.quick-scheduler-accounts-list ul').html('<li class="no-accounts-found">' + data.message + '</li>');
+
+
 
         }
 
@@ -9470,147 +9657,153 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
 
-     /*
 
-     * Display groups results in the quick scheduler
+    /*
 
-     * 
+    * Display groups results in the quick scheduler
 
-     * @param string status contains the response status
+    * 
 
-     * @param object data contains the response content
+    * @param string status contains the response status
 
-     * 
+    * @param object data contains the response content
 
-     * @since   0.0.7.0
+    * 
 
-     */
+    * @since   0.0.7.0
 
-    Main.methods.quick_scheduler_groups_results_by_search = function ( status, data ) {
+    */
+
+    Main.methods.quick_scheduler_groups_results_by_search = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( $('#planner-quick-schedule-modal .next-button').length > 0 ) {
 
-            
+            if ($('#planner-quick-schedule-modal .next-button').length > 0) {
 
-                if ( data.page < 2 ) {
 
-                    
+
+                if (data.page < 2) {
+
+
 
                     $('#planner-quick-schedule-modal .back-button').addClass('btn-disabled');
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('#planner-quick-schedule-modal .back-button').removeClass('btn-disabled');
 
                     $('#planner-quick-schedule-modal .back-button').attr('data-page', (parseInt(data.page) - 1));
 
-                    
+
 
                 }
 
-                
 
-                if ( (parseInt(data.page) * 10 ) < data.total ) {
 
-                    
+                if ((parseInt(data.page) * 10) < data.total) {
+
+
 
                     $('#planner-quick-schedule-modal .next-button').removeClass('btn-disabled');
 
                     $('#planner-quick-schedule-modal .next-button').attr('data-page', (parseInt(data.page) + 1));
 
-                    
+
 
                 } else {
 
-                    
+
 
                     $('#planner-quick-schedule-modal .next-button').addClass('btn-disabled');
 
-                    
+
 
                 }
 
-            
+
 
             }
 
-            
+
 
             var groups = '';
 
-            
+
 
             // List all accounts
 
-            for ( var f = 0; f < data.groups_list.length; f++ ) {
+            for (var f = 0; f < data.groups_list.length; f++) {
 
-                
+
 
                 var group_selected = '';
 
-                
-
-                if ( typeof Main.selected_post_group !== 'undefined' ) {
 
 
+                if (typeof Main.selected_post_group !== 'undefined') {
 
-                    if ( Main.selected_post_group === data.groups_list[f].list_id ) {
+
+
+                    if (Main.selected_post_group === data.groups_list[f].list_id) {
 
                         group_selected = ' class="group-selected"';
 
                     }
 
-                
+
 
                 }
 
-                
+
 
                 groups += '<li' + group_selected + '>'
 
-                                + '<a href="#" data-id="' + data.groups_list[f].list_id + '">'
+                    +
+                    '<a href="#" data-id="' + data.groups_list[f].list_id + '">'
 
-                                    + '<i class="icon-folder-alt"></i>'
+                    +
+                    '<i class="icon-folder-alt"></i>'
 
-                                    + data.groups_list[f].name
+                    +
+                    data.groups_list[f].name
 
-                                    + '<i class="icon-check"></i>'
+                    +
+                    '<i class="icon-check"></i>'
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( '.quick-scheduler-groups-list ul' ).html( groups );
 
-            
+            $('.quick-scheduler-groups-list ul').html(groups);
+
+
 
         } else {
 
-            
 
-            $( '.quick-scheduler-groups-list ul' ).html( '<li class="no-groups-found">' + data.message + '</li>' );
 
-            
+            $('.quick-scheduler-groups-list ul').html('<li class="no-groups-found">' + data.message + '</li>');
+
+
 
         }
 
@@ -9618,7 +9811,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -9636,21 +9829,21 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_publish_post_status = function ( status, data ) {
+    Main.methods.composer_publish_post_status = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Reset the form
 
@@ -9660,67 +9853,80 @@ jQuery(document).ready( function ($) {
 
             $('.post-preview-body').html('<div class="row">'
 
-                                            + '<div class="col-xl-11"></div>'
+                +
+                '<div class="col-xl-11"></div>'
 
-                                        + '</div>'
+                +
+                '</div>'
 
-                                        + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                            + '<div class="col-xl-11"></div>'
+                +
+                '<div class="col-xl-11"></div>'
 
-                                        + '</div>'
+                +
+                '</div>'
 
-                                        + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                            + '<div class="col-xl-11"></div>'
+                +
+                '<div class="col-xl-11"></div>'
 
-                                        + '</div>'
+                +
+                '</div>'
 
-                                        + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                            + '<div class="col-xl-7"></div>'
+                +
+                '<div class="col-xl-7"></div>'
 
-                                        + '</div>');
+                +
+                '</div>');
 
-                                
+
 
             $('.post-preview-title').html('<div class="row">'
 
-                                            + '<div class="col-xl-8"></div>'
+                +
+                '<div class="col-xl-8"></div>'
 
-                                        + '</div>');
+                +
+                '</div>');
 
             $('#nav-composer .post-preview-medias').removeAttr('style');
 
-            
 
-            if ( $('.composer-accounts-list').length > 0 ) {
 
-            
+            if ($('.composer-accounts-list').length > 0) {
 
-                $('.composer-accounts-list li').removeClass( 'account-selected' );
 
-            
+
+                $('.composer-accounts-list li').removeClass('account-selected');
+
+
 
             } else {
 
-                
 
-                $('.composer-groups-list li').removeClass( 'group-selected' );
 
-                
+                $('.composer-groups-list li').removeClass('group-selected');
+
+
 
             }
 
-            
 
-            if ( typeof Main.selected_post_accounts !== 'undefined' ) {
+
+            if (typeof Main.selected_post_accounts !== 'undefined') {
 
                 delete Main.selected_post_accounts;
 
             }
 
-        
+
 
             // Set default status
 
@@ -9732,7 +9938,7 @@ jQuery(document).ready( function ($) {
 
             $('.datetime').val('');
 
-            
+
 
             // Load posts contents
 
@@ -9796,7 +10002,7 @@ jQuery(document).ready( function ($) {
 
             // Reset scheduler
 
-            Main.show_calendar( Main.month, Main.day, Main.year, Main.format );
+            Main.show_calendar(Main.month, Main.day, Main.year, Main.format);
 
 
 
@@ -9814,15 +10020,15 @@ jQuery(document).ready( function ($) {
 
             // Verify if time period exists
 
-            if ( $('.main .midrub-calendar-time-period').length > 0 ) {
+            if ($('.main .midrub-calendar-time-period').length > 0) {
 
-                
+
 
                 // Set period
 
                 $('.main .midrub-calendar-time-period').val('AM');
 
-                
+
 
             }
 
@@ -9852,7 +10058,7 @@ jQuery(document).ready( function ($) {
 
             // Verify input url is enabled
 
-            if ($('.main .composer-url').length > 0 ) {
+            if ($('.main .composer-url').length > 0) {
 
 
 
@@ -9882,17 +10088,17 @@ jQuery(document).ready( function ($) {
 
             Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
@@ -9900,7 +10106,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -9918,85 +10124,85 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.quick_scheduler_publish_post_status = function ( status, data ) {
+    Main.methods.quick_scheduler_publish_post_status = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Reset the form
 
-            $( '.schedule-post .quick-scheduler-selected-accounts ul' ).empty();
+            $('.schedule-post .quick-scheduler-selected-accounts ul').empty();
 
-            $( '.schedule-post .quick-scheduler-title, .schedule-post .quick-new-post' ).val( '' );
+            $('.schedule-post .quick-scheduler-title, .schedule-post .quick-new-post').val('');
 
-            $( '.multimedia-gallery-quick-schedule li a').removeClass( 'media-selected' );
+            $('.multimedia-gallery-quick-schedule li a').removeClass('media-selected');
 
-            
 
-            if ( $('.quick-scheduler-accounts-list').length > 0 ) {
 
-            
+            if ($('.quick-scheduler-accounts-list').length > 0) {
 
-                $( '.quick-scheduler-accounts-list li' ).removeClass( 'account-selected' );
 
-                
+
+                $('.quick-scheduler-accounts-list li').removeClass('account-selected');
+
+
 
                 // Delete selected accounts
 
                 delete Main.selected_quick_post_accounts;
 
-            
+
 
             } else {
 
-                
 
-                $( '.quick-scheduler-groups-list li' ).removeClass( 'group-selected' );
 
-                
+                $('.quick-scheduler-groups-list li').removeClass('group-selected');
+
+
 
             }
 
-            
+
 
             // Delete selected medias
 
             delete Main.selected_medias;
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
         Main.load_posts_content();
 
 
 
-    };    
+    };
 
-    
+
 
     /*
 
@@ -10014,15 +10220,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.history_post_delete_response = function ( status, data ) {
+    Main.methods.history_post_delete_response = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
@@ -10040,27 +10246,27 @@ jQuery(document).ready( function ($) {
 
             $('#nav-history .btn-post-actions').fadeOut('slow');
 
-            
+
 
             Main.load_posts_content();
 
-            
 
-            $( '.history-post-content' ).html( '<p class="no-post-selected">' + data.no_post_selected + '<p>' );
 
-            $( '.history-profiles-list' ).html( '<p class="no-post-selected">' + data.no_post_selected + '<p>' );
+            $('.history-post-content').html('<p class="no-post-selected">' + data.no_post_selected + '<p>');
 
-            
+            $('.history-profiles-list').html('<p class="no-post-selected">' + data.no_post_selected + '<p>');
+
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
@@ -10068,7 +10274,7 @@ jQuery(document).ready( function ($) {
 
     };
 
-    
+
 
     /*
 
@@ -10086,15 +10292,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_display_all_posts = function ( status, data ) {
+    Main.methods.composer_display_all_posts = function (status, data) {
 
-        
+
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var allposts = '';
 
@@ -10138,27 +10344,38 @@ jQuery(document).ready( function ($) {
 
                 allposts += '<li class="getPost list-group-item" data-id="' + data.posts[u].post_id + '">'
 
-                                + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                                    + '<div class="col-xl-7">'
+                    +
+                    '<div class="col-xl-7">'
 
-                                        + text + ' ' + status
+                    +
+                    text + ' ' + status
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-5 text-right">'
+                    +
+                    '<div class="col-xl-5 text-right">'
 
-                                        + ' <span class="pull-right">'
+                    +
+                    ' <span class="pull-right">'
 
-                                            + gettime
+                    +
+                    gettime
 
-                                        + '</span>'
+                    +
+                    '</span>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                + '</div>'
+                    +
+                    '</div>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
 
 
@@ -10168,27 +10385,27 @@ jQuery(document).ready( function ($) {
 
             $('.all-saved-posts').html(allposts);
 
-            
+
 
         } else {
 
-            
+
 
             $('#saved-posts .pagination').empty();
 
-            
+
 
             $('.all-saved-posts').html('<li class="no-accounts-found">' + data.message + '</li>');
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -10206,15 +10423,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_display_all_posts = function ( status, data ) {
+    Main.methods.insights_display_all_posts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var allposts = '';
 
@@ -10252,37 +10469,50 @@ jQuery(document).ready( function ($) {
 
                 var text = data.posts[u].body.substring(0, 50);
 
-                    
+
 
                 // Add post
 
                 allposts += '<li>'
 
-                                + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                                    + '<div class="col-xl-8 col-6">'
+                    +
+                    '<div class="col-xl-8 col-6">'
 
-                                        + '<h4>'
+                    +
+                    '<h4>'
 
-                                            + data.posts[u].icon
+                    +
+                    data.posts[u].icon
 
-                                            + text
+                    +
+                    text
 
-                                        + '</h4>'
+                    +
+                    '</h4>'
 
-                                        + '<p>' + gettime + '</p>'
+                    +
+                    '<p>' + gettime + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-4 col-6 text-right">'
+                    +
+                    '<div class="col-xl-4 col-6 text-right">'
 
-                                        + '<a href="#" class="btn btn-outline-info insights-post-details" data-id="' + data.posts[u].meta_id + '"><i class="icon-graph"></i> ' + data.insights + '</a>'
+                    +
+                    '<a href="#" class="btn btn-outline-info insights-post-details" data-id="' + data.posts[u].meta_id + '"><i class="icon-graph"></i> ' + data.insights + '</a>'
 
-                                    + '</div>'                                                            
+                    +
+                    '</div>'
 
-                                + '</div>'
+                    +
+                    '</div>'
 
-                            + '</li>';                    
+                    +
+                    '</li>';
 
 
 
@@ -10290,29 +10520,29 @@ jQuery(document).ready( function ($) {
 
 
 
-            $('.insights-posts-results').html( '<ul class="published-posts">' + allposts + '</ul>' );
+            $('.insights-posts-results').html('<ul class="published-posts">' + allposts + '</ul>');
 
-            
+
 
         } else {
 
-            
+
 
             $('#insights-posts .pagination').empty();
 
-            
+
 
             $('.insights-posts-results').html('<p class="no-posts-found">' + data.message + '</p>');
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -10330,67 +10560,75 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_display_post_details = function ( status, data ) {
+    Main.methods.insights_display_post_details = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( typeof data.message !== 'undefined' ) {
 
-                
+            if (typeof data.message !== 'undefined') {
+
+
 
                 // Display alert
 
                 Main.popup_fon('subi', data.message, 1500, 2000);
 
-                
+
 
             }
 
-            
+
 
             var post = '';
 
 
 
-            if ( data.content.title !== '' ) {
+            if (data.content.title !== '') {
 
-                
+
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<h3>' + data.content.title + '</h3>'
+                    +
+                    '<h3>' + data.content.title + '</h3>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
             }
 
-            
 
-            if ( data.content.body !== '' ) {
 
-                
+            if (data.content.body !== '') {
+
+
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12 mb-3">'
+                    +
+                    '<div class="col-xl-12 mb-3">'
 
-                                + data.content.body
+                    +
+                    data.content.body
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
@@ -10400,55 +10638,67 @@ jQuery(document).ready( function ($) {
 
             // Verify if url exists
 
-            if ( data.content.url ) {
+            if (data.content.url) {
 
-                 
+
 
                 // Add post's url to the post variable
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<a href="' + data.content.url + '" target="_blank">'
+                    +
+                    '<a href="' + data.content.url + '" target="_blank">'
 
-                                    + data.content.url
+                    +
+                    data.content.url
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
             }
 
-            
 
-            if ( data.content.img.length > 0 ) {
 
-                
+            if (data.content.img.length > 0) {
 
-                for ( var d = 0; d < data.content.img.length; d++ ) {
 
-                 
+
+                for (var d = 0; d < data.content.img.length; d++) {
+
+
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<img src="' + data.content.img[d].body + '">'
+                        +
+                        '<img src="' + data.content.img[d].body + '">'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                    
+
 
                 }
 
@@ -10456,31 +10706,37 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
 
-            if ( data.content.video.length > 0 ) {
 
-                
+            if (data.content.video.length > 0) {
 
-                for ( var v = 0; v < data.content.video.length; v++ ) {
 
-                 
+
+                for (var v = 0; v < data.content.video.length; v++) {
+
+
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
+                        +
+                        '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                    
+
 
                 }
 
@@ -10488,33 +10744,33 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
 
-            
+
+
 
             var get_reactions = data.content.reactions;
 
-            
 
-            if ( get_reactions.length ) {
 
-                
+            if (get_reactions.length) {
+
+
 
                 var panel_footer_head = '';
 
-                
 
-                for( var h = 0; h < get_reactions.length; h++ ) {
 
-                    
+                for (var h = 0; h < get_reactions.length; h++) {
+
+
 
                     var status = '';
 
                     var selected = 'false';
 
-                    
 
-                    if ( panel_footer_head === '' ) {
+
+                    if (panel_footer_head === '') {
 
                         status = ' active';
 
@@ -10522,83 +10778,87 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                    
+
 
                     panel_footer_head += '<li class="nav-item">'
 
-                                            + '<a class="nav-link' + status + '" id="' + get_reactions[h].slug + '-nav-tab" data-toggle="tab" href="#' + get_reactions[h].slug + '-tab" role="tab" aria-controls="' + get_reactions[h].slug + '-tab" aria-selected="' + selected + '">'
+                        +
+                        '<a class="nav-link' + status + '" id="' + get_reactions[h].slug + '-nav-tab" data-toggle="tab" href="#' + get_reactions[h].slug + '-tab" role="tab" aria-controls="' + get_reactions[h].slug + '-tab" aria-selected="' + selected + '">'
 
-                                                + get_reactions[h].name
+                        +
+                        get_reactions[h].name
 
-                                            + '</a>'
+                        +
+                        '</a>'
 
-                                        + '</li>';
+                        +
+                        '</li>';
 
-                    
+
 
                 }
 
-                
+
 
                 // Display panel footer tabs navigation
 
                 $('#insights-posts .insights-post-footer .nav-tabs').html(panel_footer_head);
 
-                
+
 
                 // Get current time
 
-                var date = new Date(); 
+                var date = new Date();
 
-                var cdate = date.getTime()/1000;
+                var cdate = date.getTime() / 1000;
 
-                
+
 
                 var reactions = '';
 
-                
 
-                for( var i = 0; i < get_reactions.length; i++ ) {
 
-                    
+                for (var i = 0; i < get_reactions.length; i++) {
+
+
 
                     var status = '';
 
-                    
 
-                    if ( reactions === '' ) {
+
+                    if (reactions === '') {
 
                         status = ' show active';
 
                     }
 
-                    
+
 
                     reactions += '<div class="tab-pane fade' + status + '" id="' + get_reactions[i].slug + '-tab" role="tabpanel" aria-labelledby="' + get_reactions[i].slug + '-tab">';
 
 
 
-                    if ( Array.isArray( get_reactions[i].response ) === true ) {
+                    if (Array.isArray(get_reactions[i].response) === true) {
 
-                        
+
 
                         reactions += '<ul class="comments">';
 
-                        
 
-                        for ( var a = 0; a < get_reactions[i].response.length; a++ ) {
 
-                            
+                        for (var a = 0; a < get_reactions[i].response.length; a++) {
 
-                            if ( get_reactions[i].response[a].created_time ) {
 
-                            
+
+                            if (get_reactions[i].response[a].created_time) {
+
+
 
                                 // Get post's time
 
-                                var d = new Date(get_reactions[i].response[a].created_time); 
+                                var d = new Date(get_reactions[i].response[a].created_time);
 
-                                var new_date = d.getTime()/1000;
+                                var new_date = d.getTime() / 1000;
 
 
 
@@ -10606,15 +10866,15 @@ jQuery(document).ready( function ($) {
 
                                 var gettime = Main.calculate_time(new_date, cdate);
 
-                            
+
 
                             } else {
 
-                                
+
 
                                 var gettime = '';
 
-                                
+
 
                             }
 
@@ -10626,7 +10886,7 @@ jQuery(document).ready( function ($) {
 
 
 
-                            if ( typeof get_reactions[i].response[a].replies !== 'undefined' ) {
+                            if (typeof get_reactions[i].response[a].replies !== 'undefined') {
 
 
 
@@ -10634,15 +10894,15 @@ jQuery(document).ready( function ($) {
 
 
 
-                                for( var s = 0; s < get_reactions[i].response[a].replies.length; s++ ) {
+                                for (var s = 0; s < get_reactions[i].response[a].replies.length; s++) {
 
 
 
                                     // Get post's time
 
-                                    var r = new Date(get_reactions[i].response[a].replies[s].created_time); 
+                                    var r = new Date(get_reactions[i].response[a].replies[s].created_time);
 
-                                    var reply_date = r.getTime()/1000;
+                                    var reply_date = r.getTime() / 1000;
 
 
 
@@ -10650,11 +10910,11 @@ jQuery(document).ready( function ($) {
 
                                     var getreplytime = Main.calculate_time(reply_date, cdate);
 
-                                    
+
 
                                     var reply = '';
 
-                                    
+
 
                                     if (get_reactions[i].reply) {
 
@@ -10662,55 +10922,72 @@ jQuery(document).ready( function ($) {
 
                                     }
 
-                                    
+
 
                                     var delete_it = '';
 
-                                    
+
 
                                     if (get_reactions[i].delete) {
 
                                         delete_it = '<a href="#" class="insights-posts-comments-delete" data-type="' + get_reactions[i].slug + '" data-post-id="' + data.meta_id + '" data-id="' + get_reactions[i].response[a].replies[s].id + '">' + data.content.configuration.words.delete + '</a>';
 
-                                    }                                    
+                                    }
 
 
 
                                     replies += '<li class="row">'
 
-                                                    + '<div class="col-xl-12">'
+                                        +
+                                        '<div class="col-xl-12">'
 
-                                                        + '<img src="' + get_reactions[i].response[a].replies[s].from.user_picture + '" alt="User Avatar" class="img-circle" />'
+                                        +
+                                        '<img src="' + get_reactions[i].response[a].replies[s].from.user_picture + '" alt="User Avatar" class="img-circle" />'
 
-                                                        + '<div class="comment-body">'
+                                        +
+                                        '<div class="comment-body">'
 
-                                                            + '<strong><a href="' + get_reactions[i].response[a].replies[s].from.link + '" target="_blank">' + get_reactions[i].response[a].replies[s].from.name + '</a></strong>'
+                                        +
+                                        '<strong><a href="' + get_reactions[i].response[a].replies[s].from.link + '" target="_blank">' + get_reactions[i].response[a].replies[s].from.name + '</a></strong>'
 
-                                                            + '<small>'
+                                        +
+                                        '<small>'
 
-                                                                + getreplytime
+                                        +
+                                        getreplytime
 
-                                                            + '</small>'
+                                        +
+                                        '</small>'
 
-                                                            + '<p>'
+                                        +
+                                        '<p>'
 
-                                                                + get_reactions[i].response[a].replies[s].message
+                                        +
+                                        get_reactions[i].response[a].replies[s].message
 
-                                                            + '</p>'
+                                        +
+                                        '</p>'
 
-                                                            + '<p>'
+                                        +
+                                        '<p>'
 
-                                                                + reply
+                                        +
+                                        reply
 
-                                                                + delete_it
+                                        +
+                                        delete_it
 
-                                                            + '</p>'
+                                        +
+                                        '</p>'
 
-                                                        + '</div>'
+                                        +
+                                        '</div>'
 
-                                                    + '</div>'
+                                        +
+                                        '</div>'
 
-                                                + '</li>'                            
+                                        +
+                                        '</li>'
 
 
 
@@ -10724,7 +11001,7 @@ jQuery(document).ready( function ($) {
 
                             }
 
-                            
+
 
                             var reply = '';
 
@@ -10752,63 +11029,81 @@ jQuery(document).ready( function ($) {
 
                             reactions += '<li class="row">'
 
-                                            + '<div class="col-xl-12">'
+                                +
+                                '<div class="col-xl-12">'
 
-                                                + '<img src="' + get_reactions[i].response[a].from.user_picture + '" alt="User Avatar" class="img-circle" />'
+                                +
+                                '<img src="' + get_reactions[i].response[a].from.user_picture + '" alt="User Avatar" class="img-circle" />'
 
-                                                + '<div class="comment-body">'
+                                +
+                                '<div class="comment-body">'
 
-                                                    + '<strong><a href="' + get_reactions[i].response[a].from.link + '" target="_blank">' + get_reactions[i].response[a].from.name + '</a></strong>'
+                                +
+                                '<strong><a href="' + get_reactions[i].response[a].from.link + '" target="_blank">' + get_reactions[i].response[a].from.name + '</a></strong>'
 
-                                                    + '<small>'
+                                +
+                                '<small>'
 
-                                                        + gettime
+                                +
+                                gettime
 
-                                                    + '</small>'
+                                +
+                                '</small>'
 
-                                                    + '<p>'
+                                +
+                                '<p>'
 
-                                                        + get_reactions[i].response[a].message
+                                +
+                                get_reactions[i].response[a].message
 
-                                                    + '</p>'
+                                +
+                                '</p>'
 
-                                                    + '<p>'
+                                +
+                                '<p>'
 
-                                                        + reply
+                                +
+                                reply
 
-                                                        + delete_it
+                                +
+                                delete_it
 
-                                                    + '</p>'
+                                +
+                                '</p>'
 
-                                                + '</div>'
+                                +
+                                '</div>'
 
-                                            + '</div>'
+                                +
+                                '</div>'
 
-                                            + replies
+                                +
+                                replies
 
-                                        + '</li>';
+                                +
+                                '</li>';
 
-                            
+
 
                         }
 
-                        
+
 
                         reactions += '</ul>';
 
-                        
+
 
                     } else {
 
-                        
+
 
                         reactions += '<p class="no-data-found">' + get_reactions[i].response + '</p>';
 
-                        
+
 
                     }
 
-                    
+
 
                     if (get_reactions[i].form) {
 
@@ -10816,27 +11111,38 @@ jQuery(document).ready( function ($) {
 
                         reactions += '<div class="panel-sub-footer">'
 
-                                        + '<form method="post" class="insights-posts-reactions-post" data-type="' + get_reactions[i].slug + '" data-id="' + data.meta_id + '">'
+                            +
+                            '<form method="post" class="insights-posts-reactions-post" data-type="' + get_reactions[i].slug + '" data-id="' + data.meta_id + '">'
 
-                                            + '<div class="input-group">'
+                            +
+                            '<div class="input-group">'
 
-                                                + '<textarea class="form-control input-sm reactions-msg" placeholder="' + get_reactions[i].placeholder + '"></textarea>'
+                            +
+                            '<textarea class="form-control input-sm reactions-msg" placeholder="' + get_reactions[i].placeholder + '"></textarea>'
 
-                                                + '<span class="input-group-btn">'
+                            +
+                            '<span class="input-group-btn">'
 
-                                                    + '<button class="btn btn-warning btn-sm" type="submit" id="btn-chat">'
+                            +
+                            '<button class="btn btn-warning btn-sm" type="submit" id="btn-chat">'
 
-                                                        + '<i class="icon-cursor"></i>'
+                            +
+                            '<i class="icon-cursor"></i>'
 
-                                                    + '</button>'
+                            +
+                            '</button>'
 
-                                                + '</span>'
+                            +
+                            '</span>'
 
-                                            + '</div>'
+                            +
+                            '</div>'
 
-                                        + '</form>'
+                            +
+                            '</form>'
 
-                                    + '</div>';
+                            +
+                            '</div>';
 
 
 
@@ -10846,19 +11152,19 @@ jQuery(document).ready( function ($) {
 
                     reactions += '</div>';
 
-                    
+
 
                 }
 
-                
+
 
                 // Display post reactions
 
-                $('#insights-posts .insights-post-footer .tab-content').html(reactions);  
+                $('#insights-posts .insights-post-footer .tab-content').html(reactions);
 
-                
 
-            }          
+
+            }
 
 
 
@@ -10866,41 +11172,41 @@ jQuery(document).ready( function ($) {
 
             $('#insights-posts .insights-post-content-username').text(data.content.user_name);
 
-            
+
 
             // Display user's avatar
 
             $('#insights-posts .insights-post-header img').attr('src', data.content.user_picture);
 
-            
+
 
             // Display post content
 
             $('#insights-posts .insights-post-content').html(post);
 
-            
+
 
             // Display post
 
-            $( '#insights-posts .col-xl-5 .panel' ).removeClass( 'no-selected-post' );
+            $('#insights-posts .col-xl-5 .panel').removeClass('no-selected-post');
 
-            
+
 
             // Empty reply textarea
 
             $('#insights-reply-comments .reactions-msg').val('');
 
-            
+
 
             // Verify if post's insights are enabled
 
-            if ( data.content.configuration.post_insights === true ) {
+            if (data.content.configuration.post_insights === true) {
 
-            
+
 
                 // Verify if insights exists
 
-                if ( typeof data.content.insights !== 'undefined' ) {
+                if (typeof data.content.insights !== 'undefined') {
 
 
 
@@ -10922,31 +11228,31 @@ jQuery(document).ready( function ($) {
 
                     // Hide insights area
 
-                    $('#insights-posts > .row > .col-xl-4').hide();         
+                    $('#insights-posts > .row > .col-xl-4').hide();
 
 
 
                 }
 
-            
+
 
             } else {
 
-                
+
 
                 // Hide insights area
 
-                $('#insights-posts > .row > .col-xl-4').hide();                 
+                $('#insights-posts > .row > .col-xl-4').hide();
 
-                
+
 
             }
 
-            
+
 
             // Get post configuration and enable or disable options
 
-            if ( data.content.configuration.post_deletion === true ) {
+            if (data.content.configuration.post_deletion === true) {
 
                 $('#insights-posts .col-xl-5 .panel .dropdown').show();
 
@@ -10956,25 +11262,25 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -10992,15 +11298,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_display_all_accounts = function ( status, data ) {
+    Main.methods.insights_display_all_accounts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var allaccounts = '';
 
@@ -11014,49 +11320,63 @@ jQuery(document).ready( function ($) {
 
             for (var u = 0; u < data.accounts_list.length; u++) {
 
-                
+
 
                 var user_avatar = url + 'assets/img/avatar-placeholder.png';
 
-                
 
-                if ( data.accounts_list[u].user_avatar ) {
+
+                if (data.accounts_list[u].user_avatar) {
 
                     user_avatar = data.accounts_list[u].user_avatar;
 
                 }
 
-                    
+
 
                 allaccounts += '<li>'
 
-                                    + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                                        + '<div class="col-xl-8 col-6">'
+                    +
+                    '<div class="col-xl-8 col-6">'
 
-                                            + '<h3>'
+                    +
+                    '<h3>'
 
-                                                + '<img src="' + user_avatar + '" onerror="this.src=\'' + url + 'assets/img/avatar-placeholder.png' + '\';">'
+                    +
+                    '<img src="' + user_avatar + '" onerror="this.src=\'' + url + 'assets/img/avatar-placeholder.png' + '\';">'
 
-                                                + data.accounts_list[u].user_name
+                    +
+                    data.accounts_list[u].user_name
 
-                                            + '</h3>'
+                    +
+                    '</h3>'
 
-                                        + '</div>'
+                    +
+                    '</div>'
 
-                                        + '<div class="col-xl-4 col-6 text-right">'
+                    +
+                    '<div class="col-xl-4 col-6 text-right">'
 
-                                            + '<a href="#" class="btn btn-outline-info insights-account-details" data-id="' + data.accounts_list[u].network_id + '"><i class="icon-graph"></i> '
+                    +
+                    '<a href="#" class="btn btn-outline-info insights-account-details" data-id="' + data.accounts_list[u].network_id + '"><i class="icon-graph"></i> '
 
-                                                + data.insights
+                    +
+                    data.insights
 
-                                            + '</a>'
+                    +
+                    '</a>'
 
-                                        + '</div>'                                                            
+                    +
+                    '</div>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                + '</li>';
+                    +
+                    '</li>';
 
 
 
@@ -11064,29 +11384,29 @@ jQuery(document).ready( function ($) {
 
 
 
-            $( '.insights-accounts-results' ).html( '<ul class="insights-accounts">' + allaccounts + '</ul>' );
+            $('.insights-accounts-results').html('<ul class="insights-accounts">' + allaccounts + '</ul>');
 
-            
+
 
         } else {
 
-            
 
-            $( '#insights-posts .pagination' ).empty();
 
-            
+            $('#insights-posts .pagination').empty();
 
-            $( '.insights-accounts-results' ).html('<p class="no-posts-found">' + data.message + '</p>');
 
-            
+
+            $('.insights-accounts-results').html('<p class="no-posts-found">' + data.message + '</p>');
+
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -11104,15 +11424,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.history_display_all_posts = function ( status, data ) {
+    Main.methods.history_display_all_posts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var allposts = '';
 
@@ -11150,47 +11470,60 @@ jQuery(document).ready( function ($) {
 
                 var text = data.posts[u].body.substring(0, 50);
 
-                
+
 
                 // Verify if text exists
 
-                if ( !text ) {
+                if (!text) {
 
                     text = data.posts[u].title.substring(0, 50);
 
                 }
 
-                    
+
 
                 // Add post
 
                 allposts += '<li>'
 
-                                + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                                    + '<div class="col-xl-8 col-6">'
+                    +
+                    '<div class="col-xl-8 col-6">'
 
-                                        + '<h4>'
+                    +
+                    '<h4>'
 
-                                            + '<i class="fas fa-history"></i>'
+                    +
+                    '<i class="fas fa-history"></i>'
 
-                                            + text
+                    +
+                    text
 
-                                        + '</h4>'
+                    +
+                    '</h4>'
 
-                                        + '<p>' + gettime + '</p>'
+                    +
+                    '<p>' + gettime + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-4 col-6 text-right">'
+                    +
+                    '<div class="col-xl-4 col-6 text-right">'
 
-                                        + '<a href="#" class="btn btn-outline-info history-post-details" data-id="' + data.posts[u].post_id + '"><i class="icon-info"></i> ' + data.details + '</a>'
+                    +
+                    '<a href="#" class="btn btn-outline-info history-post-details" data-id="' + data.posts[u].post_id + '"><i class="icon-info"></i> ' + data.details + '</a>'
 
-                                    + '</div>'                                                            
+                    +
+                    '</div>'
 
-                                + '</div>'
+                    +
+                    '</div>'
 
-                            + '</li>';                    
+                    +
+                    '</li>';
 
 
 
@@ -11198,29 +11531,29 @@ jQuery(document).ready( function ($) {
 
 
 
-            $('.history-posts-results').html( '<ul class="history-posts">' + allposts + '</ul>' );
+            $('.history-posts-results').html('<ul class="history-posts">' + allposts + '</ul>');
 
-            
+
 
         } else {
 
-            
+
 
             $('#history .pagination').empty();
 
-            
+
 
             $('.history-posts-results').html('<p class="no-posts-found">' + data.message + '</p>');
 
-            
+
 
         }
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -11238,13 +11571,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_get_post_content = function ( status, data ) {
+    Main.methods.composer_get_post_content = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -11252,7 +11585,7 @@ jQuery(document).ready( function ($) {
 
             if (data) {
 
-                
+
 
                 // Set content
 
@@ -11264,13 +11597,13 @@ jQuery(document).ready( function ($) {
 
                 $('.new-post').val(data.content.body);
 
-                
+
 
                 // Get the post content
 
                 var content = $('#nav-composer .emojionearea-editor').html();
 
-                
+
 
                 // Verify if url's input is enabled
 
@@ -11280,23 +11613,23 @@ jQuery(document).ready( function ($) {
 
                     // Add post body preview
 
-                    $( '.post-preview-body' ).html( '<div class="row">' + content.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</div>' );
+                    $('.post-preview-body').html('<div class="row">' + content.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</div>');
 
 
 
                 } else {
 
-                    
+
 
                     // Add links
 
                     var post = Main.verify_for_url(content.replace(/(<div)/igm, '<br').replace(/<\/div>/igm, ''));
 
-                    
+
 
                     // Add post body preview
 
-                    $( '.post-preview-body' ).html( '<div class="row">' + post.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</div>' );
+                    $('.post-preview-body').html('<div class="row">' + post.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</div>');
 
 
 
@@ -11316,11 +11649,11 @@ jQuery(document).ready( function ($) {
 
                 $('.composer-title input[type="text"]').val(data.content.title);
 
-        
+
 
                 // Add post title preview
 
-                $( '.post-preview-title' ).html( '<div class="row">' + data.content.title + '</div>' );
+                $('.post-preview-title').html('<div class="row">' + data.content.title + '</div>');
 
 
 
@@ -11332,43 +11665,45 @@ jQuery(document).ready( function ($) {
 
                 $('.composer-title input[type="text"]').val('');
 
-                                
+
 
                 $('.post-preview-title').html('<div class="row">'
 
-                                                + '<div class="col-xl-8"></div>'
+                    +
+                    '<div class="col-xl-8"></div>'
 
-                                            + '</div>');
+                    +
+                    '</div>');
 
 
 
             }
 
-            
+
 
             // Close modal
 
             $('#saved-posts').modal('hide');
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -11386,13 +11721,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.history_get_post_content = function ( status, data ) {
+    Main.methods.history_get_post_content = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -11404,21 +11739,25 @@ jQuery(document).ready( function ($) {
 
             // Verify if the title exists
 
-            if ( data.content.title !== '' ) {
+            if (data.content.title !== '') {
 
-                
+
 
                 // Add title to the post variable
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<h3>' + data.content.title + '</h3>'
+                    +
+                    '<h3>' + data.content.title + '</h3>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
@@ -11434,7 +11773,7 @@ jQuery(document).ready( function ($) {
 
             // Verify if url exists
 
-            if ( data.content.url ) {
+            if (data.content.url) {
 
 
 
@@ -11446,25 +11785,29 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
             // Verify if post exists
 
-            if ( data.content.body !== '' ) {
+            if (data.content.body !== '') {
 
-                
+
 
                 // Add content to the post variable and replace break lines with <br>
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12 mb-3">'
+                    +
+                    '<div class="col-xl-12 mb-3">'
 
-                                + data.content.body.replace(/(?:\r\n|\r|\n)/g, '<br>')
+                    +
+                    data.content.body.replace(/(?:\r\n|\r|\n)/g, '<br>')
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
@@ -11492,13 +11835,13 @@ jQuery(document).ready( function ($) {
 
             // Add default cover background
 
-            $( '#posts-edit-post .post-preview-medias' ).css('background-color','#f7f7f7');
+            $('#posts-edit-post .post-preview-medias').css('background-color', '#f7f7f7');
 
 
 
             // If selected medias exists, delete
 
-            if ( typeof Main.selected_post_medias !== 'undefined' ) {
+            if (typeof Main.selected_post_medias !== 'undefined') {
 
                 delete Main.selected_post_medias;
 
@@ -11508,25 +11851,31 @@ jQuery(document).ready( function ($) {
 
             // Verify if url exists
 
-            if ( data.content.url ) {
+            if (data.content.url) {
 
-                 
+
 
                 // Add post's url to the post variable
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<a href="' + data.content.url + '" target="_blank">'
+                    +
+                    '<a href="' + data.content.url + '" target="_blank">'
 
-                                    + data.content.url
+                    +
+                    data.content.url
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
@@ -11536,31 +11885,37 @@ jQuery(document).ready( function ($) {
 
             // Verify if images exists
 
-            if ( data.content.img.length > 0 ) {
+            if (data.content.img.length > 0) {
 
-                
+
 
                 // Lists all images
 
-                for ( var d = 0; d < data.content.img.length; d++ ) {
+                for (var d = 0; d < data.content.img.length; d++) {
 
-                 
+
 
                     // Add post's images to the post variable
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<img src="' + data.content.img[d].body + '">'
+                        +
+                        '<img src="' + data.content.img[d].body + '">'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
 
 
@@ -11606,15 +11961,15 @@ jQuery(document).ready( function ($) {
 
                     // Remove default cover background
 
-                    $( '#posts-edit-post .post-preview-medias' ).css('background-color','#FFFFFF');
+                    $('#posts-edit-post .post-preview-medias').css('background-color', '#FFFFFF');
 
-                    
+
 
                     // Add medias in the post preview
 
-                    $( '#posts-edit-post .post-preview-medias' ).append('<div data-id="' + data.content.img[d].media_id + '" data-type="image"><img src="' + data.content.img[d].body + '"><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
+                    $('#posts-edit-post .post-preview-medias').append('<div data-id="' + data.content.img[d].media_id + '" data-type="image"><img src="' + data.content.img[d].body + '"><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
 
-                    
+
 
                 }
 
@@ -11622,35 +11977,41 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
             // Verify if the video exists
 
-            if ( data.content.video.length > 0 ) {
+            if (data.content.video.length > 0) {
 
-                
+
 
                 // Lists all videos
 
-                for ( var v = 0; v < data.content.video.length; v++ ) {
+                for (var v = 0; v < data.content.video.length; v++) {
 
-                 
+
 
                     // Add post's videos to the post variable
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
+                        +
+                        '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
 
 
@@ -11696,133 +12057,154 @@ jQuery(document).ready( function ($) {
 
                     // Remove default cover background
 
-                    $( '#posts-edit-post .post-preview-medias' ).css('background-color','#FFFFFF');
+                    $('#posts-edit-post .post-preview-medias').css('background-color', '#FFFFFF');
 
 
 
                     // Add medias in the post preview
 
-                    $( '#posts-edit-post .post-preview-medias' ).append('<div data-id="' + data.content.video[v].media_id + '" data-type="video"><video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
+                    $('#posts-edit-post .post-preview-medias').append('<div data-id="' + data.content.video[v].media_id + '" data-type="video"><video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video><a href="#" class="btn-delete-post-media"><i class="icon-close"></i></a><div>');
 
-                    
+
 
                 }
 
 
 
-            } 
+            }
 
-            
+
 
             // Profiles variable 
 
             var profiles_list = '';
 
-            
+
 
             // Verify if profiles exists
 
-            if ( data.content.profiles.length > 0 ) {
+            if (data.content.profiles.length > 0) {
 
-                
+
 
                 // Create the profiles list
 
-                profiles_list += '<ul>'; 
+                profiles_list += '<ul>';
 
-                
+
 
                 // List all profiles
 
-                for ( var p = 0; p < data.content.profiles.length; p++ ) {
+                for (var p = 0; p < data.content.profiles.length; p++) {
 
-                    
+
 
                     // Default publish status
 
                     var status = '<i class="icon-check"></i>';
 
-                    
+
 
                     // Verify if the post was published
 
-                    if ( data.content.profiles[p].status === '0' || data.content.profiles[p].status === '2' ) {
+                    if (data.content.profiles[p].status === '0' || data.content.profiles[p].status === '2') {
 
                         status = '<i class="icon-close"></i>';
 
                     }
 
-                 
+
 
                     // Add account to the list
 
                     profiles_list += '<li>'
 
-                                + '<div class="row">'
+                        +
+                        '<div class="row">'
 
-                                    + '<div class="col-2">'
+                        +
+                        '<div class="col-2">'
 
-                                        + data.content.profiles[p].icon
+                        +
+                        data.content.profiles[p].icon
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + '<div class="col-7 clean">'
+                        +
+                        '<div class="col-7 clean">'
 
-                                        + '<h3>' + data.content.profiles[p].user_name + '</h3>'
+                        +
+                        '<h3>' + data.content.profiles[p].user_name + '</h3>'
 
-                                        + '<p><i class="icon-user"></i> ' + data.content.profiles[p].network_name + '</p>'
+                        +
+                        '<p><i class="icon-user"></i> ' + data.content.profiles[p].network_name + '</p>'
 
-                                    + '</div>'                              
+                        +
+                        '</div>'
 
-                                    + '<div class="col-2 text-right">'
+                        +
+                        '<div class="col-2 text-right">'
 
-                                        + status
+                        +
+                        status
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>';
+                        +
+                        '</div>';
 
-                    
+
 
                     // Add publish status
 
-                    if ( data.content.profiles[p].network_status ) {
+                    if (data.content.profiles[p].network_status) {
 
 
 
                         profiles_list += '<div class="row">'
 
-                                    + '<div class="col-xl-12 publish-error">'
+                            +
+                            '<div class="col-xl-12 publish-error">'
 
-                                        + '<div class="publish-error-status">'
+                            +
+                            '<div class="publish-error-status">'
 
-                                            + '<div class="publish-error-status-header"></div>'
+                            +
+                            '<div class="publish-error-status-header"></div>'
 
-                                            + '<div class="publish-error-status-body">'
+                            +
+                            '<div class="publish-error-status-body">'
 
-                                                + '<p>' + data.content.profiles[p].network_status + '</p>'
+                            +
+                            '<p>' + data.content.profiles[p].network_status + '</p>'
 
-                                            + '</div>'
+                            +
+                            '</div>'
 
-                                        + '</div>'
+                            +
+                            '</div>'
 
-                                    + '</div>'
+                            +
+                            '</div>'
 
-                                + '</div>';                
+                            +
+                            '</div>';
 
 
 
                     }
 
-                        
+
 
                     profiles_list += '</li>';
 
-                    
+
 
                 }
 
-                
+
 
                 profiles_list += '</ul>';
 
@@ -11830,7 +12212,7 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
             // Set default time
 
@@ -11840,7 +12222,7 @@ jQuery(document).ready( function ($) {
 
             // Verify if the post is draft
 
-            if ( isNaN(data.content.datetime) ) {
+            if (isNaN(data.content.datetime)) {
 
 
 
@@ -11852,15 +12234,15 @@ jQuery(document).ready( function ($) {
 
                 // Display year, month and date
 
-                $( '#posts-edit-post .post-edit-date' ).val( '00-00-00' );
+                $('#posts-edit-post .post-edit-date').val('00-00-00');
 
 
 
                 // Verify if user has the 12 hours format
 
-                if ( $( '#posts-edit-post .midrub-calendar-time-period' ).length > 0 ) {
+                if ($('#posts-edit-post .midrub-calendar-time-period').length > 0) {
 
-    
+
 
                     // Set hour
 
@@ -11872,7 +12254,7 @@ jQuery(document).ready( function ($) {
 
                     $('#posts-edit-post .midrub-calendar-time-period').val('AM');
 
-                
+
 
                     // Set minutes
 
@@ -11886,13 +12268,13 @@ jQuery(document).ready( function ($) {
 
                     // Set hour
 
-                    $( '#posts-edit-post .midrub-calendar-time-hour' ).val('08');
+                    $('#posts-edit-post .midrub-calendar-time-hour').val('08');
 
 
 
                     // Set minutes
 
-                    $( '#posts-edit-post .midrub-calendar-time-minutes' ).val('00');
+                    $('#posts-edit-post .midrub-calendar-time-minutes').val('00');
 
 
 
@@ -11912,7 +12294,7 @@ jQuery(document).ready( function ($) {
 
                 // Get the date object
 
-                var date = new Date(data.content.datetime*1000);
+                var date = new Date(data.content.datetime * 1000);
 
 
 
@@ -11920,19 +12302,19 @@ jQuery(document).ready( function ($) {
 
                 var year = date.getFullYear();
 
-  
+
 
                 // Get month
 
                 var month = (((date.getMonth() + 1) < 10) ? '0' : '') + (date.getMonth() + 1);
 
-                
+
 
                 // Get the date
 
                 var day = ((date.getDate() < 10) ? '0' : '') + date.getDate();
 
-                
+
 
                 // Get hour
 
@@ -11948,29 +12330,29 @@ jQuery(document).ready( function ($) {
 
                 // Round minutes
 
-                minutes = ((((Math.round(minutes/10) * 10) % 60) < 10) ? '0' : '') + ((Math.round(minutes/10) * 10) % 60);
+                minutes = ((((Math.round(minutes / 10) * 10) % 60) < 10) ? '0' : '') + ((Math.round(minutes / 10) * 10) % 60);
 
 
 
                 // Display year, month and date
 
-                $( '#posts-edit-post .post-edit-date' ).val( year + '-' + month + '-'  + day );
+                $('#posts-edit-post .post-edit-date').val(year + '-' + month + '-' + day);
 
 
 
                 // Verify if user has the 12 hours format
 
-                if ( $( '#posts-edit-post .midrub-calendar-time-period' ).length > 0 ) {
+                if ($('#posts-edit-post .midrub-calendar-time-period').length > 0) {
 
 
 
-                    if ( parseInt(hours) > 11 ) {
+                    if (parseInt(hours) > 11) {
 
 
 
                         // New hour
 
-                        var new_hours = ((parseInt(hours) - 12) < 10)?'0' + (parseInt(hours) - 12):(parseInt(hours) - 12);
+                        var new_hours = ((parseInt(hours) - 12) < 10) ? '0' + (parseInt(hours) - 12) : (parseInt(hours) - 12);
 
 
 
@@ -11984,11 +12366,11 @@ jQuery(document).ready( function ($) {
 
                         $('#posts-edit-post .midrub-calendar-time-period').val('PM');
 
-    
+
 
                     } else {
 
-    
+
 
                         // Set hour
 
@@ -12000,11 +12382,11 @@ jQuery(document).ready( function ($) {
 
                         $('#posts-edit-post .midrub-calendar-time-period').val('AM');
 
-    
+
 
                     }
 
-                
+
 
                     // Set minutes
 
@@ -12018,13 +12400,13 @@ jQuery(document).ready( function ($) {
 
                     // Set hour
 
-                    $( '#posts-edit-post .midrub-calendar-time-hour' ).val(hours);
+                    $('#posts-edit-post .midrub-calendar-time-hour').val(hours);
 
 
 
                     // Set minutes
 
-                    $( '#posts-edit-post .midrub-calendar-time-minutes' ).val(minutes);
+                    $('#posts-edit-post .midrub-calendar-time-minutes').val(minutes);
 
 
 
@@ -12040,35 +12422,50 @@ jQuery(document).ready( function ($) {
 
             var actions = '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                +
+                '<div class="col-xl-12">'
 
-                                + '<div class="history-status-actions">'
+                +
+                '<div class="history-status-actions">'
 
-                                    + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                        + '<div class="col-xl-6">'
+                +
+                '<div class="col-xl-6">'
 
-                                            + '<p>' + time + '</p>'
+                +
+                '<p>' + time + '</p>'
 
-                                        + '</div>'
+                +
+                '</div>'
 
-                                        + '<div class="col-xl-6 text-right">'
+                +
+                '<div class="col-xl-6 text-right">'
 
-                                            + '<button type="button" class="btn btn-delete-post" data-id="' + data.content.post_id + '"><i class="icon-trash"></i> '
+                +
+                '<button type="button" class="btn btn-delete-post" data-id="' + data.content.post_id + '"><i class="icon-trash"></i> '
 
-                                                + data.content.delete_post
+                +
+                data.content.delete_post
 
-                                            + '</button>'
+                +
+                '</button>'
 
-                                        + '</div>'            
+                +
+                '</div>'
 
-                                    + '</div>'
+                +
+                '</div>'
 
-                                + '</div>'
+                +
+                '</div>'
 
-                            + '</div>'
+                +
+                '</div>'
 
-                        + '</div>';
+                +
+                '</div>';
 
 
 
@@ -12094,13 +12491,13 @@ jQuery(document).ready( function ($) {
 
             $('.posts-edit-post-form').attr('data-id', data.content.post_id);
 
-            
+
 
             // Display profiles
 
-            $('.history-profiles-list').html( actions + profiles_list );
+            $('.history-profiles-list').html(actions + profiles_list);
 
-            
+
 
             // Display post's content
 
@@ -12110,7 +12507,7 @@ jQuery(document).ready( function ($) {
 
             // Verify if the post was boosted
 
-            if ( data.content.boost.length > 0 ) {
+            if (data.content.boost.length > 0) {
 
 
 
@@ -12144,21 +12541,21 @@ jQuery(document).ready( function ($) {
 
 
 
-                if ( data.content.profiles.length > 0 ) {
+                if (data.content.profiles.length > 0) {
 
-                    
 
-                    for ( var p = 0; p < data.content.profiles.length; p++ ) {
 
-                        
+                    for (var p = 0; p < data.content.profiles.length; p++) {
 
-                        if ( data.content.profiles[p].network_id === data.content.boost[0].network_id ) {
+
+
+                        if (data.content.profiles[p].network_id === data.content.boost[0].network_id) {
 
 
 
                             $('.main .history-boost-control .col-2.text-right i').removeClass('icon-close');
 
-                            $('.main .history-boost-control .col-2.text-right i').addClass('icon-check');                            
+                            $('.main .history-boost-control .col-2.text-right i').addClass('icon-check');
 
 
 
@@ -12186,7 +12583,7 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
         } else {
 
@@ -12202,9 +12599,11 @@ jQuery(document).ready( function ($) {
 
             var no_post = '<p class="no-post-selected">'
 
-                            + data.message
+                +
+                data.message
 
-                            + '</p>';
+                +
+                '</p>';
 
 
 
@@ -12214,15 +12613,15 @@ jQuery(document).ready( function ($) {
 
             $('.history-profiles-list').html(no_post);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -12240,83 +12639,97 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.scheduled_get_post_content = function ( status, data ) {
+    Main.methods.scheduled_get_post_content = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var post = '';
 
 
 
-            if ( data.content.title !== '' || data.content.title !== null ) {
+            if (data.content.title !== '' || data.content.title !== null) {
 
-                
+
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<h3>' + data.content.title + '</h3>'
+                    +
+                    '<h3>' + data.content.title + '</h3>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
             }
 
-            
 
-            if ( data.content.body !== '' ) {
 
-                
+            if (data.content.body !== '') {
+
+
 
                 post += '<div class="row">'
 
-                            + '<div class="col-xl-12 mb-3">'
+                    +
+                    '<div class="col-xl-12 mb-3">'
 
-                                + data.content.body
+                    +
+                    data.content.body
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
 
 
             }
 
-            
 
-            if ( data.content.img.length > 0 ) {
 
-                
+            if (data.content.img.length > 0) {
 
-                for ( var d = 0; d < data.content.img.length; d++ ) {
 
-                 
+
+                for (var d = 0; d < data.content.img.length; d++) {
+
+
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<img src="' + data.content.img[d].body + '">'
+                        +
+                        '<img src="' + data.content.img[d].body + '">'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                    
+
 
                 }
 
@@ -12324,101 +12737,120 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
 
-            if ( data.content.video.length > 0 ) {
 
-                
+            if (data.content.video.length > 0) {
 
-                for ( var v = 0; v < data.content.video.length; v++ ) {
 
-                 
+
+                for (var v = 0; v < data.content.video.length; v++) {
+
+
 
                     post += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="post-history-media">'
+                        +
+                        '<div class="post-history-media">'
 
-                                        + '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
+                        +
+                        '<video controls><source src="' + data.content.video[v].body + '" type="video/mp4"></video>'
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                    
+
 
                 }
 
 
 
-            } 
+            }
 
-            
+
 
             var profiles_list = '';
 
-            
 
-            if ( data.content.profiles.length > 0 ) {
 
-                
+            if (data.content.profiles.length > 0) {
 
-                profiles_list += '<ul>'; 
 
-                
 
-                for ( var p = 0; p < data.content.profiles.length; p++ ) {
+                profiles_list += '<ul>';
 
-                    
+
+
+                for (var p = 0; p < data.content.profiles.length; p++) {
+
+
 
                     var status = '<i class="icon-check"></i>';
 
-                    
 
-                    if ( data.content.profiles[p].status === '0' || data.content.profiles[p].status === '2' ) {
+
+                    if (data.content.profiles[p].status === '0' || data.content.profiles[p].status === '2') {
 
                         status = '<i class="icon-close"></i>';
 
                     }
 
-                 
+
 
                     profiles_list += '<li>'
 
-                                + '<div class="row">'
+                        +
+                        '<div class="row">'
 
-                                    + '<div class="col-xl-2 col-sm-2 text-center">'
+                        +
+                        '<div class="col-xl-2 col-sm-2 text-center">'
 
-                                        + data.content.profiles[p].icon
+                        +
+                        data.content.profiles[p].icon
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                    + '<div class="col-xl-8 col-sm-8 clean">'
+                        +
+                        '<div class="col-xl-8 col-sm-8 clean">'
 
-                                        + '<h3>' + data.content.profiles[p].user_name + '</h3>'
+                        +
+                        '<h3>' + data.content.profiles[p].user_name + '</h3>'
 
-                                        + '<p><i class="icon-user"></i> ' + data.content.profiles[p].network_name + '</p>'
+                        +
+                        '<p><i class="icon-user"></i> ' + data.content.profiles[p].network_name + '</p>'
 
-                                    + '</div>'                              
+                        +
+                        '</div>'
 
-                                    + '<div class="col-xl-2 col-sm-2 text-center">'
+                        +
+                        '<div class="col-xl-2 col-sm-2 text-center">'
 
-                                        + status
+                        +
+                        status
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</li>';
+                        +
+                        '</li>';
 
-                    
+
 
                 }
 
-                
+
 
                 profiles_list += '</ul>';
 
@@ -12426,13 +12858,13 @@ jQuery(document).ready( function ($) {
 
             }
 
-            
+
 
             var time;
 
 
 
-            if ( isNaN(data.content.datetime) ) {
+            if (isNaN(data.content.datetime)) {
 
                 time = data.content.datetime;
 
@@ -12446,53 +12878,68 @@ jQuery(document).ready( function ($) {
 
             var actions = '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                +
+                '<div class="col-xl-12">'
 
-                                + '<div class="scheduler-status-actions">'
+                +
+                '<div class="scheduler-status-actions">'
 
-                                    + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                        + '<div class="col-xl-6">'
+                +
+                '<div class="col-xl-6">'
 
-                                            + time
+                +
+                time
 
-                                        + '</div>'
+                +
+                '</div>'
 
-                                        + '<div class="col-xl-6 text-right">'
+                +
+                '<div class="col-xl-6 text-right">'
 
-                                            + '<button type="button" class="btn btn-delete-post" data-id="' + data.content.post_id + '"><i class="icon-trash"></i> '
+                +
+                '<button type="button" class="btn btn-delete-post" data-id="' + data.content.post_id + '"><i class="icon-trash"></i> '
 
-                                                + data.content.delete_post
+                +
+                data.content.delete_post
 
-                                            + '</button>'
+                +
+                '</button>'
 
-                                        + '</div>'            
+                +
+                '</div>'
 
-                                    + '</div>'
+                +
+                '</div>'
 
-                                + '</div>'
+                +
+                '</div>'
 
-                            + '</div>'
+                +
+                '</div>'
 
-                        + '</div>';
+                +
+                '</div>';
 
-            
 
-            $('.scheduler-preview-profiles-list').html( actions + profiles_list );
 
-            
+            $('.scheduler-preview-profiles-list').html(actions + profiles_list);
+
+
 
             $('.scheduler-preview-post-content').html(post);
 
-            
+
 
         } else {
 
-            
+
 
         }
 
-        
+
 
     };
 
@@ -12500,11 +12947,13 @@ jQuery(document).ready( function ($) {
 
     function convertTZ(date, tzString) {
 
-        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+            timeZone: tzString
+        }));
 
     }
 
-    
+
 
     /*
 
@@ -12522,19 +12971,19 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.scheduler_display_all_posts = function ( status, data ) {
+    Main.methods.scheduler_display_all_posts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            $('#calendar').fullCalendar('removeEventSources'); 
 
-            
+            $('#calendar').fullCalendar('removeEventSources');
+
+
 
             var events = [];
 
@@ -12546,75 +12995,79 @@ jQuery(document).ready( function ($) {
 
                 for (var d = 0; d < data.posts.length; d++) {
 
-                    
+
 
                     var body = data.posts[d].body;
 
-                    
+
 
                     var img = '';
 
-                    
 
-                    if ( data.posts[d].img.length ) {
 
-                        
+                    if (data.posts[d].img.length) {
 
-                        img = '<p class="text-center">'
 
-                                + '<img src="' + data.posts[d].img + '">'
-
-                            + '</p>';
-
-                        
-
-                    } else if ( data.posts[d].video.length ) {
-
-                        
 
                         img = '<p class="text-center">'
 
-                                + '<img src="' + data.posts[d].video + '">'
+                            +
+                            '<img src="' + data.posts[d].img + '">'
 
-                            + '</p>';
+                            +
+                            '</p>';
 
-                        
+
+
+                    } else if (data.posts[d].video.length) {
+
+
+
+                        img = '<p class="text-center">'
+
+                            +
+                            '<img src="' + data.posts[d].video + '">'
+
+                            +
+                            '</p>';
+
+
 
                     }
 
-                    
+
 
                     var icons = '';
 
-                    
 
-                    if ( data.posts[d].icons ) {
 
-                        
+                    if (data.posts[d].icons) {
+
+
 
                         var all_icons = data.posts[d].icons;
 
-                        
 
-                        for ( var e = 0; e < all_icons.length; e++ ) {
+
+                        for (var e = 0; e < all_icons.length; e++) {
 
                             icons += all_icons[e];
 
                         }
 
-                        
+
 
                     }
 
-                    
 
-                    var time = Main.calculate_time(data.posts[d].time, Date.now()/1000);
+
+                    var time = Main.calculate_time(data.posts[d].time, Date.now() / 1000);
 
 
 
                     // Set current time
 
-                    var currentdate = (words.timezone)?convertTZ(new Date(data.posts[d].time * 1000), words.timezone):new Date(data.posts[d].time * 1000);
+                    var currentdate = (words.timezone) ? convertTZ(new Date(data.posts[d].time * 1000), words.timezone) : new Date(data.posts[d].time * 1000);
 
 
 
@@ -12622,35 +13075,35 @@ jQuery(document).ready( function ($) {
 
                     var datetime = currentdate.getFullYear() + '-';
 
-                    
+
 
                     // Set month
 
-                    datetime += ((currentdate.getMonth() + 1) < 10)?'0' + (currentdate.getMonth() + 1) + '-':(currentdate.getMonth() + 1) + '-';
+                    datetime += ((currentdate.getMonth() + 1) < 10) ? '0' + (currentdate.getMonth() + 1) + '-' : (currentdate.getMonth() + 1) + '-';
 
 
 
                     // Set date
 
-                    datetime += (currentdate.getDate() < 10)?'0' + currentdate.getDate() + ' ':currentdate.getDate() + ' ';
+                    datetime += (currentdate.getDate() < 10) ? '0' + currentdate.getDate() + ' ' : currentdate.getDate() + ' ';
 
 
 
                     // Set hour
 
-                    datetime += (currentdate.getHours() < 10)?'0' + currentdate.getHours() + ':':currentdate.getHours() + ':';
+                    datetime += (currentdate.getHours() < 10) ? '0' + currentdate.getHours() + ':' : currentdate.getHours() + ':';
 
-                    
+
 
                     // Set minutes
 
-                    datetime += (currentdate.getMinutes() < 10)?'0' + currentdate.getMinutes() + ':':currentdate.getMinutes() + ':';
+                    datetime += (currentdate.getMinutes() < 10) ? '0' + currentdate.getMinutes() + ':' : currentdate.getMinutes() + ':';
 
-                    
+
 
                     // Set seconds
 
-                    datetime += (currentdate.getSeconds() < 10)?'0' + currentdate.getSeconds():currentdate.getSeconds();
+                    datetime += (currentdate.getSeconds() < 10) ? '0' + currentdate.getSeconds() : currentdate.getSeconds();
 
 
 
@@ -12658,9 +13111,11 @@ jQuery(document).ready( function ($) {
 
                         title: img
 
-                            + '<p>' + body.substr(0, 30) + ' ... <span>' + time + '</span></p>'
+                            +
+                            '<p>' + body.substr(0, 30) + ' ... <span>' + time + '</span></p>'
 
-                            + '<p>' + icons + '</p>',
+                            +
+                            '<p>' + icons + '</p>',
 
                         start: datetime,
 
@@ -12680,15 +13135,15 @@ jQuery(document).ready( function ($) {
 
             $('#calendar').fullCalendar('addEventSource', events);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -12706,57 +13161,57 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_post_delete_post = function ( status, data ) {
+    Main.methods.insights_post_delete_post = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Hide insights area
 
             $('#insights-posts > .row > .col-xl-4').hide();
 
-            
+
 
             // Hide post 
 
-            $( '#insights-posts .col-xl-5 .panel' ).addClass( 'no-selected-post' );
+            $('#insights-posts .col-xl-5 .panel').addClass('no-selected-post');
 
-            
+
 
             // Load Insights posts
 
             Main.insights_all_posts(1);
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -12774,45 +13229,45 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_account_display_post_insights = function ( status, data ) {
+    Main.methods.insights_account_display_post_insights = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display hidden canvas
 
             $('#insights-accounts-post-graph-' + data.post_id).show();
 
-            
+
 
             // Display insights graph
 
             Main.display_insights_graph('insights-accounts-post-graph-' + data.post_id, data.insights);
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
 
-    };    
 
-    
+    };
+
+
 
     /*
 
@@ -12830,61 +13285,61 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.insights_display_account_details = function ( status, data ) {
+    Main.methods.insights_display_account_details = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( typeof data.message !== 'undefined' ) {
 
-                
+            if (typeof data.message !== 'undefined') {
+
+
 
                 // Display alert
 
                 Main.popup_fon('subi', data.message, 1500, 2000);
 
-                
+
 
             }
 
-            
 
-            if ( Array.isArray( data.posts ) === true ) {
 
-                
+            if (Array.isArray(data.posts) === true) {
+
+
 
                 var posts = '';
 
-            
 
-                for ( var p = 0; p < data.posts.length; p++ ) {
+
+                for (var p = 0; p < data.posts.length; p++) {
 
 
 
                     var reactions = Main.display_insights_reactions(data.posts[p].reactions, data.network_id, data.configuration);
 
-                    
+
 
                     var insights = '';
 
-                    
+
 
                     var insights_links = '';
 
-                    
+
 
                     var post_deletion = '';
 
-                    
+
 
                     // Verify if post's insights are enabled
 
-                    if ( data.configuration.post_insights === true ) {
+                    if (data.configuration.post_insights === true) {
 
                         insights_links = '<a class="dropdown-item insights-accounts-get-post-insights" href="#">' + data.configuration.words.insights + '</a>';
 
@@ -12892,43 +13347,51 @@ jQuery(document).ready( function ($) {
 
                     }
 
-                    
 
-                    if ( data.configuration.post_deletion === true )  {
+
+                    if (data.configuration.post_deletion === true) {
 
                         post_deletion = '<a class="dropdown-item insights-delete-account-post" href="#">' + data.configuration.words.delete_post + '</a>';
 
                     }
 
-                    
+
 
                     var dropdown = '';
 
-                    
 
-                    if ( data.configuration.post_insights === true || data.configuration.post_deletion === true ) {
 
-                    
+                    if (data.configuration.post_insights === true || data.configuration.post_deletion === true) {
+
+
 
                         var dropdown = '<div class="dropdown show">'
 
-                                            + '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                            +
+                            '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
 
-                                                + '<i class="icon-arrow-down"></i>'
+                            +
+                            '<i class="icon-arrow-down"></i>'
 
-                                            + '</a>'
+                            +
+                            '</a>'
 
-                                            + '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'
+                            +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'
 
-                                                + insights_links
+                            +
+                            insights_links
 
-                                                + post_deletion
+                            +
+                            post_deletion
 
-                                            + '</div>'
+                            +
+                            '</div>'
 
-                                        + '</div>';
+                            +
+                            '</div>';
 
-                                        
+
 
                     }
 
@@ -12936,41 +13399,59 @@ jQuery(document).ready( function ($) {
 
                     posts += '<div class="row">'
 
-                                + '<div class="col-xl-12">'
+                        +
+                        '<div class="col-xl-12">'
 
-                                    + '<div class="panel theme-box panel-primary" data-id="' + data.posts[p].id + '">'
+                        +
+                        '<div class="panel theme-box panel-primary" data-id="' + data.posts[p].id + '">'
 
-                                        + '<div class="panel-heading" id="accordion">'
+                        +
+                        '<div class="panel-heading" id="accordion">'
 
-                                            + '<h3>'
+                        +
+                        '<h3>'
 
-                                                + '<img src="' + data.user_picture + '" onerror="this.src=\'' + url + 'assets/img/avatar-placeholder.png' + '\';">'
+                        +
+                        '<img src="' + data.user_picture + '" onerror="this.src=\'' + url + 'assets/img/avatar-placeholder.png' + '\';">'
 
-                                                + '<a href="#">' + data.user_name + '</a>'
+                        +
+                        '<a href="#">' + data.user_name + '</a>'
 
-                                                + '<span>' + data.network_name + '</span>'
+                        +
+                        '<span>' + data.network_name + '</span>'
 
-                                                + dropdown
+                        +
+                        dropdown
 
-                                            + '</h3>'                                                                        
+                        +
+                        '</h3>'
 
-                                        + '</div>'
+                        +
+                        '</div>'
 
-                                        + '<div class="panel-body">'
+                        +
+                        '<div class="panel-body">'
 
-                                            + data.posts[p].content
+                        +
+                        data.posts[p].content
 
-                                            + insights
+                        +
+                        insights
 
-                                        + '</div>'
+                        +
+                        '</div>'
 
-                                        + reactions
+                        +
+                        reactions
 
-                                    + '</div>'
+                        +
+                        '</div>'
 
-                                + '</div>'
+                        +
+                        '</div>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
 
 
@@ -12980,7 +13461,7 @@ jQuery(document).ready( function ($) {
 
                 // Display posts
 
-                $( '#insights-accounts > .row > .col-xl-5' ).html( posts );
+                $('#insights-accounts > .row > .col-xl-5').html(posts);
 
 
 
@@ -12994,69 +13475,77 @@ jQuery(document).ready( function ($) {
 
                 Main.display_insights_graph('insights-accounts-graph', data.insights);
 
-                
+
 
             } else {
 
-                
+
 
                 // Display insights area
 
                 $('#insights-accounts > .row > .col-xl-4').hide();
 
-                
+
 
                 var posts = '<div class="row">'
 
-                            + '<div class="col-xl-12">'
+                    +
+                    '<div class="col-xl-12">'
 
-                                + '<div class="panel theme-box no-selected-post panel-primary">'
+                    +
+                    '<div class="panel theme-box no-selected-post panel-primary">'
 
-                                    + '<div class="panel-no-selected-post">'
+                    +
+                    '<div class="panel-no-selected-post">'
 
-                                        + '<p class="no-post-selected">' + data.configuration.words.no_posts_found + '</p>'
+                    +
+                    '<p class="no-post-selected">' + data.configuration.words.no_posts_found + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                + '</div>'
+                    +
+                    '</div>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>';
+                    +
+                    '</div>';
 
-                
+
 
                 // Display posts
 
-                $( '#insights-accounts > .row > .col-xl-5' ).html( posts );                
+                $('#insights-accounts > .row > .col-xl-5').html(posts);
 
-                
+
 
             }
 
-            
+
 
             $('#insights-reply-comments .reactions-msg').val('');
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13074,53 +13563,53 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_get_accounts = function ( status, data ) {
+    Main.methods.account_manager_get_accounts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            if ( data.type === 'accounts_manager' ) {
 
-                
+            if (data.type === 'accounts_manager') {
+
+
 
                 // Verify if hidden content exists
 
-                if ( data.hidden ) {
+                if (data.hidden) {
 
-                    $( '.main .manage-accounts-hidden-content' ).html(data.hidden);
+                    $('.main .manage-accounts-hidden-content').html(data.hidden);
 
                 } else {
 
-                    $( '.main .manage-accounts-hidden-content' ).empty();
+                    $('.main .manage-accounts-hidden-content').empty();
 
                 }
 
-                
 
-                $( '.main .manage-accounts-hidden-content' ).fadeOut('fast');
 
-            
+                $('.main .manage-accounts-hidden-content').fadeOut('fast');
+
+
 
                 // Display accounts
 
-                $( '#accounts-manager-popup .manage-accounts-all-accounts' ).html(data.active);
+                $('#accounts-manager-popup .manage-accounts-all-accounts').html(data.active);
 
 
 
                 // Display network's instructions
 
-                $( '#accounts-manager-popup .manage-accounts-network-instructions' ).html(data.instructions);
+                $('#accounts-manager-popup .manage-accounts-network-instructions').html(data.instructions);
 
 
 
                 // Display search form
 
-                $( '#accounts-manager-popup .manage-accounts-search-form' ).html(data.search_form);
+                $('#accounts-manager-popup .manage-accounts-search-form').html(data.search_form);
 
 
 
@@ -13134,65 +13623,65 @@ jQuery(document).ready( function ($) {
 
             } else {
 
-                
+
 
                 // Display accounts
 
-                $( '#accounts-manager-popup .manage-accounts-groups-all-accounts' ).html(data.active);
+                $('#accounts-manager-popup .manage-accounts-groups-all-accounts').html(data.active);
 
 
 
-                if ( $('.accounts-manager-groups-select-group .btn-secondary').attr('data-id') ) {
+                if ($('.accounts-manager-groups-select-group .btn-secondary').attr('data-id')) {
 
-                    
+
 
                     // Remove selected accounts
 
-                    $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+                    $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
-                    
+
 
                     var group_accounts = $('main .create-new-group-form .accounts-manager-groups-available-accounts li');
 
 
 
-                    for ( var g = 0; g < group_accounts.length; g++ ) {
+                    for (var g = 0; g < group_accounts.length; g++) {
 
-                        
 
-                        $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + group_accounts.eq(g).find('a').attr('data-id') + '"]' ).closest( 'li' ).addClass( 'select-account-in-group' );
 
-                        
+                        $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + group_accounts.eq(g).find('a').attr('data-id') + '"]').closest('li').addClass('select-account-in-group');
+
+
 
                     }
 
-                    
+
 
                 }
 
-                
+
 
             }
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13210,39 +13699,39 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_load_networks = function ( status, data ) {
+    Main.methods.account_manager_load_networks = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
 
-            $( '#nav-accounts-manager' ).html( data.social_data );
 
-            
+            $('#nav-accounts-manager').html(data.social_data);
 
-            if ( $( '#nav-groups-manager' ).length > 0 ) {
 
-                
 
-                $( '#nav-groups-manager' ).html( data.groups_data );
+            if ($('#nav-groups-manager').length > 0) {
 
-            
+
+
+                $('#nav-groups-manager').html(data.groups_data);
+
+
 
             }
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13260,71 +13749,71 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_search_for_accounts = function ( status, data ) {
+    Main.methods.account_manager_search_for_accounts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
-
-            
-
-            if ( data.type === 'accounts_manager' ) {
+        if (status === 'success') {
 
 
 
-                $( document ).find( '#nav-accounts-manager .manage-accounts-all-accounts' ).html( data.social_data );
+            if (data.type === 'accounts_manager') {
 
-                
+
+
+                $(document).find('#nav-accounts-manager .manage-accounts-all-accounts').html(data.social_data);
+
+
 
             } else {
 
-                
 
-                $( document ).find( '#nav-groups-manager .manage-accounts-groups-all-accounts' ).html( data.social_data );
 
-                
+                $(document).find('#nav-groups-manager .manage-accounts-groups-all-accounts').html(data.social_data);
+
+
 
             }
 
-            
+
 
         } else {
 
-            
 
-            if ( $('#nav-accounts-manager').hasClass('show') ) {
 
-                
+            if ($('#nav-accounts-manager').hasClass('show')) {
 
-                $( document ).find('#nav-accounts-manager .manage-accounts-all-accounts').html( data.message );
 
-                
+
+                $(document).find('#nav-accounts-manager .manage-accounts-all-accounts').html(data.message);
+
+
 
             } else {
 
-                
 
-                $( document ).find( '#nav-groups-manager .manage-accounts-groups-all-accounts' ).html( data.social_data );
 
-                
+                $(document).find('#nav-groups-manager .manage-accounts-groups-all-accounts').html(data.social_data);
 
-            }         
 
-            
+
+            }
+
+
 
         }
 
-        
 
-        if ( $('.accounts-manager-groups-select-group .btn-secondary').attr('data-id') ) {
+
+        if ($('.accounts-manager-groups-select-group .btn-secondary').attr('data-id')) {
 
 
 
             // Remove selected accounts
 
-            $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+            $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
 
 
@@ -13332,11 +13821,11 @@ jQuery(document).ready( function ($) {
 
 
 
-            for ( var g = 0; g < group_accounts.length; g++ ) {
+            for (var g = 0; g < group_accounts.length; g++) {
 
 
 
-                $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + group_accounts.eq(g).find('a').attr('data-id') + '"]' ).closest( 'li' ).addClass( 'select-account-in-group' );
+                $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + group_accounts.eq(g).find('a').attr('data-id') + '"]').closest('li').addClass('select-account-in-group');
 
 
 
@@ -13346,11 +13835,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-    }; 
 
-    
+    };
+
+
 
     /*
 
@@ -13368,15 +13857,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_delete_accounts = function ( status, data ) {
+    Main.methods.account_manager_delete_accounts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
@@ -13388,25 +13877,25 @@ jQuery(document).ready( function ($) {
 
             $('#nav-accounts-manager .accounts-manager-active-accounts-list li a[data-id="' + data.account_id + '"]').closest('li').remove();
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13424,79 +13913,81 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_create_accounts_group = function ( status, data ) {
+    Main.methods.account_manager_create_accounts_group = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Empty the group name field
 
             $('.accounts-manager-groups-enter-group-name').val('');
 
-            
+
 
             // Get groups
 
             var groups = data.groups;
 
-            
+
 
             var all_groups = '';
 
-            
 
-            for ( var w = 0; w < groups.length; w++ ) {
 
-                
+            for (var w = 0; w < groups.length; w++) {
+
+
 
                 all_groups += '<button class="dropdown-item" type="button" data-id="' + groups[w].list_id + '">'
 
-                                + groups[w].name
+                    +
+                    groups[w].name
 
-                            + '</button>';
+                    +
+                    '</button>';
 
-                
+
 
             }
 
-            
 
-            $( document ).find( '.create-new-group-form .dropdown-menu' ).html( all_groups );
 
-            
+            $(document).find('.create-new-group-form .dropdown-menu').html(all_groups);
 
-            $( document ).find( '.create-new-group-form .dropdown-menu button[data-id="' + data.group_id + '"]' ).click();
 
-            
+
+            $(document).find('.create-new-group-form .dropdown-menu button[data-id="' + data.group_id + '"]').click();
+
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13514,77 +14005,81 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.accounts_manager_groups_available_accounts = function ( status, data ) {
+    Main.methods.accounts_manager_groups_available_accounts = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var accounts = '';
 
 
 
-            for ( var a = 0; a < data.accounts.length; a++ ) {
+            for (var a = 0; a < data.accounts.length; a++) {
 
-                
 
-                $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]' ).closest( 'li' ).addClass( 'select-account-in-group' );
 
-                
+                $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]').closest('li').addClass('select-account-in-group');
+
+
 
                 accounts += '<li>'
 
-                                + '<a href="#" data-id="' + data.accounts[a].network_id + '">' + data.accounts[a].user_name + ' <i class="icon-trash"></i></a>'
+                    +
+                    '<a href="#" data-id="' + data.accounts[a].network_id + '">' + data.accounts[a].user_name + ' <i class="icon-trash"></i></a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
+
 
             // Display accounts
 
-            $('.main #nav-groups-manager .accounts-manager-groups-available-accounts').html( accounts );
+            $('.main #nav-groups-manager .accounts-manager-groups-available-accounts').html(accounts);
 
-            
+
 
         } else {
 
-            
+
 
             var accounts = '<li class="no-accounts-found">'
 
-                                + data.message
+                +
+                data.message
 
-                            + '</li>';
+                +
+                '</li>';
 
-            
+
 
             // Display no accounts found message
 
-            $('.main #nav-groups-manager .accounts-manager-groups-available-accounts').html( accounts );
+            $('.main #nav-groups-manager .accounts-manager-groups-available-accounts').html(accounts);
 
-            
+
 
         }
 
-        
 
-        $( '.main .accounts-manager-groups-select-group .col-xl-12' ).eq(1).fadeIn('slow');
 
-        $( '.main .accounts-manager-groups-select-group .col-xl-12' ).eq(2).fadeIn('slow');
+        $('.main .accounts-manager-groups-select-group .col-xl-12').eq(1).fadeIn('slow');
 
-        
+        $('.main .accounts-manager-groups-select-group .col-xl-12').eq(2).fadeIn('slow');
+
+
 
     };
 
-    
+
 
     /*
 
@@ -13602,21 +14097,21 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.accounts_manager_groups_delete_group = function ( status, data ) {
+    Main.methods.accounts_manager_groups_delete_group = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Change the selector text
 
@@ -13624,73 +14119,75 @@ jQuery(document).ready( function ($) {
 
             $('.accounts-manager-groups-select-group .btn-secondary').removeAttr('data-id');
 
-            
+
 
             // Remove active class
 
-            $( 'main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item' ).removeClass( 'active' );
+            $('main .accounts-manager-groups-select-group .dropdown-menu .dropdown-item').removeClass('active');
 
-            $( 'main .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+            $('main .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
-            
+
 
             // Hide accounts and deletion button area
 
             $('.accounts-manager-groups-select-group .accounts-manager-groups-available-accounts').empty();
 
-            $( '.main .accounts-manager-groups-select-group .col-xl-12' ).eq(1).fadeOut('slow');
+            $('.main .accounts-manager-groups-select-group .col-xl-12').eq(1).fadeOut('slow');
 
-            $( '.main .accounts-manager-groups-select-group .col-xl-12' ).eq(2).fadeOut('slow');
+            $('.main .accounts-manager-groups-select-group .col-xl-12').eq(2).fadeOut('slow');
 
-            
+
 
             // Get groups
 
             var groups = data.groups;
 
-            
+
 
             var all_groups = '';
 
-            
 
-            for ( var w = 0; w < groups.length; w++ ) {
 
-                
+            for (var w = 0; w < groups.length; w++) {
+
+
 
                 all_groups += '<button class="dropdown-item" type="button" data-id="' + groups[w].list_id + '">'
 
-                                + groups[w].name
+                    +
+                    groups[w].name
 
-                            + '</button>';
+                    +
+                    '</button>';
 
-                
+
 
             }
 
-            
 
-            $( document ).find( '.create-new-group-form .dropdown-menu' ).html( all_groups );
 
-            
+            $(document).find('.create-new-group-form .dropdown-menu').html(all_groups);
+
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13708,77 +14205,81 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_add_account_to_group = function ( status, data ) {
+    Main.methods.account_manager_add_account_to_group = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Remove selected accounts
 
-            $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+            $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
-            
+
 
             var accounts = '';
 
-            
 
-            for ( var a = 0; a < data.accounts.length; a++ ) {
 
-                
+            for (var a = 0; a < data.accounts.length; a++) {
 
-                $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]' ).closest( 'li' ).addClass( 'select-account-in-group' );
 
-                
+
+                $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]').closest('li').addClass('select-account-in-group');
+
+
 
                 accounts += '<li>'
 
-                                    + '<a href="#" data-id="' + data.accounts[a].network_id + '">'
+                    +
+                    '<a href="#" data-id="' + data.accounts[a].network_id + '">'
 
-                                        + data.accounts[a].user_name + ' <i class="icon-trash"></i>'
+                    +
+                    data.accounts[a].user_name + ' <i class="icon-trash"></i>'
 
-                                    + '</a>'
+                    +
+                    '</a>'
 
-                                + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( document ).find( '.create-new-group-form .accounts-manager-groups-available-accounts' ).html( accounts );
 
-            
+            $(document).find('.create-new-group-form .accounts-manager-groups-available-accounts').html(accounts);
+
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13796,93 +14297,97 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.account_manager_remove_account_from_group = function ( status, data ) {
+    Main.methods.account_manager_remove_account_from_group = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             if (typeof data.accounts === 'string' || data.accounts instanceof String) {
 
-                
+
 
                 accounts = data.accounts;
 
-                
+
 
             } else {
 
-                
+
 
                 // Remove selected accounts
 
-                $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li' ).removeClass( 'select-account-in-group' );
+                $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li').removeClass('select-account-in-group');
 
-            
+
 
                 var accounts = '';
 
 
 
-                for ( var a = 0; a < data.accounts.length; a++ ) {
+                for (var a = 0; a < data.accounts.length; a++) {
 
-                    
 
-                    $( '.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]' ).closest( 'li' ).addClass( 'select-account-in-group' );
+
+                    $('.main #nav-groups-manager .accounts-manager-groups-active-accounts li a[data-id="' + data.accounts[a].network_id + '"]').closest('li').addClass('select-account-in-group');
 
 
 
                     accounts += '<li>'
 
-                                    + '<a href="#" data-id="' + data.accounts[a].network_id + '">'
+                        +
+                        '<a href="#" data-id="' + data.accounts[a].network_id + '">'
 
-                                        + data.accounts[a].user_name + ' <i class="icon-trash"></i>'
+                        +
+                        data.accounts[a].user_name + ' <i class="icon-trash"></i>'
 
-                                    + '</a>'
+                        +
+                        '</a>'
 
-                                + '</li>';
+                        +
+                        '</li>';
 
 
 
                 }
 
-            
+
 
             }
 
-            
 
-            $( document ).find( '.create-new-group-form .accounts-manager-groups-available-accounts' ).html( accounts );
 
-            
+            $(document).find('.create-new-group-form .accounts-manager-groups-available-accounts').html(accounts);
+
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -13900,143 +14405,143 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.rss_feeds_save_new_rss_feed = function ( status, data ) {
+    Main.methods.rss_feeds_save_new_rss_feed = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Empty the input field
 
             $('.rss-feeds-enter-rss-url').val('');
 
-            
+
 
             // Verify if last_id exists
 
-            if ( data.last_id ) {
+            if (data.last_id) {
 
-                
+
 
                 // Get RSS's content
 
                 var rss_content = data.rss_content;
 
-                
+
 
                 // Get the titles
 
                 var title = rss_content.title;
 
-                
+
 
                 // Define the RSS's content
 
                 var content = '';
 
-                
+
 
                 var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
 
-                
 
-                for ( var d = 0; d < title.length; d++ ) {
 
-                    
+                for (var d = 0; d < title.length; d++) {
+
+
 
                     content += '<div class="col-xl-12 rss-feeds-rss-content-single">';
 
-                    
 
-                        content += '<h3>' + title[d] + '</h3>';
 
-                        
-
-                        if ( rss_content.description ) {
-
-                            
-
-                            var new_preview = rss_content.description[d].replace(/\n/g, '</p><p>');
-
-                            
-
-                            content += '<p>' + new_preview + '</p>';
-
-                            
-
-                        }
-
-                        
-
-                        if ( rss_content.show ) {
-
-                            
-
-                            if ( regex.test( rss_content.show[d] ) ) {
-
-                            
-
-                                content += '<p><img src="' + rss_content.show[d] + '"></p>';
+                    content += '<h3>' + title[d] + '</h3>';
 
 
 
-                            }
+                    if (rss_content.description) {
 
-                            
+
+
+                        var new_preview = rss_content.description[d].replace(/\n/g, '</p><p>');
+
+
+
+                        content += '<p>' + new_preview + '</p>';
+
+
+
+                    }
+
+
+
+                    if (rss_content.show) {
+
+
+
+                        if (regex.test(rss_content.show[d])) {
+
+
+
+                            content += '<p><img src="' + rss_content.show[d] + '"></p>';
+
+
 
                         }
 
-                        
 
-                        if ( rss_content.url ) {
 
-                            
+                    }
 
-                            content += '<p><a href="' + rss_content.url[d] + '" target="_blank">' + rss_content.url[d] + '</a></p>';
 
-                            
 
-                        }
+                    if (rss_content.url) {
 
-                    
+
+
+                        content += '<p><a href="' + rss_content.url[d] + '" target="_blank">' + rss_content.url[d] + '</a></p>';
+
+
+
+                    }
+
+
 
                     content += '</div>';
 
-                    
+
 
                 }
 
-                
+
 
                 $('.rss-feeds-rss-content').html(content);
 
-                
 
-                setTimeout(function(){
 
-                    
+                setTimeout(function () {
+
+
 
                     document.location.href = url + 'user/app/posts?q=rss&rss_id=' + data.last_id;
 
-                    
+
 
                 }, 1000);
 
-                        
+
 
             }
 
-            
+
 
         } else {
 
@@ -14046,23 +14551,25 @@ jQuery(document).ready( function ($) {
 
             var content = '<div class="col-xl-12 rss-feeds-rss-content-single">'
 
-                            + '<h6>' + data.message + '</h6>';
+                +
+                '<h6>' + data.message + '</h6>';
 
-                        + '</div>';
+            +
+            '</div>';
 
 
 
             $('.rss-feeds-rss-content').html(content);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -14080,49 +14587,49 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.load_rss_feeds = function ( status, data ) {
+    Main.methods.load_rss_feeds = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var rss_feeds = '';
 
-            
+
 
             Main.pagination.page = data.page;
 
             Main.show_pagination('#nav-rss', data.total);
 
-            
 
-            for ( var r = 0; r < data.rss_feeds.length; r++ ) {
 
-                
+            for (var r = 0; r < data.rss_feeds.length; r++) {
+
+
 
                 var enabled = 'far';
 
-                
+
 
                 var selected = 0;
 
 
 
-                if ( data.rss_feeds[r].enabled !== '0' ) {
+                if (data.rss_feeds[r].enabled !== '0') {
 
                     enabled = 'fas';
 
                 }
 
-                
 
-                if ( data.groups ) {
 
-                    selected = (parseInt(data.rss_feeds[r].group_id) > 0)?'1':'0';
+                if (data.groups) {
+
+                    selected = (parseInt(data.rss_feeds[r].group_id) > 0) ? '1' : '0';
 
                 } else {
 
@@ -14130,95 +14637,125 @@ jQuery(document).ready( function ($) {
 
                 }
 
-                
+
 
                 rss_feeds += '<li>'
 
-                                + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                                    + '<div class="col-xl-6 col-lg-6 col-md-5 col-sm-5 col-12">'
+                    +
+                    '<div class="col-xl-6 col-lg-6 col-md-5 col-sm-5 col-12">'
 
-                                        + '<div class="checkbox-option-select">'
+                    +
+                    '<div class="checkbox-option-select">'
 
-                                            + '<input id="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '" name="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '" type="checkbox" data-id="' + data.rss_feeds[r].rss_id + '">'
+                    +
+                    '<input id="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '" name="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '" type="checkbox" data-id="' + data.rss_feeds[r].rss_id + '">'
 
-                                            + '<label for="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '"></label>'
+                    +
+                    '<label for="rss-select-all-feeds-' + data.rss_feeds[r].rss_id + '"></label>'
 
-                                        + '</div>'
+                    +
+                    '</div>'
 
-                                        + '<h4><a href="' + data.rss_feeds[r].rss_url + '" target="_blank">' + data.rss_feeds[r].rss_name + '</a> <i class="' + enabled + ' fa-circle"></i></h4>'
+                    +
+                    '<h4><a href="' + data.rss_feeds[r].rss_url + '" target="_blank">' + data.rss_feeds[r].rss_name + '</a> <i class="' + enabled + ' fa-circle"></i></h4>'
 
-                                        + '<p>' + data.rss_feeds[r].rss_description + '</p>'
+                    +
+                    '<p>' + data.rss_feeds[r].rss_description + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4 text-center">'
+                    +
+                    '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4 text-center">'
 
-                                        + '<h4>' + data.rss_feeds[r].num + '</h4>'
+                    +
+                    '<h4>' + data.rss_feeds[r].num + '</h4>'
 
-                                        + '<p>' + data.published_posts + '</p>'                                     
+                    +
+                    '<p>' + data.published_posts + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center">'
+                    +
+                    '<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center">'
 
-                                        + '<h4>' + selected + '</h4>'
+                    +
+                    '<h4>' + selected + '</h4>'
 
-                                        + '<p>' + data.destination + '</p>'
+                    +
+                    '<p>' + data.destination + '</p>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                    + '<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-5 text-right">'
+                    +
+                    '<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-5 text-right">'
 
-                                        + '<div class="btn-group dropup">'
+                    +
+                    '<div class="btn-group dropup">'
 
-                                            + '<a href="' + url + 'user/app/posts?q=rss&rss_id=' + data.rss_feeds[r].rss_id + '" class="btn btn-success"><i class="icon-login"></i> ' + data.manage + '</a>'
+                    +
+                    '<a href="' + url + 'user/app/posts?q=rss&rss_id=' + data.rss_feeds[r].rss_id + '" class="btn btn-success"><i class="icon-login"></i> ' + data.manage + '</a>'
 
-                                            + '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'
+                    +
+                    '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'
 
-                                                + '<span class="fas fa-sort-down"></span>'
+                    +
+                    '<span class="fas fa-sort-down"></span>'
 
-                                            + '</button>'
+                    +
+                    '</button>'
 
-                                            + '<ul class="dropdown-menu" role="menu">'
+                    +
+                    '<ul class="dropdown-menu" role="menu">'
 
-                                                + '<li><a href="#" data-id="' + data.rss_feeds[r].rss_id + '" class="rss-delete-rss-feed">' + data.delete + '</a></li>'
+                    +
+                    '<li><a href="#" data-id="' + data.rss_feeds[r].rss_id + '" class="rss-delete-rss-feed">' + data.delete + '</a></li>'
 
-                                            + '</ul>'
+                    +
+                    '</ul>'
 
-                                        + '</div>'
+                    +
+                    '</div>'
 
-                                    + '</div>'
+                    +
+                    '</div>'
 
-                                + '</div>'
+                    +
+                    '</div>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
 
-            $( '.rss-all-feeds' ).html( rss_feeds );
 
-            
+            $('.rss-all-feeds').html(rss_feeds);
+
+
 
         } else {
 
-            
 
-            $( '.rss-all-feeds' ).html( '<li class="no-rss-found">' + data.message + '</li>' );
 
-            
+            $('.rss-all-feeds').html('<li class="no-rss-found">' + data.message + '</li>');
+
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -14236,45 +14773,45 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.rss_delete_rss_feed = function ( status, data ) {
+    Main.methods.rss_delete_rss_feed = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Load all RSS Feeds
 
             Main.load_rss_feeds(1);
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -14292,51 +14829,51 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.rss_feeds_execute_mass_action = function ( status, data ) {
+    Main.methods.rss_feeds_execute_mass_action = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Load all RSS Feeds
 
             Main.load_rss_feeds(1);
 
-            
+
 
             // Unselect all checkbox
 
-            $( 'main #rss-select-all-feeds' ).prop('checked', false);
+            $('main #rss-select-all-feeds').prop('checked', false);
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
 
-    };  
 
-    
+    };
+
+
 
     /*
 
@@ -14354,63 +14891,63 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.download_images_from_urls = function ( status, data ) {
+    Main.methods.download_images_from_urls = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Reset form
 
             $('.main .download-images-from-url')[0].reset();
 
-            
+
 
             // Set the user storage
 
-            $( '.user-total-storage' ).text( data.user_storage );
+            $('.user-total-storage').text(data.user_storage);
 
-            
+
 
             // Load medias
 
             Main.loadMedias(1);
 
-            
+
 
             // Hide modal
 
-            $('#file-upload-box').modal('hide'); 
+            $('#file-upload-box').modal('hide');
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('sube', data.message, 1500, 2000);
 
-            
+
 
         }
 
-        
+
 
     };
 
-    
+
 
     /*
 
@@ -14428,83 +14965,92 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.search_for_hashtags = function ( status, data ) {
+    Main.methods.search_for_hashtags = function (status, data) {
 
-        
+
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var hashtags = '<ul class="hashtags-list">';
 
-            
 
-            for ( var e = 0; e < data.hashtags.length; e++ ) {
 
-                
+            for (var e = 0; e < data.hashtags.length; e++) {
+
+
 
                 hashtags += '<li>'
 
-                                + '<a href="#" data-id="' + data.hashtags[e] + '">'
+                    +
+                    '<a href="#" data-id="' + data.hashtags[e] + '">'
 
-                                    + '<i class="fas fa-hashtag"></i>'
+                    +
+                    '<i class="fas fa-hashtag"></i>'
 
-                                    + data.hashtags[e]
+                    +
+                    data.hashtags[e]
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</li>';
+                    +
+                    '</li>';
 
-                    
+
 
             }
 
-            
+
 
             hashtags += '</ul>';
 
-            
+
 
             // Display hashtags
 
-            $('#hashtags-sugestion .tab-pane.show .hashtags-suggestion-list').html(hashtags);            
+            $('#hashtags-sugestion .tab-pane.show .hashtags-suggestion-list').html(hashtags);
 
-            
+
 
         } else {
 
-            
+
 
             // Set no hashtags message
 
             var message = '<div class="col-xl-12 hashtags-suggestion-single">'
 
-                                + '<h6>'
+                +
+                '<h6>'
 
-                                    + data.message
+                +
+                data.message
 
-                                + '</h6>'
+                +
+                '</h6>'
 
-                            + '</div>';
+                +
+                '</div>';
 
-                            
+
 
             // Display message
 
             $('#hashtags-sugestion .tab-pane.show .hashtags-suggestion-list').html(message);
 
-            
 
-        }        
 
-        
+        }
+
+
 
     };
 
-    
+
 
     /*
 
@@ -14522,23 +15068,23 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.order_reports_by_time = function ( status, data ) {
+    Main.methods.order_reports_by_time = function (status, data) {
 
-        
+
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var all_accounts = [];
 
-            
 
-            for( var a = 0; a < data.reports.accounts.length; a++ ) {
 
-                
+            for (var a = 0; a < data.reports.accounts.length; a++) {
+
+
 
                 all_accounts[data.reports.accounts[a].datetime] = {
 
@@ -14548,109 +15094,128 @@ jQuery(document).ready( function ($) {
 
                 };
 
-                
+
 
             }
 
-            
+
 
             var reports = '';
 
 
 
-            for( var p = 0; p < data.reports.posts.length; p++ ) {
+            for (var p = 0; p < data.reports.posts.length; p++) {
 
-                
+
 
                 var accounts = 0;
 
                 var errors = 0;
 
-                
 
-                if ( (data.reports.posts[p].datetime in all_accounts) ) {
 
-                    
+                if ((data.reports.posts[p].datetime in all_accounts)) {
+
+
 
                     accounts = all_accounts[data.reports.posts[p].datetime].total;
 
                     errors = all_accounts[data.reports.posts[p].datetime].errors;
 
-                    
+
 
                 }
 
-                
+
 
                 reports += '<tr>'
 
-                                + '<td>'
+                    +
+                    '<td>'
 
-                                    + data.reports.posts[p].datetime
+                    +
+                    data.reports.posts[p].datetime
 
-                                + '</td>'
+                    +
+                    '</td>'
 
-                                + '<td>'
+                    +
+                    '<td>'
 
-                                    + data.reports.posts[p].total
+                    +
+                    data.reports.posts[p].total
 
-                                + '</td>'
+                    +
+                    '</td>'
 
-                                + '<td>'
+                    +
+                    '<td>'
 
-                                    + accounts
+                    +
+                    accounts
 
-                                + '</td>'
+                    +
+                    '</td>'
 
-                                + '<td>'
+                    +
+                    '<td>'
 
-                                    + errors
+                    +
+                    errors
 
-                                + '</td>'
+                    +
+                    '</td>'
 
-                            + '</tr>';
+                    +
+                    '</tr>';
 
-                
 
-            }  
 
-            
+            }
+
+
 
             // Show results
 
             $('.main #history-generate-reports tbody').html(reports);
 
-            
+
 
         } else {
 
-            
+
 
             var message = '<tr>'
 
-                              + '<td colspan="4">'
+                +
+                '<td colspan="4">'
 
-                                  + '<p>'
+                +
+                '<p>'
 
-                                      + data.message
+                +
+                data.message
 
-                                  + '</p>'
+                +
+                '</p>'
 
-                              + '</td>'
+                +
+                '</td>'
 
-                          + '</tr>';
+                +
+                '</tr>';
 
-                  
+
 
             // Show results
 
-            $('.main #history-generate-reports tbody').html(message);                  
+            $('.main #history-generate-reports tbody').html(message);
 
-            
 
-        }        
 
-        
+        }
+
+
 
     };
 
@@ -14672,13 +15237,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.fb_boosts_load_all = function ( status, data ) {
+    Main.methods.fb_boosts_load_all = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -14686,77 +15251,94 @@ jQuery(document).ready( function ($) {
 
             Main.show_pagination('#boost-post-on', data.total_boosts);
 
-            
+
 
             var all_boosts = '';
 
-            
 
-            for ( var e = 0; e < data.boosts.length; e++ ) {
+
+            for (var e = 0; e < data.boosts.length; e++) {
 
 
 
                 all_boosts += '<li>'
 
-                        + '<div class="row">'
+                    +
+                    '<div class="row">'
 
-                            + '<div class="col-8">'
+                    +
+                    '<div class="col-8">'
 
-                                + data.boosts[e].boost_name
+                    +
+                    data.boosts[e].boost_name
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                            + '<div class="col-4 text-right">'
+                    +
+                    '<div class="col-4 text-right">'
 
-                                + '<button type="button" class="btn btn-primary select-boost-option-for-post" data-id="' + data.boosts[e].boost_id + '">'
+                    +
+                    '<button type="button" class="btn btn-primary select-boost-option-for-post" data-id="' + data.boosts[e].boost_id + '">'
 
-                                    + words.select
+                    +
+                    words.select
 
-                                + '</button>'
+                    +
+                    '</button>'
 
-                            + '</div>'
+                    +
+                    '</div>'
 
-                        + '</div>'
+                    +
+                    '</div>'
 
-                    + '</li>';
+                    +
+                    '</li>';
 
-                
+
 
             }
 
-            
+
 
             // Display all Ad boosts
 
             $('.main #boost-post-on .modal-body .col-xl-8 ul').html(all_boosts);
 
-            
+
 
         } else {
 
-            
+
 
             var message = '<li>'
 
-                            + '<div class="row">'
+                +
+                '<div class="row">'
 
-                                + '<div class="col-12">'
+                +
+                '<div class="col-12">'
 
-                                    + data.message
+                +
+                data.message
 
-                                + '</div>'
+                +
+                '</div>'
 
-                            + '</div>'
+                +
+                '</div>'
 
-                        + '</li>';
+                +
+                '</li>';
 
-                
+
 
             // Display message
 
             $('.main #boost-post-on .modal-body .col-xl-8 ul').html(message);
 
-            
+
 
         }
 
@@ -14782,13 +15364,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.fb_boosts_load_single = function ( status, data ) {
+    Main.methods.fb_boosts_load_single = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -14806,7 +15388,7 @@ jQuery(document).ready( function ($) {
 
             // Add network user's name
 
-            $('.main .boost-control h3').html(data.boost[0].user_name);            
+            $('.main .boost-control h3').html(data.boost[0].user_name);
 
 
 
@@ -14818,13 +15400,13 @@ jQuery(document).ready( function ($) {
 
             // Verify if the Facebook Pages was selected
 
-            if ( $( '.post-preview-footer a[data-id="' + data.boost[0].network_id + '"]' ).length > 0 ) {
+            if ($('.post-preview-footer a[data-id="' + data.boost[0].network_id + '"]').length > 0) {
 
-                
+
 
                 $('.main .boost-control .col-2.text-right i').removeClass('icon-close');
 
-                $('.main .boost-control .col-2.text-right i').addClass('icon-check'); 
+                $('.main .boost-control .col-2.text-right i').addClass('icon-check');
 
 
 
@@ -14834,7 +15416,7 @@ jQuery(document).ready( function ($) {
 
                 $('.main .boost-control .col-2.text-right i').removeClass('icon-check');
 
-                $('.main .boost-control .col-2.text-right i').addClass('icon-close'); 
+                $('.main .boost-control .col-2.text-right i').addClass('icon-close');
 
 
 
@@ -14846,19 +15428,19 @@ jQuery(document).ready( function ($) {
 
             $('.main #boost-post-on').modal('hide');
 
-            
+
 
         } else {
 
-            
+
 
         }
 
 
 
-    };  
+    };
 
-    
+
 
     /*
 
@@ -14876,13 +15458,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.composer_generate_preview = function ( status, data ) {
+    Main.methods.composer_generate_preview = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -14890,7 +15472,7 @@ jQuery(document).ready( function ($) {
 
             $('.main .post-preview-social').html(data.preview);
 
-            
+
 
         }
 
@@ -14916,15 +15498,15 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.get_media = function ( status, data ) {
+    Main.methods.get_media = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             var medias = '';
 
@@ -14938,37 +15520,45 @@ jQuery(document).ready( function ($) {
 
 
 
-                    medias += '<div class="single-media-select">'                              
+                    medias += '<div class="single-media-select">'
 
-                                + '<a href="#" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '" data-url="' + data.medias[m].body + '" class="posts-select-media">'
+                        +
+                        '<a href="#" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '" data-url="' + data.medias[m].body + '" class="posts-select-media">'
 
-                                    + '<img src="' + data.medias[m].cover + '">'
+                        +
+                        '<img src="' + data.medias[m].cover + '">'
 
-                                + '</a>'
+                        +
+                        '</a>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
 
 
-                }    
+                }
 
-                
 
-                if ( data.total >= (Main.media.page * 16 ) ) {
 
-                
+                if (data.total >= (Main.media.page * 16)) {
+
+
 
                     medias += '<div class="load-new-media">'
 
-                                + '<a href="#">'
+                        +
+                        '<a href="#">'
 
-                                    + '<i class="icon-reload"></i>'
+                        +
+                        '<i class="icon-reload"></i>'
 
-                                + '</a>'
+                        +
+                        '</a>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                
+
 
                 }
 
@@ -14980,7 +15570,7 @@ jQuery(document).ready( function ($) {
 
             } else {
 
-                
+
 
                 for (var m = 0; m < data.medias.length; m++) {
 
@@ -14988,45 +15578,56 @@ jQuery(document).ready( function ($) {
 
                     medias += '<div class="single-media-select">'
 
-                                + '<a href="#" data-id="' + data.medias[m].media_id + '" class="planner-delete-media">'
+                        +
+                        '<a href="#" data-id="' + data.medias[m].media_id + '" class="planner-delete-media">'
 
-                                    + '<i class="icon-close"></i>'
+                        +
+                        '<i class="icon-close"></i>'
 
-                                + '</a>'                                
+                        +
+                        '</a>'
 
-                                + '<a href="#" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '" data-url="' + data.medias[m].body + '" class="planner-select-media">'
+                        +
+                        '<a href="#" data-id="' + data.medias[m].media_id + '" data-type="' + data.medias[m].type + '" data-url="' + data.medias[m].body + '" class="planner-select-media">'
 
-                                    + '<img src="' + data.medias[m].cover + '">'
+                        +
+                        '<img src="' + data.medias[m].cover + '">'
 
-                                + '</a>'
+                        +
+                        '</a>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
 
 
-                }    
+                }
 
-                
+
 
                 $('.main #posts-edit-post .posts-edit-media-area').find('.load-new-media').remove();
 
-                
 
-                if ( data.total >= (Main.media.page * 16 ) ) {
 
-                
+                if (data.total >= (Main.media.page * 16)) {
+
+
 
                     medias += '<div class="load-new-media">'
 
-                                + '<a href="#">'
+                        +
+                        '<a href="#">'
 
-                                    + '<i class="icon-reload"></i>'
+                        +
+                        '<i class="icon-reload"></i>'
 
-                                + '</a>'
+                        +
+                        '</a>'
 
-                            + '</div>';
+                        +
+                        '</div>';
 
-                
+
 
                 }
 
@@ -15034,43 +15635,47 @@ jQuery(document).ready( function ($) {
 
                 $('.main #posts-edit-post .posts-edit-media-area').append(medias);
 
-                
+
 
             }
 
-            
+
 
         } else {
 
-            
 
-            if ( $('.main #posts-edit-post .posts-edit-media-area .single-media-select').length < 1 ) {
 
-            
+            if ($('.main #posts-edit-post .posts-edit-media-area .single-media-select').length < 1) {
+
+
 
                 var medias = '<div class="upload-new-media">'
 
-                                + '<a href="#">'
+                    +
+                    '<a href="#">'
 
-                                    + '<i class="icon-cloud-upload"></i>'
+                    +
+                    '<i class="icon-cloud-upload"></i>'
 
-                                + '</a>'
+                    +
+                    '</a>'
 
-                            + '</div>';
+                    +
+                    '</div>';
 
 
 
                 $('.main #posts-edit-post .posts-edit-media-area').html(medias);
 
-                
+
 
             }
 
-            
+
 
         }
 
-    
+
 
     };
 
@@ -15092,13 +15697,13 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.history_edit_post = function ( status, data ) {
+    Main.methods.history_edit_post = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
 
 
@@ -15106,13 +15711,13 @@ jQuery(document).ready( function ($) {
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Hide modal
 
-            $('#posts-edit-post').modal('hide'); 
+            $('#posts-edit-post').modal('hide');
 
-            
+
 
             // Refresh post
 
@@ -15124,17 +15729,17 @@ jQuery(document).ready( function ($) {
 
             };
 
-            
+
 
             // Make ajax call
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'GET', data, 'history_get_post_content');
 
-            
+
 
         } else {
 
-            
+
 
             // Display alert
 
@@ -15144,7 +15749,7 @@ jQuery(document).ready( function ($) {
 
         }
 
-    
+
 
     };
 
@@ -15166,27 +15771,27 @@ jQuery(document).ready( function ($) {
 
      */
 
-    Main.methods.save_canva_photo = function ( status, data ) {
+    Main.methods.save_canva_photo = function (status, data) {
 
 
 
         // Verify if the success response exists
 
-        if ( status === 'success' ) {
+        if (status === 'success') {
 
-            
+
 
             // Display alert
 
             Main.popup_fon('subi', data.message, 1500, 2000);
 
-            
+
 
             // Set the user storage
 
-            $( '.user-total-storage' ).text( data.user_storage );
+            $('.user-total-storage').text(data.user_storage);
 
-            
+
 
             // Load medias
 
@@ -15196,7 +15801,7 @@ jQuery(document).ready( function ($) {
 
         } else {
 
-            
+
 
             // Display alert
 
@@ -15206,11 +15811,11 @@ jQuery(document).ready( function ($) {
 
         }
 
-    
+
 
     };
 
-    
+
 
     /*******************************
 
@@ -15218,7 +15823,7 @@ jQuery(document).ready( function ($) {
 
     ********************************/
 
-   
+
 
     /*
 
@@ -15244,25 +15849,25 @@ jQuery(document).ready( function ($) {
 
         var currentdate = new Date();
 
-        
+
 
         // Set date time
 
         var datetime = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + currentdate.getDate() + ' ' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
 
-        
+
 
         // Set post's title
 
         var post_title = $('.send-post .composer-title input[type="text"]').val();
 
-        
+
 
         // set message
 
         var post = btoa(encodeURIComponent($('.new-post').val()));
 
-        
+
 
         // Remove non necessary characters
 
@@ -15270,31 +15875,31 @@ jQuery(document).ready( function ($) {
 
         post = post.replace(/=/g, '');
 
-        
+
 
         // Set post's publish date
 
         var date = $('.datetime').val();
 
-        
+
 
         // Verify if user has scheduled the post
 
-        if ( !date ) {
+        if (!date) {
 
             date = datetime;
 
         }
 
-        
 
-        if ( typeof Main.selected_post_url !== 'undefined' ) {
+
+        if (typeof Main.selected_post_url !== 'undefined') {
 
             // Set url
 
             var post_url = Main.selected_post_url;
 
-        } else if ( $('#nav-composer .composer-url').length > 0 ) {
+        } else if ($('#nav-composer .composer-url').length > 0) {
 
             var post_url = $('#nav-composer .composer-url input[type="text"]').val();
 
@@ -15302,11 +15907,11 @@ jQuery(document).ready( function ($) {
 
             var post_url = '';
 
-        }        
+        }
 
-        
 
-        if ( typeof Main.selected_post_accounts !== 'undefined' ) {
+
+        if (typeof Main.selected_post_accounts !== 'undefined') {
 
             // Set networks
 
@@ -15318,9 +15923,9 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-        if ( typeof Main.selected_post_group !== 'undefined' ) {
+
+        if (typeof Main.selected_post_group !== 'undefined') {
 
             // Set group's id
 
@@ -15332,9 +15937,9 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
 
-        if ( typeof Main.selected_medias !== 'undefined' ) {
+
+        if (typeof Main.selected_medias !== 'undefined') {
 
             // Set medias
 
@@ -15344,7 +15949,7 @@ jQuery(document).ready( function ($) {
 
             var medias = [];
 
-        }        
+        }
 
 
 
@@ -15352,33 +15957,33 @@ jQuery(document).ready( function ($) {
 
         var status = 1;
 
-        
+
 
         // Verify if status already exists
 
-        if ( typeof Main.publish !== 'undefined' ) {
+        if (typeof Main.publish !== 'undefined') {
 
             status = Main.publish;
 
         }
 
-        
+
 
         // Set default category value
 
         var category = {};
 
-        
+
 
         // Verify if categories is defined
 
-        if ( typeof Main.categories !== 'undefined' ) {
+        if (typeof Main.categories !== 'undefined') {
 
             category = Main.categories;
 
         }
 
-        
+
 
         // Create an object with form data
 
@@ -15412,7 +16017,7 @@ jQuery(document).ready( function ($) {
 
         // Verify if post will be boosted
 
-        if ( $('.main .boost-control').attr('data-id') ) {
+        if ($('.main .boost-control').attr('data-id')) {
 
 
 
@@ -15424,25 +16029,25 @@ jQuery(document).ready( function ($) {
 
         }
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'composer_publish_post_status');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
@@ -15472,13 +16077,13 @@ jQuery(document).ready( function ($) {
 
         var post_title = $('.posts-edit-post-form .posts-edit-post-title').val();
 
-        
+
 
         // set message
 
         var post = btoa(encodeURIComponent($('.posts-edit-post-form .posts-edit-post-body').val()));
 
-        
+
 
         // Remove non necessary characters
 
@@ -15486,17 +16091,17 @@ jQuery(document).ready( function ($) {
 
         post = post.replace(/=/g, '');
 
-        
+
 
         // Set post's url
 
         var post_url = $('.posts-edit-post-form .posts-edit-post-url').val();
 
-        
+
 
         // Verify if medias exists
 
-        if ( typeof Main.selected_post_medias !== 'undefined' ) {
+        if (typeof Main.selected_post_medias !== 'undefined') {
 
 
 
@@ -15522,67 +16127,67 @@ jQuery(document).ready( function ($) {
 
         var hour = $('.posts-edit-post-form .midrub-calendar-time-hour').val();
 
-        
+
 
         // Verify if time period exists
 
-        if ( $('.posts-edit-post-form .midrub-calendar-time-period').length > 0 ) {
+        if ($('.posts-edit-post-form .midrub-calendar-time-period').length > 0) {
 
-            
+
 
             // Get period
 
             var period = $('.posts-edit-post-form .midrub-calendar-time-period').val();
 
-            
 
-            if ( period === 'PM' ) {
 
-                
+            if (period === 'PM') {
 
-                if ( hour >= 10 ) {
 
-                    hour = 12 + parseInt(hour); 
 
-                } else {
-
-                    
-
-                    hour = hour.replace('0', '');
-
-                    
+                if (hour >= 10) {
 
                     hour = 12 + parseInt(hour);
 
-                }  
+                } else {
 
-                
+
+
+                    hour = hour.replace('0', '');
+
+
+
+                    hour = 12 + parseInt(hour);
+
+                }
+
+
 
             }
 
-            
+
 
         }
 
-        
+
 
         // Set date time
 
-        var schedtime = $( '.posts-edit-post-form .post-edit-date' ).val() + ' ' + hour + ':' + $( '.posts-edit-post-form .midrub-calendar-time-minutes' ).val() + ':00';
+        var schedtime = $('.posts-edit-post-form .post-edit-date').val() + ' ' + hour + ':' + $('.posts-edit-post-form .midrub-calendar-time-minutes').val() + ':00';
 
-        
+
 
         // Set current time
 
         var currentdate = new Date();
 
-        
+
 
         // Set date time
 
         var datetime = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + currentdate.getDate() + ' ' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
 
-        
+
 
         // Create an object with form data
 
@@ -15606,29 +16211,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.posts-edit-post-form').attr('data-csrf')] = $('input[name="' + $('.posts-edit-post-form').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'history_edit_post');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -15648,93 +16253,93 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get hour
 
         var hour = $('.schedule-post .midrub-calendar-time-hour').val();
 
-        
+
 
         // Verify if time period exists
 
-        if ( $('.schedule-post .midrub-calendar-time-period').length > 0 ) {
+        if ($('.schedule-post .midrub-calendar-time-period').length > 0) {
 
-            
+
 
             // Get period
 
             var period = $('.schedule-post .midrub-calendar-time-period').val();
 
-            
 
-            if ( period === 'PM' ) {
 
-                
+            if (period === 'PM') {
 
-                if ( hour >= 10 ) {
 
-                    hour = 12 + parseInt(hour); 
 
-                } else {
-
-                    
-
-                    hour = hour.replace('0', '');
-
-                    
+                if (hour >= 10) {
 
                     hour = 12 + parseInt(hour);
 
-                }  
+                } else {
 
-                
+
+
+                    hour = hour.replace('0', '');
+
+
+
+                    hour = 12 + parseInt(hour);
+
+                }
+
+
 
             }
 
-            
+
 
         }
 
-        
+
 
         // Set date time
 
-        var schedtime = $( '.schedule-post .scheduler-quick-date' ).val() + ' ' + hour + ':' + $( '.schedule-post .midrub-calendar-time-minutes' ).val() + ':00';
+        var schedtime = $('.schedule-post .scheduler-quick-date').val() + ' ' + hour + ':' + $('.schedule-post .midrub-calendar-time-minutes').val() + ':00';
 
-        
+
 
         // Set current time
 
         var currentdate = new Date();
 
-        
+
 
         // Set date time
 
         var datetime = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + currentdate.getDate() + ' ' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
 
-        
+
 
         // Set post's title
 
         var post_title = $('.schedule-post .quick-scheduler-title').val();
 
-        
+
 
         // set message
 
         var post = $('.quick-new-post').val();
 
-        
+
 
         Main.verify_for_url(post);
 
-        
 
-        if ( typeof Main.selected_post_url !== 'undefined' ) {
 
-            
+        if (typeof Main.selected_post_url !== 'undefined') {
+
+
 
             // Set url
 
@@ -15742,105 +16347,105 @@ jQuery(document).ready( function ($) {
 
             post = post.replace(post_url, '');
 
-            
+
 
         } else {
 
-            
+
 
             var post_url = '';
 
-            
+
 
         }
 
-        
+
 
         post = btoa(encodeURIComponent(post));
 
-        
+
 
         // Remove non necessary characters
 
-        
+
 
         post = post.replace('/', '-');
 
         post = post.replace(/=/g, '');
 
-        
 
-        if ( typeof Main.selected_quick_post_accounts !== 'undefined' ) {
 
-            
+        if (typeof Main.selected_quick_post_accounts !== 'undefined') {
+
+
 
             // Set networks
 
             var networks = Main.selected_quick_post_accounts;
 
-            
+
 
         } else {
 
-            
+
 
             var networks = [];
 
-            
+
 
         }
 
-        
 
-        if ( typeof Main.selected_quick_post_group !== 'undefined' ) {
 
-            
+        if (typeof Main.selected_quick_post_group !== 'undefined') {
+
+
 
             // Set group's id
 
             var group_id = Main.selected_quick_post_group;
 
-            
+
 
         } else {
 
-            
+
 
             var group_id = [];
 
-            
+
 
         }
 
-        
 
-        if ( typeof Main.quick_schedule.medias !== 'undefined' ) {
 
-            
+        if (typeof Main.quick_schedule.medias !== 'undefined') {
+
+
 
             // Set medias
 
             var medias = Object.values(Main.quick_schedule.medias);
 
-            
+
 
         } else {
 
-            
+
 
             var medias = [];
 
-            
+
 
         }
 
-       
+
 
         // Set default status
 
         var status = 1;
 
-        
+
 
         // Create an object with form data
 
@@ -15870,29 +16475,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.schedule-post').attr('data-csrf')] = $('input[name="' + $('.schedule-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'quick_scheduler_publish_post_status');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -15912,25 +16517,25 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get reactions type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get reactions id
 
         var id = $(this).attr('data-id');
 
-        
+
 
         // Get text message
 
         var msg = $(this).find('.reactions-msg').val();
 
-        
+
 
         // Create an object with form data
 
@@ -15946,29 +16551,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'insights_display_post_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -15988,35 +16593,35 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get reactions type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get reactions id
 
         var id = $(this).attr('data-id');
 
-        
+
 
         // Get parent id
 
         var parent = $(this).attr('data-parent');
 
-        
+
 
         // Get text message
 
         var msg = $(this).find('.reactions-msg').val();
 
-        
 
-        if ( $('#insights-accounts').hasClass('active') ) {
 
-            
+        if ($('#insights-accounts').hasClass('active')) {
+
+
 
             // Create an object with form data
 
@@ -16040,17 +16645,17 @@ jQuery(document).ready( function ($) {
 
             data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
             // Make ajax call
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'insights_display_account_details');
 
-            
+
 
         } else {
 
-            
+
 
             // Create an object with form data
 
@@ -16074,33 +16679,33 @@ jQuery(document).ready( function ($) {
 
             data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
             // Make ajax call
 
             Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'insights_display_post_details');
 
-            
+
 
         }
 
-        
+
 
         // Hide modal
 
         $('#insights-reply-comments').modal('hide');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
 
-    });  
 
-    
+    });
+
+
 
     /*
 
@@ -16120,31 +16725,31 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get reactions type
 
         var type = $(this).attr('data-type');
 
-        
+
 
         // Get account id
 
-        var id = $( '.insights-accounts .insights-post-details-active .insights-account-details' ).attr('data-id');
+        var id = $('.insights-accounts .insights-post-details-active .insights-account-details').attr('data-id');
 
-        
+
 
         // Get text message
 
         var msg = $(this).find('.reactions-msg').val();
 
-        
+
 
         // Get post id
 
         var parent = $(this).attr('data-id');
 
-        
+
 
         // Create an object with form data
 
@@ -16162,29 +16767,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.send-post').attr('data-csrf')] = $('input[name="' + $('.send-post').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'insights_display_account_details');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -16204,13 +16809,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get the group name
 
         var group_name = $('.main .accounts-manager-groups-enter-group-name').val();
 
-        
+
 
         // Create an object with form data
 
@@ -16222,29 +16827,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.main .create-new-group-form').attr('data-csrf')] = $('input[name="' + $('.main .create-new-group-form').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'account_manager_create_accounts_group');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -16264,13 +16869,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get the rss's url
 
         var rss_url = $('.main .rss-feeds-enter-rss-url').val();
 
-        
+
 
         // Create an object with form data
 
@@ -16282,29 +16887,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.main .register-new-rss-feed').attr('data-csrf')] = $('input[name="' + $('.main .register-new-rss-feed').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'rss_feeds_save_new_rss_feed');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -16324,13 +16929,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get the image's urls
 
         var imported_urls = $('.main .imported-urls').val();
 
-        
+
 
         // Create an object with form data
 
@@ -16342,29 +16947,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$(this).attr('data-csrf')] = $('input[name="' + $(this).attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'download_images_from_urls');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
 
-    }); 
 
-    
+    });
+
+
 
     /*
 
@@ -16384,33 +16989,33 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get the word or words
 
         var word = $(this).find('.hashtags-enter-word').val();
 
-        
+
 
         // Hide button
 
         $(this).closest('.tab-pane').find('.modal-footer').fadeOut('slow');
 
-        
+
 
         // Set network
 
         var network = 'twitter';
 
-        
 
-        if ( $('.main #nav-instagram-hashtags').hasClass('active') ) {
+
+        if ($('.main #nav-instagram-hashtags').hasClass('active')) {
 
             network = 'instagram';
 
         }
 
-        
+
 
         // Create an object with form data
 
@@ -16424,29 +17029,29 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$(this).attr('data-csrf')] = $('input[name="' + $(this).attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'search_for_hashtags');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
-    
+
 
     /*
 
@@ -16466,13 +17071,13 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get time order
 
         var time = $(this).find('.order-reports-by-time').attr('data-time');
 
-        
+
 
         // Create an object with form data
 
@@ -16484,25 +17089,25 @@ jQuery(document).ready( function ($) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$(this).attr('data-csrf')] = $('input[name="' + $(this).attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call(url + 'user/app-ajax/posts', 'POST', data, 'order_reports_by_time');
 
-        
+
 
         // Display loading animation
 
         $('.page-loading').fadeIn('slow');
 
-        
+
 
     });
 
@@ -16526,43 +17131,43 @@ jQuery(document).ready( function ($) {
 
         e.preventDefault();
 
-        
+
 
         // Get files
 
         var files = $('#file')[0].files;
 
-        
+
 
         // Verify if at least a file exists
 
-        if ( typeof files[0] !== 'undefined' ) {
+        if (typeof files[0] !== 'undefined') {
 
-            
+
 
             // List all files
 
-            for ( var f = 0; f < files.length; f++ ) {
+            for (var f = 0; f < files.length; f++) {
 
-                
+
 
                 // Save file
 
                 Main.saveFile(files[f]);
 
-                
+
 
             }
 
-            
+
 
         }
 
-        
+
 
     });
 
-    
+
 
     /*******************************
 
@@ -16570,7 +17175,7 @@ jQuery(document).ready( function ($) {
 
     ********************************/
 
-    
+
 
     /*
 
@@ -16582,7 +17187,7 @@ jQuery(document).ready( function ($) {
 
      */
 
-    $( '.new-post, .posts-edit-post-body' ).emojioneArea({
+    $('.new-post, .posts-edit-post-body').emojioneArea({
 
         pickerPosition: 'bottom',
 
@@ -16592,37 +17197,37 @@ jQuery(document).ready( function ($) {
 
             keyup: function (editor, event) {
 
-                
+
 
                 // Show length
 
                 $('#nav-composer .numchar').text(this.getText().length);
 
-                
+
 
             },
 
             paste: function (editor, event) {
 
-                
+
 
                 // Add the post in textarea
 
                 $('.new-post').val(editor[0].innerHTML);
 
-                
+
 
                 // Generate preview
 
                 Main.get_social_preview($('.main .post-preview-header .btn-secondary').attr('data-slug'));
 
-                
+
 
                 // Show length
 
                 $('#nav-composer .numchar').text(this.getText().length);
 
-                
+
 
             },
 
@@ -16630,21 +17235,21 @@ jQuery(document).ready( function ($) {
 
         attributes: {
 
-            spellcheck : true,
+            spellcheck: true,
 
-            autocomplete   : 'on'
+            autocomplete: 'on'
 
         }
 
-        
+
 
     });
 
-    
+
 
     // Verify if calendar is enabled
 
-    if ( $( '#calendar' ).length > 0 ) {
+    if ($('#calendar').length > 0) {
 
 
 
@@ -16656,7 +17261,7 @@ jQuery(document).ready( function ($) {
 
 
 
-        $( '#calendar' ).fullCalendar({
+        $('#calendar').fullCalendar({
 
             header: {
 
@@ -16684,11 +17289,11 @@ jQuery(document).ready( function ($) {
 
 
 
-                $('#calendar').fullCalendar('removeEventSources'); 
+                $('#calendar').fullCalendar('removeEventSources');
 
 
 
-                switch(element[0].classList.value) {
+                switch (element[0].classList.value) {
 
 
 
@@ -16698,9 +17303,9 @@ jQuery(document).ready( function ($) {
 
                         var new_date = new Date(Date.parse(parsed_date.getFullYear() + '-' + (parsed_date.getMonth() + 1) + '-01 00:00:00'));
 
-                        var start = new_date.getTime()/1000;
+                        var start = new_date.getTime() / 1000;
 
-                        Main.scheduled_events(start,(start+3456000)); 
+                        Main.scheduled_events(start, (start + 3456000));
 
 
 
@@ -16710,25 +17315,25 @@ jQuery(document).ready( function ($) {
 
                     case 'fc-view fc-basicWeek-view fc-basic-view':
 
-                        var start = parsed_date.getTime()/1000;
+                        var start = parsed_date.getTime() / 1000;
 
-                        Main.scheduled_events(start,(start+3456000)); 
+                        Main.scheduled_events(start, (start + 3456000));
 
 
 
-                        break;  
+                        break;
 
 
 
                     case 'fc-view fc-basicDay-view fc-basic-view':
 
-                        var start = parsed_date.getTime()/1000;
+                        var start = parsed_date.getTime() / 1000;
 
-                        Main.scheduled_events(start,(start+86400)); 
+                        Main.scheduled_events(start, (start + 86400));
 
 
 
-                        break;                 
+                        break;
 
 
 
@@ -16744,13 +17349,13 @@ jQuery(document).ready( function ($) {
 
                 title.html(title.text());
 
-                element.attr('ido',event.ido);
+                element.attr('ido', event.ido);
 
             },
 
             dayClick: function (start, end, allDay) {
 
-                if ( !$(this).hasClass('fc-past') ) {
+                if (!$(this).hasClass('fc-past')) {
 
                     Main.quickSchedule(start, end, allDay);
 
@@ -16758,21 +17363,27 @@ jQuery(document).ready( function ($) {
 
             },
 
-            dayRender: function ( date, cell) {
+            dayRender: function (date, cell) {
 
                 cell.prepend('<button type="button" class="btn btn-primary btn-calendar-schedule">'
 
-                    + '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="https://www.w3.org/2000/svg">'
+                    +
+                    '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="https://www.w3.org/2000/svg">'
 
-                        + '<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />'
+                    +
+                    '<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />'
 
-                        + '<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />'
+                    +
+                    '<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />'
 
-                    + '</svg>'
+                    +
+                    '</svg>'
 
-                    + words.schedule
+                    +
+                    words.schedule
 
-                + '</button>');
+                    +
+                    '</button>');
 
             }
 
@@ -16796,6 +17407,8 @@ jQuery(document).ready( function ($) {
         var loginLink = url + 'user/app/posts?id=' + $("#logined_user_id").val() * 1 + '&n=' + $("#link_network").val() + '&g=' + $("#external_group_select").val() * 1;
 
         $('.login-link-input input[name=login_link]').val(loginLink);
+
+        Main.get_redirect_link_by_group();
     });
 
     $('#accounts-manager-popup').delegate('.save-redirect-btn', 'click', function () {
@@ -16804,7 +17417,7 @@ jQuery(document).ready( function ($) {
 
     /*---==================== /CLIENT LINK ====================--->*/
 
-    
+
 
     /*
 
@@ -16820,19 +17433,19 @@ jQuery(document).ready( function ($) {
 
      * Load medias by page
 
-     */    
+     */
 
     Main.loadMedias(1);
 
-    
 
-    setTimeout(function(){
+
+    setTimeout(function () {
 
         Main.load_rss_feeds(1);
 
     }, 2000);
 
-    
+
 
 });
 
@@ -16858,7 +17471,7 @@ function designCallback(options) {
 
     // Send url
 
-    Main.to_source(options.exportUrl, function(dataUrl) {
+    Main.to_source(options.exportUrl, function (dataUrl) {
 
 
 
@@ -16872,19 +17485,19 @@ function designCallback(options) {
 
         };
 
-        
+
 
         // Set CSRF
 
         data[$('.register-new-rss-feed').attr('data-csrf')] = $('input[name="' + $('.register-new-rss-feed').attr('data-csrf') + '"]').val();
 
-        
+
 
         // Make ajax call
 
         Main.ajax_call($('meta[name=url]').attr('content') + 'user/app-ajax/posts', 'POST', data, 'save_canva_photo');
 
-        
+
 
         // Display loading animation
 

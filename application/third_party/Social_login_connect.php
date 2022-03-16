@@ -13,9 +13,7 @@ class Social_login_connect {
         $client_link = "";
         if($this->CI->session->has_userdata('net_ids')) {
 
-            $link = $this->CI->db->select('redirect_link')->from('users')->where('user_id', $this->CI->session->userdata('user_id'))->get()->result();
-
-
+            $link = $this->CI->db->select('redirect_link')->from('client_links')->where('user_id', $this->CI->session->userdata('user_id'))->where('group_id', $this->CI->session->userdata('group_id'))->get()->result();
 
             $client_redirect = $link[0]->redirect_link;
 

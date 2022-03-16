@@ -661,11 +661,22 @@ class Account_manager {
 
 
         $redirect_url = $this->CI->input->get('redirect');
+        
+        $group_id = $this->CI->input->get('group_id');
 
+        $has_redirect = $this->CI->db->from('client_links')->select('redirect_link')->where('user_id', $this->CI->user_id)->where('group_id', $group_id)->get()->num_rows();
 
+        if($has_redirect > 0) {
+            $result = $this->CI->db->from('client_links')->set('redirect_link', $redirect_url)->where('user_id', $this->CI->user_id)->where('group_id', $group_id)->update();
+        } else {
+            $insert_data = array(
+                'user_id' => $this->CI->user_id,
+                'group_id' => $group_id,
+                'redirect_link' => $redirect_url
+            );
 
-        $result = $this->CI->db->from('users')->set('redirect_link', $redirect_url)->where('user_id', $this->CI->user_id)->update();
-
+            $result = $this->CI->db->insert('client_links', $insert_data);
+        }
 
 
         if($result) {
@@ -685,6 +696,25 @@ class Account_manager {
         echo json_encode($data);
 
     }   
+
+    public function get_redirect_url() {
+        $data['status'] = 'error';
+
+        $group_id = $this->CI->input->get('group_id');
+
+
+        $result = $this->CI->db->from('client_links')->select('redirect_link')->where('user_id', $this->CI->user_id)->where('group_id', $group_id)->get()->result();
+        
+        if(!empty($result)) {
+            $data['redirect_link'] = $result[0]->redirect_link;
+        } else {
+            $data['redirect_link'] = '';
+        }
+        
+        $data['status'] = 'success';   
+
+        echo json_encode($data);
+    }
 
     /**============================= /CLIENT_LINK =============================== */
 
@@ -832,8 +862,7 @@ class Account_manager {
 
             }
 
-            $redirect = $this->CI->db->select('redirect_link')->from('users')->where('user_id', $this->CI->user_id)->get()->result();
-            $redirect_link = $redirect[0]->redirect_link;
+            $redirect_link = '';
             
 
             $link_option = '<hr/><h5><strong>Client Link</strong><h5/>'
