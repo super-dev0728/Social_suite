@@ -421,10 +421,6 @@ if (parseInt($('.jumbotron-footer').attr('data-total-accounts')) > 0) {
 
 }
 
-/*---==================== CLIENT LINK ====================--->*/
-/**
- * send net_ids to save client to user's group
- */
 $('.save-btn').on('click', function() {
     var net_ids = [];
 
@@ -446,7 +442,6 @@ $('.save-btn').on('click', function() {
         }
     });
 });
-/*---==================== /CLIENT LINK ====================--->*/
 </script>
 
 </html>

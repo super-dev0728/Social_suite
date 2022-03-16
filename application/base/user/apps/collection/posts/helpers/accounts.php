@@ -505,6 +505,9 @@ class Accounts {
             $first_group_id = 0;
         }  
 
+        $redirect = $this->CI->db->select('redirect_link')->from('users')->where('user_id', $this->CI->user_id)->get()->result();
+        $redirect_link = $redirect[0]->redirect_link;
+
         $link_option = '<hr/><h5><strong>Client Link</strong><h5/>'
                         . '<p>Send link to clients to connect their social account to add to your selected group without needing their login credentials.</p><br>'
                         . '<h6><strong>Group</strong></h6>';
@@ -526,7 +529,7 @@ class Accounts {
                             . '<br/>'
                             . '<div class="redirect-link-input">'
                                 . '<h6><strong>Redirect</strong><br><small class="text-muted">The URL they will be redirected after they connect (e.g. WhatsApp support link?)</small></h6>'
-                                . '<input type="text" class="form-control col-xs-5" name="redirect_link" value="">'
+                                . '<input type="text" class="form-control col-xs-5" name="redirect_link" value="' . $redirect_link . '">'
                             . '</div>'
                             . '<button class="btn btn-primary save-redirect-btn" style="float: right; margin-top: 10px;"><i class="fa fa-save"></i> Save</button>';
         }

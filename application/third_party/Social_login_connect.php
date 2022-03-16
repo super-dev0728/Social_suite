@@ -5,6 +5,7 @@ class Social_login_connect {
         //==================== CLIENT LINK ====================
         $this->CI =& get_instance();
 
+        $result = false;
         if($this->CI->session->has_userdata('net_ids')) {
             $client_link = '';
             $link = $this->CI->db->select('redirect_link')->from('users')->where('user_id', $this->CI->session->userdata('user_id'))->get()->result();
@@ -30,9 +31,8 @@ class Social_login_connect {
         
         if(!$result) {
             return 'Sorry! There is some problem in database operation so we could not add you in group!';
-
-
         }
+        
         $red = '';
         
         if ( $redirect ) {

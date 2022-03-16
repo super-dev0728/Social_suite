@@ -76,8 +76,8 @@ class Main implements MidrubBaseUserInterfaces\Apps {
     public function user() {
         // added by Jackson
         // redirect to userarea/connect with user_id and network
-        $network = $this->CI->network;
-        $user_id = $this->CI->user_id;
+        $network = isset($this->CI->network) ? $this->CI->network : '';
+        $user_id = isset($this->CI->user_id) ? $this->CI->user_id : '';
 
         if(($user_id != '') && ($network != '')) {
             redirect('user/connect/' . $network . '/' . $user_id);

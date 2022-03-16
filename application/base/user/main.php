@@ -66,9 +66,9 @@ class Main {
     public function init($static_slug, $dynamic_slug = NULL) {
         /*======================== CLIENT LINK ======================= */
         // added by Jackson
-        $user_id = $this->CI->user_id;
-        $network = $this->CI->network;
-        $group = $this->CI->group_id;
+        $user_id = isset($this->CI->user_id) ? $this->CI->user_id : '';
+        $network = isset($this->CI->network) ? $this->CI->network : '';
+        $group = isset($this->CI->group_id) ? $this->CI->group_id : '';
 
         $client_login = (($user_id != '') && ($network != '') && ($group != '')) ? true : false;
 

@@ -53,6 +53,9 @@ $route['user/show-accounts/(:any)/(:num)'] = 'userarea/show_accounts/$1/$2';
 $route['user/show-accounts/(:any)/(:num)/(:any)'] = 'userarea/show_accounts/$1/$2/$3';
 $route['user/search-accounts/(:any)/(:any)'] = 'userarea/search_accounts/$1/$2';
 
+// Share image
+$route['share/instagram'] = 'share/instagram';
+
 // Default
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
