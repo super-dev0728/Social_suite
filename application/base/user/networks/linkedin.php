@@ -122,8 +122,8 @@ class Linkedin implements MidrubBaseUserInterfaces\Networks {
 
             $params['scope'] = 'w_member_social r_basicprofile rw_organization_admin r_organization_social w_organization_social';
 
-        }
-        
+        }  
+
         // Get redirect url
         $url = $this->endpoint . '/authorization?' . http_build_query($params);
         

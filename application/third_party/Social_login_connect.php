@@ -15,8 +15,9 @@ class Social_login_connect {
 
             $link = $this->CI->db->select('redirect_link')->from('client_links')->where('user_id', $this->CI->session->userdata('user_id'))->where('group_id', $this->CI->session->userdata('group_id'))->get()->result();
 
-            $client_redirect = $link[0]->redirect_link;
-
+            if(!empty($link)) {
+                $client_redirect = $link[0]->redirect_link;
+            }
 
             if($client_redirect != NULL) {
 
