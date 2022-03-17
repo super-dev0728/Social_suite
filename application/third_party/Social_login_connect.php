@@ -43,10 +43,6 @@ class Social_login_connect {
 
                     return 'Sorry! There is some problem in database operation so we could not add you in group!';
 
-
-
-
-
                 }
 
             } else {
@@ -55,6 +51,40 @@ class Social_login_connect {
 
             }
 
+        } else {
+            if($this->CI->session->has_userdata('user_id') && $this->CI->session->has_userdata('group_id') && $this->CI->session->has_userdata('network')) {
+                $user_id = $this->CI->session->userdata('user_id');
+                $network = $this->CI->session->userdata('network');
+                $group_id = $this->CI->session->userdata('group_id');
+                
+                $network_info = $this->CI->db->from('networks')->select('network_id')->where('network_name', $network)->where('user_id', $user_id)->get()->result();
+
+                if(!empty($network_info)) {
+                    $network_id = $network_info[0]->network_id;
+
+                    $this->CI->lists->upload_to_list($user_id, $group_id, $network_id);
+                }
+
+                $link = $this->CI->db->select('redirect_link')->from('client_links')->where('user_id', $user_id)->where('group_id', $group_id)->get()->result();
+
+                if(!empty($link)) {
+                    $client_redirect = $link[0]->redirect_link;
+                }
+
+                if($client_redirect != NULL) {
+
+                    $client_link =  '<script language="javascript">'
+
+                                        . 'setTimeout(function(){'
+
+                                            . 'location.href = "' . $client_redirect . '"'
+
+                                        . '}, 1500);'
+
+                                    . '</script>';
+
+                }
+            }
         }
 
 
